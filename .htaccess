@@ -1,0 +1,15 @@
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Headers "*"
+Header set Access-Control-Allow-Methods "*"
+Header set referrerpolicy "no-referrer"
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} /courses/ [NC]
+RewriteRule ^(.*\/[0-9]+)\.[^.]+\.([a-zA-Z0-9]+)$ $1.$2 [L]
+
+RewriteRule ^files\/(.*?)\/(.*)(\..+)$ /files/$1/file$3 [L]
+
+Header set Content-Disposition "attachment"
+
+
