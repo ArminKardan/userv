@@ -513,7 +513,7 @@ ace.define("ace/mode/javascript_highlight_rules", ["require", "exports", "module
                 regex: "(?:MAX_SAFE_INTEGER|MIN_SAFE_INTEGER|EPSILON)\\b"
             });
             if (!options || options.jsx != false)
-                JSX.call(this);
+                React.JSX.call(this);
         }
         this.embedRules(DocCommentHighlightRules, "doc-", [DocCommentHighlightRules.getEndRule("no_regex")]);
         this.normalizeRules();

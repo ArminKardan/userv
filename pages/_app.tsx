@@ -1,5 +1,3 @@
-import SiteConfig from "@/common/SiteConfig";
-import { SessionProvider } from "next-auth/react"
 import '../styles/globals.css'
 import styles from '../styles/styles.module.css'
 import qestyles from '../styles/qe.module.css'
@@ -82,13 +80,11 @@ export default function App({ Component, pageProps }) {
 
   return (
     <Context.Provider value={props.pageid}>
-      <SessionProvider {...{ session: props.session, refetchInterval: 0, sessionreloader: sessionreloader }}>
           <div id="wind" style={{ overflowY: "auto", height: "100vh" }} >
             <Prompt />
             <Component {...props} />
           </div>
         <QELoader />
-      </SessionProvider>
     </Context.Provider>
   )
 }

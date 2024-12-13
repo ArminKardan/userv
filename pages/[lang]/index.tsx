@@ -10,7 +10,7 @@ export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
-  return <Window title="my page" style={{ height: "900px" }}>
+  return <Window title="my page" style={{ }}>
     <br-x />
     <b-200 onClick={async () => { await alerter("hi!") }}>Alerter</b-200>
     <br-xxx />
@@ -19,6 +19,8 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
     <b-200 onClick={async () => { Router.push(z.root+"/admin")}}>Admin Page</b-200>
     <br-xxx />
     <b-200 onClick={async () => { Router.push(z.root+"/calculator") }}>Calculator</b-200>
+    <br-xxx />
+    <b-200 onClick={async () => { let json = await API["ping"](null); alerter(json)}}>API</b-200>
     <pre style={{ fontSize: 12 }}>{JSON.stringify(z.user, null, 2)}</pre>
   </Window>
 }

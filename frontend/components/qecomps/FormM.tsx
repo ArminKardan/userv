@@ -7,7 +7,7 @@ import WindowFloat from './WindowFloat';
 import React from 'react'
 
 export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): JSX.Element => {
+const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
 
     getProps(async () => { })
     let empty = true;

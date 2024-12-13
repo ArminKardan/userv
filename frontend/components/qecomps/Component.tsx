@@ -16,7 +16,7 @@ export type ZType = {
 export type PageEl = (props: { [key in any]: any },
     refresh: (object?: { [key in any]: any }) => void, getProps: (callback: () => Promise<void>) => void,
     dies: (callback: () => Promise<void>) => void,
-    z: ZType) => JSX.Element
+    z: ZType) => React.JSX.Element
 
 const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => {
 

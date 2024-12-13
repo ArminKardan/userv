@@ -4,7 +4,7 @@ import Bold from './Bold'
 
 import Component, { PageEl } from './Component';
 export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): JSX.Element => {
+const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
 return <div className={z.qestyles.itemalign}>
 <Bold style={{width:z.lang.textw}}>{props.title}</Bold>
 <div style={{width:"65%", display:"flex", alignItems:"flex-end"}}><Link href={props.href}><a-s>{props.body}</a-s></Link>

@@ -44,8 +44,4 @@ export default async () => {
         }
     });
 
-
-    // db.collection('device').createIndex({ "lastseen": 1 }, { expireAfterSeconds: 3600 });
-    if (global.db)
-        global.db.collection('device').createIndex({ "uid": 1 });
 }

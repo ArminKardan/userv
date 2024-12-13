@@ -173,11 +173,50 @@ declare global {
 
 
 
-    declare type CTX = {
-        req: NextApiRequest, res: NextApiResponse,
-        post: boolean, userip: string, email: string, uid: ObjectId, follows: Array<string>,
-        role: (check: Array<RoleName>) => boolean
-    };
+    type APISession = {
+        uid: string,
+        name: string,
+        image: string,
+        imageprop: {
+          zoom: number,
+          x: number,
+          y: number,
+          portion: number,
+          refw: number
+        },
+        cchar: string,
+        unit: string,
+        workspace: string,
+        servid: ObjectId,
+        servsecret: string,
+        usedquota: number,
+        quota: number,
+        quotaunit: string,
+        status: "approved" | "freezed" | "rejected" | "waiting",
+        regdate: number,
+        expid: ObjectId,
+        role: Array<string>,
+        rolecheck: (check) => boolean
+        path: string,
+        devmod: boolean,
+        userip: string,
+        body: any,
+        lang,
+        noheader,
+        full,
+        nosupport,
+        float,
+        code,
+        servuid,
+        cat,
+        nodeenv,
+      }
+      
+
+    // declare type CTX = {
+    //     req: NextApiRequest, res: NextApiResponse, userip: string,  uid: string,
+    //     role: (check: Array<RoleName>) => boolean
+    // };
 
     declare type PTX = {
         req: IncomingMessage, res: ServerResponse<IncomingMessage>, params: ParsedUrlQuery,

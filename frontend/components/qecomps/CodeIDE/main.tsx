@@ -35,7 +35,7 @@ export function AddPrefix(Completer: { [ket in string]: { s: string, c: string, 
 let AceEditor: any = (p) => null
 
 export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): JSX.Element => {
+const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
 
   if (props.functions) {
     props.functions.save = async () => {

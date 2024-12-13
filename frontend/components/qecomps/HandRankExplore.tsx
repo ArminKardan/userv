@@ -38,7 +38,7 @@ const vote = async (item, dislike = false) => {
 
 import Component, { PageEl } from './Component';
 export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): JSX.Element => {
+const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
   // var [item, setItem] = useState(props.item)
   let item = props.item
   // props.item.likes = item.likes;

@@ -347,11 +347,11 @@ export const APILister = (props) => {
   global.tmnusd = props.tmnusd
   global.OwnerUID = props.owneruid
 
-  setCookie("pageid", props.pageid, { sameSite: "lax", maxAge: 365 * 24 * 3600 })
+  setCookie("pageid", props.pageid, { sameSite: "lax", maxAge: 365 * 24 * 3600000, partitioned:true })
 
   if (props.apilist?.length > 0) {
     // console.log("Refreshing apis from server...")
-    setCookie("apilistexpire", new Date(new Date(props.date).getTime() + 24 * 3600).toISOString(), { sameSite: "lax", maxAge: 24 * 3600 })
+    setCookie("apilistexpire", new Date(new Date(props.date).getTime() + 24 * 3600).toISOString(), { sameSite: "lax", maxAge: 24 * 3600000 , partitioned:true})
     localStorage.setItem("apilist", JSON.stringify(props.apilist))
     apier(props.apilist)
   }

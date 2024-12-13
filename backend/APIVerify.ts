@@ -1,41 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next"
-// import { getSession } from "next-auth/react"
-// const getSession = require('next-auth/react').getSession
-import { getServerSession } from "next-auth/next"
 import { ObjectId } from "mongodb"
 
 import requestIp from 'request-ip'
+import rolecheck from "@/common/rolecheck"
 
-export type APISession = {
-  uid: string,
-  name: string,
-  image: string,
-  imageprop: {
-    zoom: number,
-    x: number,
-    y: number,
-    portion: number,
-    refw: number
-  },
-  cchar: string,
-  unit: string,
-  workspace: string,
-  servid: ObjectId,
-  servsecret: string,
-  usedquota: number,
-  quota: number,
-  quotaunit: string,
-  status: "approved" | "rejected" | "waiting",
-  regdate: number,
-  expid: ObjectId,
-  role: string | null,
-  path: string,
-  devmod: boolean,
-  userip: string,
-  body: any
-}
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISession> => {
 
   if (global.Startup != "OK") {
     if (global.Startup == "PENDING") {
@@ -51,8 +21,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const userip = (requestIp.getClientIp(req)?.replace("::ffff:", "")) || "::"
   var post = req.method?.toLowerCase() == "post"
 
-  if (post && !(req.body.startsWith("{") || req.body.startsWith("["))) {
-    return ({ valid: false, post, userip, blocked: false })
+  if(typeof req.body != "string")
+  {
+    console.log("BODYYYYYYY:", req.body)
+    console.log("URLLLLLL:", req.url)
+  }
+  if (req.body && !(req.body.startsWith("{") || req.body.startsWith("["))) {
+    return ({ userip, body }) as any
   }
   var body = post ? JSON.parse(req.body) : null;
 
@@ -77,22 +52,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
-  if ((body?.passcode || body?.PASSCODE) == process.env.PASSCODE) {
+  if (process.env.PASSCODE && (body?.passcode || body?.PASSCODE) == process.env.PASSCODE) {
 
+    console.log(body)
     return {
-      valid: true,
-      post,
       name: "Service Bot",
       role: ["admin", "bot"],
       userip: "127.0.0.1",
-      email: "servicebot@" + process.env.DOMAIN,
-      uid:  new ObjectId("635111afff61db2b04928f45"),
+      uid: "635111afff61db2b04928f45",
       body,
-    }
+      req: req,
+      res: res,
+    } as any
   }
 
 
- 
+
   let session = JSON.parse(`{}`)
   let cookies = await import("cookies-next")
 
@@ -107,7 +82,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let srv = {} as any
   let user = null;
   if (session.servid) {
-    srv = await api("http://localhost:3000/api/userv/servid", {
+    srv = await api("https://qepal.com/api/userv/servid", {
       servid: session.servid,
       servsecret: session.servsecret,
     })
@@ -131,8 +106,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     session.expid = new ObjectId(session.expid)
   }
 
-  console.log(session)
-
 
   return {
 
@@ -140,6 +113,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ...srv,
     body,
     role: user?.role || null,
+    rolecheck: (check) => rolecheck(check, user?.role || []),
     nodeenv: global.nodeenv,
     userip
   } as APISession

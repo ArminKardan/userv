@@ -3,7 +3,7 @@ import LWChart from '@/frontend/components/qecomps/LWChart';
 
 import Component, { PageEl } from '@/frontend/components/qecomps/Component'
 export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): JSX.Element => {
+const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
   
   let idx = "charter_" + (props.id || "")
   let [elements, setElements] = useState<any>({});

@@ -1,5 +1,3 @@
-// import { getSession } from "next-auth/react"
-// import requestIp from 'request-ip'
 
 import { ObjectId } from 'mongodb'
 import rolecheck from "@/common/rolecheck"
@@ -104,7 +102,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   let cookies = await import("cookies-next")
   if (session?.uid) {
     cookies.deleteCookie("session", { req: context.req, res: context.res })
-    cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res })
+    cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res , partitioned:true})
   }
   else {
     if (cookies.hasCookie("session", { req: context.req, res: context.res })) {
