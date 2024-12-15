@@ -12,8 +12,6 @@ declare global {
   function SSRVerify(context: GetServerSidePropsContext, cached?: boolean): Promise<SSRSession>;
   function Prosper(obj: any, context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{ [key: string]: any; }>>;
 }
-
-
 export type SSRSession = {
   uid: string,
   name: string,
@@ -43,8 +41,6 @@ export type SSRSession = {
   userip: string,
   pageid: string,
 }
-
-
 export const Prosper = async (obj, context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{ [key: string]: any; }>> => {
 
   // let sprops = getServerSidePropsX
