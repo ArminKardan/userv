@@ -63,17 +63,6 @@ export default (props) => {
     window["loglist"] = [];
   }
 
-  if (typeof window != "undefined") {
-    UniqueInterval("M1", async () => {
-      console.log("sending cache...")
-      let c = localStorage.getItem("cache")
-      if (c) {
-        await API["cache/cache"](JSON.parse(c))
-        localStorage.removeItem("cache")
-      }
-    }, 60000)
-  }
-
   window.closelog = () => {
     setTimeout(() => {
       setState({ show: null, })
