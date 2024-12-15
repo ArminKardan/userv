@@ -2,6 +2,10 @@ import { langType } from "@/common/SiteConfig";
 
 const user = (session): UserType => //server session from SSR
 {
+  if(!session.role)
+  {
+    session.role = []
+  }
   return session;
 }
 

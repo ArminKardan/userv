@@ -10,27 +10,20 @@ import Router from 'next/router';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, dies, z) => {
-  
-  return <>
-    <br-x />
-    <f-c>
-      <sp-2 />
-      <UserAvatar image={z.user.image} imageprop={z.user.imageprop} width={30} />
-      <sp-2 />
-      <f-13>Welcome <Bold>{z.user.name}</Bold></f-13>
-    </f-c>
-    <br-x />
 
-    <b-200 class="bg-purple-300" onClick={async () => { Router.push(z.root) }}><f-12>Back to index page</f-12></b-200>
-    <pre>ADMIN INDEX PAGE</pre>
-    <pre>{JSON.stringify(props, null, 2)}</pre>
-  </>
+  return <Window title='لیست کاربران'>
+    {props.users.map(u=>{
+      return <Icon2Titles title1={u.name} title2={<f-11>{u.uid}</f-11>} image={u.image}/>
+    })}
+  </Window>
 }
 
 
 
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import UserAvatar from '@/frontend/components/qecomps/UserAvatar';
+import Window from '@/frontend/components/qecomps/Window';
+import Icon2Titles from '@/frontend/components/qecomps/Icon2Titles';
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
@@ -58,7 +51,10 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   //   }, context)
   // }
 
-  let users = await API["getusers"]({})
+  let users = (await API["getusers"]({}))
+  if (users.code == 0) {
+    users = users.users as any
+  }
   let obj = await Prosper({
     props: {
       value: { v: "hiiii", role },
