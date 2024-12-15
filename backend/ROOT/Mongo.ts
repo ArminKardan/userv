@@ -16,6 +16,7 @@ export default async () => {
     if (process.env.UMONGOURL && !global.umongo) {
         global.umongo = await umongodblib
         global.udb = global.umongo.db(process.env.UMONGODB_DB)
+        console.log("Connection with U-Mongo DB was SUCCESSFULL...")
     }
 
     if (!global.ObjectId) {

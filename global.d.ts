@@ -44,6 +44,8 @@ declare global {
     var setScroller: (id: string) => void;
     var umongo: import("mongodb").MongoClient;
     var udb: import("mongodb").Db;
+    var db: import("mongodb").Db;
+    var cdb: import("mongodb").Db;
     var styles: any;
     var main: Function;
     var nodeenv: string;
