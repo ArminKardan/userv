@@ -14,12 +14,12 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
   return <Window title='لیست کاربران'>
-    <pre>{JSON.stringify(props.users, null, 2)}</pre>
     {props.users.map(u => {
       return <Icon3Titles title1={u.name} title2={<f-12 style={{marginTop:5}}>{FaDigits(u.userip)}</f-12>}  title3={new Date(u.lastseen).toLocaleString(z.lang.region)} 
       image={<UserAvatar image={u.image} imageprop={u.imageprop} w={50}/>}
-        style={{ backgroundColor: rolecheck(["admin"], u.role) ? "#74A572" : "#89BF9D" }} />
+      style={{ backgroundColor: rolecheck(["admin"], u.role) ? "#74A572" : "#89BF9D" }} />
     })}
+    <pre>{JSON.stringify(props.users, null, 2)}</pre>
   </Window>
 }
 

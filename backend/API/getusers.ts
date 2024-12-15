@@ -1,8 +1,12 @@
+import { RoleName } from "@/global";
+
 type T = Parameters<typeof F>[0]; type R = ReturnType<typeof F>
 declare global { interface API { "getusers": (T: T) => R } var API: API }
 export default async function F(T: any, C: APISession,) {
 
-  type Users = {code:number, users:Array<{uid:string, name:string, image:string, imageprop:any, cchar:string, signature:string}>}
+  type Users = {code:number, users:Array<{uid:string, name:string, image:string, imageprop:any, cchar:string, signature:string,
+    userip:string, lastseen:string,role:Array<RoleName>
+  }>}
   if (!C.rolecheck(["admin"])) {
     return { code: -1 } as Users
   }

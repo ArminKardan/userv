@@ -1,5 +1,6 @@
 import rolecheck from "@/common/rolecheck";
 import { langType } from "@/common/SiteConfig";
+import { RoleName } from "@/global";
 
 const user = (session): UserType => //server session from SSR
 {
@@ -33,7 +34,7 @@ export type UserType = {
   regdate: number,
   expid: string,
   role: Array<string>,
-  rolecheck: (check:Array<string>) => boolean,
+  rolecheck: (check:Array<RoleName>) => boolean,
   nodeenv: string,
   noheader:boolean,
   devmode: boolean,

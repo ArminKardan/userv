@@ -8,6 +8,7 @@ import Cacher from "./Cacher";
 import requestIp from 'request-ip'
 import { URL } from 'url'
 import SiteConfig from '@/common/SiteConfig';
+import { RoleName } from '@/global';
 declare global {
   function SSRVerify(context: GetServerSidePropsContext, cached?: boolean): Promise<SSRSession>;
   function Prosper(obj: any, context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{ [key: string]: any; }>>;
@@ -36,7 +37,7 @@ export type SSRSession = {
   regdate: number,
   expid: ObjectId,
   role: string | null,
-  rolecheck: (check:Array<string>) => boolean,
+  rolecheck: (check:Array<RoleName>) => boolean,
   path: string,
   devmod: boolean,
   userip: string,

@@ -4,7 +4,7 @@ import type { User } from "@/frontend/user";
 
 import { UploadStatuses } from "@/frontend/components/qecomps/Upload";
 
-type RoleName = "admin"
+type RoleName = "admin" | "bot"
 
 declare type ScheduleJob = any;
 
@@ -142,7 +142,7 @@ declare global {
         regdate: number,
         expid: ObjectId,
         role: Array<string>,
-        rolecheck: (check:Array<string>) => boolean,
+        rolecheck: (check:Array<RoleName>) => boolean,
         path: string,
         devmod: boolean,
         userip: string,
