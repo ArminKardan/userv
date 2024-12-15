@@ -38,11 +38,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   var session = await global.SSRVerify(context)
   var { uid, name, image, imageprop, lang, cchar,
-    unit, workspace, servid, servsecret,
+    unit, workspace, servid, servsecret, rolecheck,
     usedquota, quota, quotaunit, status, regdate, expid,
     role, path, devmod, userip, pageid } = session;
-
-  // console.log("PASSING:", session)
 
   let keys = ["region", "dir", "ff", "ffb", "support", "code", "textw", "txtmt"]
   let nlangs = {}
@@ -51,11 +49,11 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
       nlangs[l] = global.langs[lang][l]
   }
 
-  if (uid.toString() != "635111b8ff61db2b04928f49") {
+  if (rolecheck(["admin"])) {
     return await Prosper({
       redirect: {
         permanent: false,
-        destination: "/404",
+        destination: "/",
       },
     }, context)
   }

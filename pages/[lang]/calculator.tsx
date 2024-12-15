@@ -106,7 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   var session = await global.SSRVerify(context)
   var { uid, name, image, imageprop, lang, cchar,
-    unit, workspace, servid, servsecret,
+    unit, workspace, servid, servsecret,rolecheck,
     usedquota, quota, quotaunit, status, regdate, expid,
     role, path, devmod, userip, pageid } = session;
 
