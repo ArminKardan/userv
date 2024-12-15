@@ -92,7 +92,6 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
 
-
   let cookies = await import("cookies-next")
   if (session?.uid) {
     cookies.deleteCookie("session", { req: context.req, res: context.res })
@@ -125,6 +124,8 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   }
 
 
+
+
   let srv = {} as any
   let user = null;
   if (session.servid) {
@@ -139,7 +140,6 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
         uid: session.uid ? session.uid.toString() : null,
         usersecrethash: session.usersecrethash,
         servid: session.servid,
-        servsecret: session.servsecret,
       })
       if (srv) {
         global._srvs.push({ ...srv, created: new Date().getTime(), servid: session.servid, servsecret: session.servsecret })
@@ -157,24 +157,18 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     delete srv?.created
     delete srv?.servsecret
 
-    if (session.uid && srv) {
+    if (session.uid && session.usersecrethash && srv && srv.code == 0) {
       let u = global.udb.collection("users")
       let localuser = await u.findOne({ uid: session.uid })
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
-          name: session.name,
-          image: session.image,
-          imageprop: session.imageprop,
-          lang: session.lang,
-          cchar: session.cchar,
-          unit: session.unit,
           lastseen: new Date().toISOString(),
           userip: userip,
           role: [],
           services: [
             {
-              servid: srv.serv,
+              servid: srv.servid,
               usersecrethash: session.usersecrethash,
             }
           ]
@@ -199,7 +193,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
             await udb.collection("users").updateOne({ uid: session.uid }, {
               $addToSet: {
                 services: {
-                  servid: srv.serv,
+                  servid: srv.servid,
                   usersecrethash: session.usersecrethash,
                 }
               }

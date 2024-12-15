@@ -91,7 +91,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
         uid: session.uid ? session.uid.toString() : null,
         usersecrethash: session.usersecrethash,
         servid: session.servid,
-        servsecret: session.servsecret,
+        // servsecret: session.servsecret,
       })
       if (srv) {
         global._srvs.push({ ...srv, created: new Date().getTime(), servid: session.servid, servsecret: session.servsecret })
@@ -108,24 +108,18 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
     delete srv?.created
     delete srv?.servsecret
 
-    if (session.uid && srv) {
+    if (session.uid && session.usersecrethash && srv && srv.code == 0) {
       let u = global.udb.collection("users")
       let localuser = await u.findOne({ uid: session.uid })
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
-          name: session.name,
-          image: session.image,
-          imageprop: session.imageprop,
-          lang: session.lang,
-          cchar: session.cchar,
-          unit: session.unit,
           lastseen: new Date().toISOString(),
           userip: userip,
           role: [],
           services: [
             {
-              servid: srv.serv,
+              servid: srv.servid,
               usersecrethash: session.usersecrethash,
             }
           ]
@@ -140,7 +134,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
           await udb.collection("users").updateOne({ uid: session.uid }, {
             $set: {
               uid: session.uid,
-              lang: session.lang,
               lastseen: new Date().toISOString(),
               userip: userip,
             }
@@ -150,7 +143,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
             await udb.collection("users").updateOne({ uid: session.uid }, {
               $addToSet: {
                 services: {
-                  servid: srv.serv,
+                  servid: srv.servid,
                   usersecrethash: session.usersecrethash,
                 }
               }

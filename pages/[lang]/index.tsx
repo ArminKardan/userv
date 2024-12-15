@@ -61,7 +61,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   (global.Startup != "OK") ? (await (await import('@/startup.ts')).Starter()) : null
 
-
   var session = await global.SSRVerify(context)
   var { uid, name, image, imageprop, lang, cchar,
     unit, workspace, servid, servsecret,
