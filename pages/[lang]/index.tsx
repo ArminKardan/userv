@@ -14,19 +14,16 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
     props.counter = 0
     props.asc = true
     let c = setInterval(() => {
-      if(props.asc)
-      {
+      if (props.asc) {
         props.counter++;
       }
-      else
-      {
+      else {
         props.counter--
       }
       if (props.counter >= 10) {
         props.asc = false
       }
-      if(props.counter < 0)
-      {
+      if (props.counter < 0) {
         clearInterval(c)
       }
 
@@ -37,10 +34,13 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
   return <Window title="my page" style={{ height: "900px" }}>
 
+    <pre>{JSON.stringify(z.user, null, 2)}</pre>
+
     <b-200>{props.counter}</b-200>
-    <b-200 onClick={async () => { Router.push(z.root+"/calculator") }}>Calculator</b-200>
-    <b-200 onClick={async () => { Router.push(z.root+"/ex1") }}>Goto ex1</b-200>
-    <b-200 onClick={async () => { Router.push(z.root+"/ex2") }}>Goto ex2</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/calculator") }}>Calculator</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>Goto ex1</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
+    <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
 
     {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
 
@@ -60,6 +60,7 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
   (global.Startup != "OK") ? (await (await import('@/startup.ts')).Starter()) : null
+
 
   var session = await global.SSRVerify(context)
   var { uid, name, image, imageprop, lang, cchar,

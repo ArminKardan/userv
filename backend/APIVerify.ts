@@ -86,8 +86,10 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
 
     srv = global._srvs.find(s => s.servid == session.servid && s.servsecret == session.servsecret)
 
-    if (global.devmode || !srv || (new Date().getTime() - srv.created) > 300000) {
-      srv = await api("https://qepal.com/api/userv/servid", {
+    if (global.devmode || !srv || (new Date().getTime() - srv.created) > 60000) {
+      srv = await api("http://192.168.1.10:3000/api/userv/servid", {
+        uid: session.uid ? session.uid.toString() : null,
+        usersecrethash: session.usersecrethash,
         servid: session.servid,
         servsecret: session.servsecret,
       })
@@ -96,18 +98,68 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
       }
     }
 
+    if (!srv) {
+      return { //fully illegal request
+        code: -100,
+        userip
+      } as any
+    }
+
     delete srv?.created
     delete srv?.servsecret
 
-    let u = global.udb.collection("users")
-    let users = await u.find({}).project({ _id: 0 }).toArray()
+    if (session.uid && srv) {
+      let u = global.udb.collection("users")
+      let localuser = await u.findOne({ uid: session.uid })
+      if (!localuser) {
+        await udb.collection("users").insertOne({
+          uid: session.uid,
+          name: session.name,
+          image: session.image,
+          imageprop: session.imageprop,
+          lang: session.lang,
+          cchar: session.cchar,
+          unit: session.unit,
+          lastseen: new Date().toISOString(),
+          userip: userip,
+          role: [],
+          services: [
+            {
+              servid: srv.serv,
+              usersecrethash: session.usersecrethash,
+            }
+          ]
+        })
+      }
+      else {
+        let se = localuser.services.find(ss => ss.usersecrethash == session.usersecrethash)
+        if (localuser.lang != session.lang
+          || Math.abs(localuser.lastseen - new Date().getTime()) > 120000
+          || localuser.userip != session.userip
+        ) {
+          await udb.collection("users").updateOne({ uid: session.uid }, {
+            $set: {
+              uid: session.uid,
+              lang: session.lang,
+              lastseen: new Date().toISOString(),
+              userip: userip,
+            }
+          })
 
-    for (let usr of users) {
-      if (usr.usersecret && MD5(usr.usersecret.toString()) == srv.usersecrethash) {
-        user = usr
+          if (!se) {
+            await udb.collection("users").updateOne({ uid: session.uid }, {
+              $addToSet: {
+                services: {
+                  servid: srv.serv,
+                  usersecrethash: session.usersecrethash,
+                }
+              }
+            })
+          }
+        }
       }
     }
-    if (!user.role) {
+    if (user && !user.role) {
       user.role = []
     }
   }
@@ -122,7 +174,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   VisitorUpdate(session.uid, userip)
 
   return {
-
     ...session,
     ...srv,
     body,
@@ -145,7 +196,7 @@ const VisitorUpdate = (uid, userip) => {
 
   if (!uid) {
     if (!global.visitors[userip]) {
-      global.visitors[userip] = {api:0, ssr:0} as never
+      global.visitors[userip] = { api: 0, ssr: 0 } as never
     }
     if (!global.visitors[userip].ssr) {
       global.visitors[userip].ssr = 1;
@@ -160,7 +211,7 @@ const VisitorUpdate = (uid, userip) => {
 
     /**************************************** */
     if (!global.visitorsM1[userip]) {
-      global.visitorsM1[userip] = {api:0, ssr:0} as never
+      global.visitorsM1[userip] = { api: 0, ssr: 0 } as never
     }
     if (!global.visitorsM1[userip].ssr) {
       global.visitorsM1[userip].ssr = 1;
@@ -175,7 +226,7 @@ const VisitorUpdate = (uid, userip) => {
 
     /**************************************** */
     if (!global.visitorsH1[userip]) {
-      global.visitorsH1[userip] = {api:0, ssr:0} as never
+      global.visitorsH1[userip] = { api: 0, ssr: 0 } as never
     }
     if (!global.visitorsH1[userip].ssr) {
       global.visitorsH1[userip].ssr = 1;
@@ -190,7 +241,7 @@ const VisitorUpdate = (uid, userip) => {
 
     /**************************************** */
     if (!global.visitorsD1[userip]) {
-      global.visitorsD1[userip] = {api:0, ssr:0} as never
+      global.visitorsD1[userip] = { api: 0, ssr: 0 } as never
     }
     if (!global.visitorsD1[userip].ssr) {
       global.visitorsD1[userip].ssr = 1;
@@ -207,7 +258,7 @@ const VisitorUpdate = (uid, userip) => {
 
 
   if (!global.visitors[uid]) {
-    global.visitors[uid] = {api:0, ssr:0} as never
+    global.visitors[uid] = { api: 0, ssr: 0 } as never
   }
   if (!global.visitors[uid].ssr) {
     global.visitors[uid].ssr = 1;
@@ -223,7 +274,7 @@ const VisitorUpdate = (uid, userip) => {
 
   /*********************************************** */
   if (!global.visitorsM1[uid]) {
-    global.visitorsM1[uid] = {api:0, ssr:0} as never
+    global.visitorsM1[uid] = { api: 0, ssr: 0 } as never
   }
   if (!global.visitorsM1[uid].ssr) {
     global.visitorsM1[uid].ssr = 1;
@@ -239,7 +290,7 @@ const VisitorUpdate = (uid, userip) => {
 
   /*********************************************** */
   if (!global.visitorsH1[uid]) {
-    global.visitorsH1[uid] = {api:0, ssr:0} as never
+    global.visitorsH1[uid] = { api: 0, ssr: 0 } as never
   }
   if (!global.visitorsH1[uid].ssr) {
     global.visitorsH1[uid].ssr = 1;
@@ -255,7 +306,7 @@ const VisitorUpdate = (uid, userip) => {
 
   /*********************************************** */
   if (!global.visitorsD1[uid]) {
-    global.visitorsD1[uid] = {api:0, ssr:0} as never
+    global.visitorsD1[uid] = { api: 0, ssr: 0 } as never
   }
   if (!global.visitorsD1[uid].ssr) {
     global.visitorsD1[uid].ssr = 1;

@@ -225,32 +225,37 @@ export default (props) => {
     // let zIndex = state.style?.zIndex
     delete state.style?.zIndex
 
-    return <WindowFloat title={z.lang.choose} z={99999} style={{ direction:z.lang.dir,}}
-    onclose={() => { setState({})
-    window["pickerresolve"](null)}}>
-      <div style={{ maxHeight:400, overflowX:"scroll"}}>
-    {(state.items).map(st => {
 
-      let addr = !st.image.includes("/")?cdn("/files/" + st.image):cdn(st.image)
-      let image = <img src={addr} style={{height:28, width:28, objectFit:"contain", borderRadius:5}} />
-      if(st.imageprop)
-      {
-        image = <UserAvatar image={addr} imageprop={st.imageprop} w={30} />
-      }
-      return <Icon2Titles title1={st.title1} style={{ backgroundColor: st.highlight ? "#61A75A" : "#B6C8B4", marginBottom: 1 }}
-        icon={image}
-        title2={<Signature style={{marginTop:4}}>{st.title2}</Signature>}
-        righticon={st.righticon ? <img src={cdn("/files/" + st.righticon)} style={{ width: 25 }} /> : null}
-        on={async () => {
-          window["pickerresolve"](st.key); setState({ show:false}) 
-        }}
-      />
-    })}
-    </div>
-  </WindowFloat> 
+    return <WindowFloat title={z.lang.choose} z={99999} style={{ direction: z.lang.dir, }}
+      onclose={() => {
+        setState({})
+        window["pickerresolve"](null)
+      }}>
+      <div style={{ maxHeight: 400, overflowX: "scroll" }}>
+        {(state.items).map(st => {
+
+
+          let image = null;
+          if (st.image) {
+            let addr = !st.image.includes("/") ? cdn("/files/" + st.image) : cdn(st.image)
+            image = <img src={addr} style={{ height: 28, width: 28, objectFit: "contain", borderRadius: 5 }} />
+            if (st.imageprop) {
+              image = <UserAvatar image={addr} imageprop={st.imageprop} w={30} />
+            }
+          }
+
+          return <Icon2Titles title1={st.title1} style={{ backgroundColor: st.highlight ? "#61A75A" : "#B6C8B4", marginBottom: 1 }}
+            icon={image}
+            title2={<Signature style={{ marginTop: 4 }}>{st.title2}</Signature>}
+            righticon={st.righticon ? <img src={cdn("/files/" + st.righticon)} style={{ width: 25 }} /> : null}
+            on={async () => {
+              window["pickerresolve"](st.key); setState({ show: false })
+            }}
+          />
+        })}
+      </div>
+    </WindowFloat>
   }
-
-
 
   else if (state.show == "selector") {
     let width = state.style?.width;
@@ -259,33 +264,36 @@ export default (props) => {
     delete state.style?.zIndex
     let items = state.sync()
 
-    return <WindowFloat title={z.lang.choose} z={99999} style={{ direction:z.lang.dir,}}
-    onclose={() => { setState({show:false})
-    window["selectorresolve"](null)}}>
-      <div style={{ maxHeight:400, overflowX:"scroll"}}>
-    {(items).map(st => {
+    return <WindowFloat title={z.lang.choose} z={99999} style={{ direction: z.lang.dir, }}
+      onclose={() => {
+        setState({ show: false })
+        window["selectorresolve"](null)
+      }}>
+      <div style={{ maxHeight: 400, overflowX: "scroll" }}>
+        {(items).map(st => {
 
-      let addr = !st.image.includes("/")?cdn("/files/" + st.image):cdn(st.image)
-      let image = <img src={addr} style={{height:28, width:28, objectFit:"contain", borderRadius:5}} />
-      if(st.imageprop)
-      {
-        image = <UserAvatar image={addr} imageprop={st.imageprop} w={30} />
-      }
-      return <Icon2Titles title1={st.title1} style={{ backgroundColor: st.highlight ? "#61A75A" : "#B6C8B4", marginBottom: 1 }}
-        icon={image}
-        title2={<Signature style={{marginTop:4}}>{st.title2}</Signature>}
-        righticon={st.righticon ? <img src={cdn("/files/" + st.righticon)} style={{ width: 25 }} /> : null}
-        on={async () => {
-           await state.on(st.key)
-           items = state.sync()
-           setState({ ...state }) 
-        }}
-      />
-    })}
-    </div>
-  </WindowFloat> 
+          let image = null;
+          if (st.image) {
+            let addr = !st.image.includes("/") ? cdn("/files/" + st.image) : cdn(st.image)
+            image = <img src={addr} style={{ height: 28, width: 28, objectFit: "contain", borderRadius: 5 }} />
+            if (st.imageprop) {
+              image = <UserAvatar image={addr} imageprop={st.imageprop} w={30} />
+            }
+          }
+          return <Icon2Titles title1={st.title1} style={{ backgroundColor: st.highlight ? "#61A75A" : "#B6C8B4", marginBottom: 1 }}
+            icon={image}
+            title2={<Signature style={{ marginTop: 4 }}>{st.title2}</Signature>}
+            righticon={st.righticon ? <img src={cdn("/files/" + st.righticon)} style={{ width: 25 }} /> : null}
+            on={async () => {
+              await state.on(st.key)
+              items = state.sync()
+              setState({ ...state })
+            }}
+          />
+        })}
+      </div>
+    </WindowFloat>
   }
-
 
 
   else if (state.show == "upload") {

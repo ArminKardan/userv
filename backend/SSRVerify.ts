@@ -6,7 +6,7 @@ import { getCookie } from "cookies-next";
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Cacher from "./Cacher";
 import requestIp from 'request-ip'
-import {URL} from 'url'
+import { URL } from 'url'
 import SiteConfig from '@/common/SiteConfig';
 declare global {
   function SSRVerify(context: GetServerSidePropsContext, cached?: boolean): Promise<SSRSession>;
@@ -96,7 +96,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   let cookies = await import("cookies-next")
   if (session?.uid) {
     cookies.deleteCookie("session", { req: context.req, res: context.res })
-    cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res , partitioned:true})
+    cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res, partitioned: true })
   }
   else {
     if (cookies.hasCookie("session", { req: context.req, res: context.res })) {
@@ -126,8 +126,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
 
   let srv = {} as any
-  let user = { role: [] } as any;
-
+  let user = null;
   if (session.servid) {
 
     if (devmode)
@@ -135,8 +134,10 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
     srv = global._srvs.find(s => s.servid == session.servid && s.servsecret == session.servsecret)
 
-    if (global.devmode || !srv || (new Date().getTime() - srv.created) > 300000) {
-      srv = await api("https://qepal.com/api/userv/servid", {
+    if (global.devmode || !srv || (new Date().getTime() - srv.created) > 60000) {
+      srv = await api("http://192.168.1.10:3000/api/userv/servid", {
+        uid: session.uid ? session.uid.toString() : null,
+        usersecrethash: session.usersecrethash,
         servid: session.servid,
         servsecret: session.servsecret,
       })
@@ -145,22 +146,73 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
       }
     }
 
+
+    if (!srv) {
+      return { //fully illegal request
+        code: -100,
+        userip
+      } as any
+    }
+
     delete srv?.created
     delete srv?.servsecret
 
-    let u = global.udb.collection("users")
-    let users = await u.find({}).project({ _id: 0 }).toArray()
+    if (session.uid && srv) {
+      let u = global.udb.collection("users")
+      let localuser = await u.findOne({ uid: session.uid })
+      if (!localuser) {
+        await udb.collection("users").insertOne({
+          uid: session.uid,
+          name: session.name,
+          image: session.image,
+          imageprop: session.imageprop,
+          lang: session.lang,
+          cchar: session.cchar,
+          unit: session.unit,
+          lastseen: new Date().toISOString(),
+          userip: userip,
+          role: [],
+          services: [
+            {
+              servid: srv.serv,
+              usersecrethash: session.usersecrethash,
+            }
+          ]
+        })
+      }
+      else {
+        let se = localuser.services.find(ss => ss.usersecrethash == session.usersecrethash)
+        if (localuser.lang != session.lang
+          || Math.abs(localuser.lastseen - new Date().getTime()) > 120000
+          || localuser.userip != session.userip
+        ) {
+          await udb.collection("users").updateOne({ uid: session.uid }, {
+            $set: {
+              uid: session.uid,
+              lang: session.lang,
+              lastseen: new Date().toISOString(),
+              userip: userip,
+            }
+          })
 
-    for (let usr of users) {
-      if (usr.usersecret && MD5(usr.usersecret.toString()) == srv.usersecrethash) {
-        user = usr
+          if (!se) {
+            await udb.collection("users").updateOne({ uid: session.uid }, {
+              $addToSet: {
+                services: {
+                  servid: srv.serv,
+                  usersecrethash: session.usersecrethash,
+                }
+              }
+            })
+          }
+        }
       }
     }
-
-    if (!user.role) {
+    if (user && !user.role) {
       user.role = []
     }
   }
+
 
   let devmod = ((typeof window != "undefined" ? window.location.hostname : process.env.DOMAIN).split(".").length > 2)
 
@@ -176,10 +228,9 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   // delete session.query.session
   // delete session.query.lang
 
-  let path = new URL(SiteConfig.address+ context.resolvedUrl).pathname
+  let path = new URL(SiteConfig.address + context.resolvedUrl).pathname
 
   VisitorUpdate(session.uid, userip, lang)
-
 
   return {
     ...session,
