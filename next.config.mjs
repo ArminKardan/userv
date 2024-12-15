@@ -9,6 +9,8 @@ global.nodeenv = process.env.NODE_ENV
 global.devmode = global.DEVMODE || process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test"
 // const path = require('path');
 
+console.log("DEV MODE:",global.devmode )
+
 import path from 'path'
 const nextConfig = {
     // output: "standalone",

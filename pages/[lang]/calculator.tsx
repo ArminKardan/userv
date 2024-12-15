@@ -58,6 +58,7 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
   let cls = "w-20 h-20 bg-pink-200 hover:bg-pink-500 cursor-pointer active:bg-pink-700"
   return <Window title="my page">
     <br-x />
+    <div className=''></div>
     <b-200 onClick={async () => { Router.push(z.root) }}>Index page</b-200>
     <br-x />
     <c-x>

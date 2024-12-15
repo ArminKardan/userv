@@ -21,10 +21,9 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   const userip = (requestIp.getClientIp(req)?.replace("::ffff:", "")) || "::"
   var post = req.method?.toLowerCase() == "post"
 
-  if(typeof req.body != "string")
+  if(req.body && typeof req.body != "string")
   {
-    console.log("BODYYYYYYY:", req.body)
-    console.log("URLLLLLL:", req.url)
+    req.body = JSON.stringify(req.body)
   }
   if (req.body && !(req.body.startsWith("{") || req.body.startsWith("["))) {
     return ({ userip, body }) as any
@@ -93,7 +92,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
     let users = await u.find({}).project({ _id: 0 }).toArray()
 
     for (let usr of users) {
-      if (MD5(usr.usersecret) == srv.usersecrethash) {
+      if (usr.usersecret && MD5(usr.usersecret.toString()) == srv.usersecrethash) {
         user = usr
       }
     }
