@@ -31,6 +31,8 @@ export type UserType = {
   noheader:boolean,
   devmode: boolean,
   userip: string,
+  crossuser:boolean,
+  nologin:boolean,
   pageid: string
 }
 

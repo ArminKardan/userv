@@ -36,6 +36,7 @@ export type SSRSession = {
   regdate: number,
   expid: ObjectId,
   role: string | null,
+  rolecheck: (check) => boolean,
   path: string,
   devmod: boolean,
   userip: string,
@@ -88,7 +89,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     await new Promise(r => setInterval(() => global.langs["fa"] ? r(null) : null, 200))
   }
 
-  let role = (check) => rolecheck(check, session.user.role || [])
+
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
 
@@ -120,14 +121,18 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   // const session = await Session(context.req, context.res)
 
   if (session?.uid) {
-    session.uid = new global.ObjectId(session.uid);
+    session.uid = new ObjectId(session.uid.toString())
   }
 
+  if (session?.servid) {
+    session.servid = new ObjectId(session.servid.toString())
+  }
 
 
 
   let srv = {} as any
   let user = null;
+  let localuser = null
   if (session.servid) {
 
     if (devmode)
@@ -159,7 +164,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
     if (session.uid && session.usersecrethash && srv && srv.code == 0) {
       let u = global.udb.collection("users")
-      let localuser = await u.findOne({ uid: session.uid })
+      localuser = await u.findOne({ uid: session.uid })
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
@@ -183,7 +188,6 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
           await udb.collection("users").updateOne({ uid: session.uid }, {
             $set: {
               uid: session.uid,
-              lang: session.lang,
               lastseen: new Date().toISOString(),
               userip: userip,
             }
@@ -229,7 +233,8 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   return {
     ...session,
     ...srv,
-    role: user?.role || null,
+    role: localuser?.role || null,
+    rolecheck: (check) => rolecheck(check, localuser?.role || []),
     nodeenv: global.nodeenv,
     devmode: devmod,
     path,

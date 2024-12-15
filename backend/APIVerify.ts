@@ -51,8 +51,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   }
 
   if (process.env.PASSCODE && (body?.passcode || body?.PASSCODE) == process.env.PASSCODE) {
-
-    console.log(body)
     return {
       name: "Service Bot",
       role: ["admin", "bot"],
@@ -79,6 +77,17 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
 
   let srv = {} as any
   let user = null;
+
+  if (session?.uid) {
+    session.uid = new ObjectId(session.uid.toString())
+  }
+
+  if (session?.servid) {
+    session.servid = new ObjectId(session.servid.toString())
+  }
+
+  let localuser = null
+
   if (session.servid) {
 
     if (devmode)
@@ -110,7 +119,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
 
     if (session.uid && session.usersecrethash && srv && srv.code == 0) {
       let u = global.udb.collection("users")
-      let localuser = await u.findOne({ uid: session.uid })
+      localuser = await u.findOne({ uid: session.uid })
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
@@ -170,8 +179,8 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
     ...session,
     ...srv,
     body,
-    role: user?.role || null,
-    rolecheck: (check) => rolecheck(check, user?.role || []),
+    role: localuser?.role || null,
+    rolecheck: (check) => rolecheck(check, localuser?.role || []),
     nodeenv: global.nodeenv,
     userip
   } as APISession
