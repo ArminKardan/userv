@@ -78,8 +78,6 @@ export const Prosper = async (obj, context: GetServerSidePropsContext): Promise<
     obj.props["href"] = context.req.url
     obj.props["langcode"] = langcode
     obj.props["apilist"] = apilist
-    obj.props["tmnusd"] = global.tmnusd
-    // obj.props["owneruid"] = global.OwnerUID.toString()
     obj.props["date"] = new Date().toISOString()
   }
   obj.props = { data: QSON.stringify(obj.props) }

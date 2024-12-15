@@ -1,8 +1,5 @@
 import type { Db, ObjectId } from "mongodb";
-// import type { Cache } from 'inmemfilecache';
-// import type WebSocket from "ws";
 import { WebSocket as WSSK } from "ws";
-// import type {ObjectId} from 'mongodb'
 import type { User } from "@/frontend/user";
 
 import { UploadStatuses } from "@/frontend/components/qecomps/Upload";
@@ -39,14 +36,10 @@ declare global {
         ping: () => Promise<any>
         worker: WorkerMake
     }
-    var tmnusd: number
-
     var SWebsocket: typeof import('ws');
-
     var workers: Array<WorkerMake>;
     function Round(number, digits): number
     function sleep(ms): Promise<any>
-
     var uploaders: { [key in string]: { clear: () => void, open: () => void, statuses: UploadStatuses } }
     var setScroller: (id: string) => void;
     var umongo: import("mongodb").MongoClient;

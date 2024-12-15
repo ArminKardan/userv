@@ -93,21 +93,8 @@ export const DeclarationsBefore = (props, z) => {
     return
   }
 
-
   if (!global.pageid)
     global.pageid = props.pageid
-
-  window.cache = (type: string, pr?: any) => {
-    if (typeof window != "undefined") {
-      let c = localStorage.getItem("cache");
-      let arr = []
-      if (c) {
-        arr = JSON.parse(c);
-      }
-      arr.push({ t: type, d: new Date().getTime(), l: z.lang.code, pr })
-      localStorage.setItem("cache", JSON.stringify(arr))
-    }
-  }
 
   window.cdn = (url: string) => {
     if (url.startsWith("/files")) {
@@ -204,70 +191,6 @@ export const DeclarationsBefore = (props, z) => {
 
   window.workers = []
 
-  window.fetchv2 = async (url, options = {} as any): Promise<Response> => {
-    // Set the "Target-URL" header to the URL we want to fetch
-    options.headers = options.headers || {};
-    // Add "zqe-" prefix to user's headers
-    const zqeHeaders: any = {};
-    for (const [key, value] of Object.entries(options.headers)) {
-
-      if (key.startsWith('zqe-')) {
-        zqeHeaders[key] = value;
-      } else {
-        zqeHeaders[`zqe-${key}`] = value;
-      }
-    }
-
-    options.headers = zqeHeaders;
-    options.headers['target-url'] = url;
-    options.headers["Access-Control-Allow-Origin"] = "*"
-    options.headers['Access-Control-Allow-Headers'] = '*'
-    options.headers['Access-Control-Allow-Methods'] = '*'
-    options.headers['Access-Control-Expose-Headers'] = '*'
-
-    const proxyUrl = 'http://127.0.0.1:8888/';
-    let res = await fetch(proxyUrl, options);
-    let rh = new QeHeaders();
-
-
-
-    let status = -1;
-    res.headers.forEach((v, k) => {
-      // console.log(k+":"+v)
-      if (k.toLowerCase() == "zstatusz") {
-        status = parseInt(v)
-      }
-      else {
-
-        k = k.replace(/-xmlx\d+/i, "");
-        if (k.startsWith("zqe-")) {
-          let newk = k.substring(4)
-          rh.append(newk, v)
-        }
-      }
-    })
-
-
-    return {
-      ...res,
-      arrayBuffer: async () => await res.arrayBuffer(),
-      blob: async () => await res.blob(),
-      status: status,
-      statusText: "",
-      body: res.body,
-      bodyUsed: res.bodyUsed,
-      // clone: async () => await res.clone(),
-      formData: async () => await res.formData(),
-      json: async () => await res.json(),
-      ok: res.ok,
-      redirected: res.redirected,
-      text: async () => await res.text(),
-      type: res.type,
-      url: res.url,
-      headers: rh
-    }
-  }
-
   global.cdn = (url: string) => {
     if (url.startsWith("/files")) {
       return SiteConfig.sitefiles + url.replace(/\/files\//g, "/")
@@ -344,8 +267,6 @@ export const DeclarationsBefore = (props, z) => {
 
 export const APILister = (props) => {
   let apistored = localStorage.getItem("apilist")
-  global.tmnusd = props.tmnusd
-  global.OwnerUID = props.owneruid
 
   setCookie("pageid", props.pageid, { sameSite: "lax", maxAge: 365 * 24 * 3600000, partitioned:true })
 

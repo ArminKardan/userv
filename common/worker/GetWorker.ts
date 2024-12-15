@@ -19,13 +19,6 @@ export default async (
     }
 ) => {
 
-
-    // let workerspecs = await API['worker/findfree']({
-    //     app: specs.app,
-    //     wid: specs.wid,
-    //     owneruid: (specs.owneruid || "").toString() as any
-    // })
-
     let workerspecs = await (await fetch("https://qepal.com/api/worker/findfree", {
         method: "POST",
         body: JSON.stringify({
@@ -34,11 +27,6 @@ export default async (
             owneruid: (specs.owneruid || "").toString() as any
         })
     })).json()
-
-
-    // console.log("FINDED WORKER SPECS IS:",workerspecs, {app: specs.app,
-    // wid: specs.wid,
-    // owneruid: (specs.owneruid || "").toString()})
 
     let securekey = specs.securekey
     if (!securekey) {
