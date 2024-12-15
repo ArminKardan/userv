@@ -32,7 +32,7 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
   })
 
 
-  return <Window title="my page" style={{ height: "900px" }}>
+  return <Window title="my page" style={{ paddingBottom:10}}>
 
     <pre>{JSON.stringify(z.user, null, 2)}</pre>
 
