@@ -7,11 +7,9 @@ import Cacher from '../Cacher'
 
 export default () => {
 
-    // global.SWebsocket = ws
     global.workers = []
     global.sss = (arg1, arg2) => arg2 ? console.log(arg1, arg2) : console.log(arg1)
     global.sleep = async ms => await new Promise(r => setTimeout(() => r(null), ms)) as any
-
     global.fetchv2 = async (input, init) => {
         return await fetch(input, { ...init, redirect: 'manual' })
     }
@@ -31,6 +29,9 @@ export default () => {
     global.cacher = []
 
     global.MD5 = (data: string | Buffer) => {
+        if (typeof data != "string" && !(data instanceof Buffer)) {
+            return ""
+        }
         const hash = crypto.createHash('md5');
         hash.update(data);
         const hashResult = hash.digest('hex');
@@ -55,12 +56,12 @@ export default () => {
 
     global.api = async (url: string, data?: any): Promise<any> => {
         if (data) {
-          return await (await fetch(url, { method: "POST", body: JSON.stringify(data) })).json()
+            return await (await fetch(url, { method: "POST", body: JSON.stringify(data) })).json()
         }
         else {
-          return await (await fetch(url)).json()
+            return await (await fetch(url)).json()
         }
-      }
+    }
 
     global.QSON = {
         stringify: (obj) => JSON.stringify(obj),
@@ -84,7 +85,7 @@ export default () => {
     }
 
     global.BotUID = new ObjectId('635111afff61db2b04928f45')
-    
+
     global._srvs = []
     var crypto = require("crypto");
     global.SSRVerify = SSRVerify;//require('../SSRVerify')
