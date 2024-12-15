@@ -57,8 +57,8 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
       userip: "127.0.0.1",
       uid: "635111afff61db2b04928f45",
       body,
-      req: req,
-      res: res,
+      rolecheck: (check) => rolecheck(check, ["admin", "bot"]),
+      nodeenv: global.nodeenv,
     } as any
   }
 

@@ -32,15 +32,17 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
   })
 
 
-  return <Window title="my page" style={{ paddingBottom:10}}>
+  return <Window title="my page" style={{ paddingBottom: 10 }}>
 
-    <pre>{JSON.stringify(z.user, null, 2)}</pre>
+    {/* <pre>{JSON.stringify(z.user, null, 2)}</pre> */}
 
     <b-200>{props.counter}</b-200>
     <b-200 onClick={async () => { Router.push(z.root + "/calculator") }}>Calculator</b-200>
     <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>Goto ex1</b-200>
     <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
     <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
 
     {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
 

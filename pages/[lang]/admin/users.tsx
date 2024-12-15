@@ -10,7 +10,7 @@ import Router from 'next/router';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, dies, z) => {
-  // 
+  
   return <>
     <br-x />
     <f-c>
@@ -23,7 +23,7 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
     <b-200 class="bg-purple-300" onClick={async () => { Router.push(z.root) }}><f-12>Back to index page</f-12></b-200>
     <pre>ADMIN INDEX PAGE</pre>
-    <pre>{JSON.stringify(z.user, null, 2)}</pre>
+    <pre>{JSON.stringify(props, null, 2)}</pre>
   </>
 }
 
@@ -58,12 +58,14 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   //   }, context)
   // }
 
+  let users = await API["getusers"]({})
   let obj = await Prosper({
     props: {
       value: { v: "hiiii", role },
       query: context.query,
       nlangs,
       session,
+      users,
       pageid,
     },
   }, context)
