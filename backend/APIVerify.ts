@@ -21,8 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   const userip = (requestIp.getClientIp(req)?.replace("::ffff:", "")) || "::"
   var post = req.method?.toLowerCase() == "post"
 
-  if(req.body && typeof req.body != "string")
-  {
+  if (req.body && typeof req.body != "string") {
     req.body = JSON.stringify(req.body)
   }
   if (req.body && !(req.body.startsWith("{") || req.body.startsWith("["))) {
@@ -81,12 +80,24 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   let srv = {} as any
   let user = null;
   if (session.servid) {
-    srv = await api("https://qepal.com/api/userv/servid", {
-      servid: session.servid,
-      servsecret: session.servsecret,
-    })
 
+    if (devmode)
+      global._srvs = []
 
+    srv = global._srvs.find(s => s.servid == session.servid && s.servsecret == session.servsecret)
+
+    if (global.devmode || !srv || (new Date().getTime() - srv.created) > 300000) {
+      srv = await api("https://qepal.com/api/userv/servid", {
+        servid: session.servid,
+        servsecret: session.servsecret,
+      })
+      if (srv) {
+        global._srvs.push({ ...srv, created: new Date().getTime(), servid: session.servid, servsecret: session.servsecret })
+      }
+    }
+
+    delete srv?.created
+    delete srv?.servsecret
 
     let u = global.udb.collection("users")
     let users = await u.find({}).project({ _id: 0 }).toArray()
@@ -95,6 +106,9 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
       if (usr.usersecret && MD5(usr.usersecret.toString()) == srv.usersecrethash) {
         user = usr
       }
+    }
+    if (!user.role) {
+      user.role = []
     }
   }
 
@@ -105,6 +119,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
     session.expid = new ObjectId(session.expid)
   }
 
+  VisitorUpdate(session.uid, userip)
 
   return {
 
@@ -118,3 +133,140 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
   } as APISession
 }
 
+
+
+const VisitorUpdate = (uid, userip) => {
+
+  if (((!userip) && (!uid)) ||
+    (typeof userip == "undefined" && !uid)
+    || (typeof uid == "undefined" && !userip)) {
+    return;
+  }
+
+  if (!uid) {
+    if (!global.visitors[userip]) {
+      global.visitors[userip] = {api:0, ssr:0} as never
+    }
+    if (!global.visitors[userip].ssr) {
+      global.visitors[userip].ssr = 1;
+    }
+    else {
+      global.visitors[userip].ssr++;
+    }
+    if (!global.visitors[userip].lang)
+      global.visitors[userip].lang = "fa"
+    global.visitors[userip].ip = userip
+    global.visitors[userip].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+    /**************************************** */
+    if (!global.visitorsM1[userip]) {
+      global.visitorsM1[userip] = {api:0, ssr:0} as never
+    }
+    if (!global.visitorsM1[userip].ssr) {
+      global.visitorsM1[userip].ssr = 1;
+    }
+    else {
+      global.visitorsM1[userip].ssr++;
+    }
+    if (!global.visitorsM1[userip].lang)
+      global.visitorsM1[userip].lang = "fa"
+    global.visitorsM1[userip].ip = userip
+    global.visitorsM1[userip].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+    /**************************************** */
+    if (!global.visitorsH1[userip]) {
+      global.visitorsH1[userip] = {api:0, ssr:0} as never
+    }
+    if (!global.visitorsH1[userip].ssr) {
+      global.visitorsH1[userip].ssr = 1;
+    }
+    else {
+      global.visitorsH1[userip].ssr++;
+    }
+    if (!global.visitorsH1[userip].lang)
+      global.visitorsH1[userip].lang = "fa"
+    global.visitorsH1[userip].ip = userip
+    global.visitorsH1[userip].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+    /**************************************** */
+    if (!global.visitorsD1[userip]) {
+      global.visitorsD1[userip] = {api:0, ssr:0} as never
+    }
+    if (!global.visitorsD1[userip].ssr) {
+      global.visitorsD1[userip].ssr = 1;
+    }
+    else {
+      global.visitorsD1[userip].ssr++;
+    }
+    if (!global.visitorsD1[userip].lang)
+      global.visitorsD1[userip].lang = "fa"
+    global.visitorsD1[userip].ip = userip
+    global.visitorsD1[userip].lastseen = new Date().getTime() + (global.timeoffset || 0)
+    return;
+  }
+
+
+  if (!global.visitors[uid]) {
+    global.visitors[uid] = {api:0, ssr:0} as never
+  }
+  if (!global.visitors[uid].ssr) {
+    global.visitors[uid].ssr = 1;
+  }
+  else {
+    global.visitors[uid].ssr++;
+  }
+  if (!global.visitors[uid].lang)
+    global.visitors[uid].lang = "fa"
+  global.visitors[uid].ip = userip
+  global.visitors[uid].uid = uid
+  global.visitors[uid].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+  /*********************************************** */
+  if (!global.visitorsM1[uid]) {
+    global.visitorsM1[uid] = {api:0, ssr:0} as never
+  }
+  if (!global.visitorsM1[uid].ssr) {
+    global.visitorsM1[uid].ssr = 1;
+  }
+  else {
+    global.visitorsM1[uid].ssr++;
+  }
+  if (!global.visitorsM1[uid].lang)
+    global.visitorsM1[uid].lang = "fa"
+  global.visitorsM1[uid].ip = userip
+  global.visitorsM1[uid].uid = uid
+  global.visitorsM1[uid].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+  /*********************************************** */
+  if (!global.visitorsH1[uid]) {
+    global.visitorsH1[uid] = {api:0, ssr:0} as never
+  }
+  if (!global.visitorsH1[uid].ssr) {
+    global.visitorsH1[uid].ssr = 1;
+  }
+  else {
+    global.visitorsH1[uid].ssr++;
+  }
+  if (!global.visitorsH1[uid].lang)
+    global.visitorsH1[uid].lang = "fa"
+  global.visitorsH1[uid].ip = userip
+  global.visitorsH1[uid].uid = uid
+  global.visitorsH1[uid].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+  /*********************************************** */
+  if (!global.visitorsD1[uid]) {
+    global.visitorsD1[uid] = {api:0, ssr:0} as never
+  }
+  if (!global.visitorsD1[uid].ssr) {
+    global.visitorsD1[uid].ssr = 1;
+  }
+  else {
+    global.visitorsD1[uid].ssr++;
+  }
+  if (!global.visitorsD1[uid].lang)
+    global.visitorsD1[uid].lang = "fa"
+  global.visitorsD1[uid].ip = userip
+  global.visitorsD1[uid].uid = uid
+  global.visitorsD1[uid].lastseen = new Date().getTime() + (global.timeoffset || 0)
+
+}

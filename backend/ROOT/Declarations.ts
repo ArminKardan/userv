@@ -90,7 +90,7 @@ export default () => {
 
     global.BotUID = new ObjectId('635111afff61db2b04928f45')
     
-
+    global._srvs = []
     var crypto = require("crypto");
     global.SSRVerify = SSRVerify;//require('../SSRVerify')
     global.Prosper = Prosper;//require('../SSRVerify')

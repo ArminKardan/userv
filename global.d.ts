@@ -22,10 +22,10 @@ import { langType } from "./common/SiteConfig";
 import type { WorkerMake } from "./common/worker/GetWorker";
 
 declare type Visitors = { [key in string]: {
+    uid:string,
     lang: string,
     lastseen: number,
     ip: string,
-    email: string,
     ssr: number,
     api: number,
 } }
