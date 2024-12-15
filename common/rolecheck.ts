@@ -11,5 +11,4 @@ export default (check:Array<string>, role:Array<string>): boolean=>{
     return false
 }
 
-export const AllRoles:Array<RoleName> = ["admin" , "support" , "bot" ,"comment" , "commenter" , "users" , "workers"
-    , "course" , "explore" , "finance" , "journal" , "mentor" , "service" , "tester","stats" ,"service"]
+export const AllRoles:Array<RoleName> = ["admin"]

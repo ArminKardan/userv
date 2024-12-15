@@ -36,7 +36,7 @@ export type SSRSession = {
   regdate: number,
   expid: ObjectId,
   role: string | null,
-  rolecheck: (check) => boolean,
+  rolecheck: (check:Array<string>) => boolean,
   path: string,
   devmod: boolean,
   userip: string,

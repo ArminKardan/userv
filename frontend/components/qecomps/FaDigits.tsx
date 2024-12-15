@@ -3,7 +3,7 @@ export default (input) => {
 
   if(typeof input !="string")
   {
-    return "Not a number"
+    return "Not a string"
   }
   return input.replace(/0/g,"۰")
   .replace(/1/g,"۱")

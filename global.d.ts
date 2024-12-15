@@ -142,7 +142,7 @@ declare global {
         regdate: number,
         expid: ObjectId,
         role: Array<string>,
-        rolecheck: (check) => boolean
+        rolecheck: (check:Array<string>) => boolean,
         path: string,
         devmod: boolean,
         userip: string,

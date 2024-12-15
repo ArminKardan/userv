@@ -1,10 +1,12 @@
-
-// import Bold from '@/frontend/components/qecomps/Bold';
-
 import Bold from '@/frontend/components/qecomps/Bold';
 import Component, { PageEl } from '@/frontend/components/qecomps/Component'
 import Router from 'next/router';
-
+import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import UserAvatar from '@/frontend/components/qecomps/UserAvatar';
+import Window from '@/frontend/components/qecomps/Window';
+import rolecheck from '@/common/rolecheck';
+import Icon3Titles from '@/frontend/components/qecomps/Icon3Titles';
+import FaDigits from '@/frontend/components/qecomps/FaDigits';
 
 
 export default p => Component(p, Page);
@@ -12,18 +14,14 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
   return <Window title='لیست کاربران'>
-    {props.users.map(u=>{
-      return <Icon2Titles title1={u.name} title2={<f-11>{u.uid}</f-11>} image={u.image}/>
+    <pre>{JSON.stringify(props.users, null, 2)}</pre>
+    {props.users.map(u => {
+      return <Icon3Titles title1={u.name} title2={<f-12 style={{marginTop:5}}>{FaDigits(u.userip)}</f-12>}  title3={new Date(u.lastseen).toLocaleString(z.lang.region)} 
+      image={<UserAvatar image={u.image} imageprop={u.imageprop} w={50}/>}
+        style={{ backgroundColor: rolecheck(["admin"], u.role) ? "#74A572" : "#89BF9D" }} />
     })}
   </Window>
 }
-
-
-
-import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import UserAvatar from '@/frontend/components/qecomps/UserAvatar';
-import Window from '@/frontend/components/qecomps/Window';
-import Icon2Titles from '@/frontend/components/qecomps/Icon2Titles';
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 

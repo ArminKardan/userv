@@ -1,3 +1,4 @@
+import rolecheck from "@/common/rolecheck";
 import { langType } from "@/common/SiteConfig";
 
 const user = (session): UserType => //server session from SSR
@@ -6,7 +7,8 @@ const user = (session): UserType => //server session from SSR
   {
     session.role = []
   }
-  return session;
+  
+  return {...session, rolecheck: check => rolecheck(check, session.role)};
 }
 
 export type ServiceStatus = "approved" | "rejected" | "waiting" | "freezed" 
@@ -31,6 +33,7 @@ export type UserType = {
   regdate: number,
   expid: string,
   role: Array<string>,
+  rolecheck: (check:Array<string>) => boolean,
   nodeenv: string,
   noheader:boolean,
   devmode: boolean,
