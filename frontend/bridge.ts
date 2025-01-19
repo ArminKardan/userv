@@ -17,18 +17,18 @@ declare global {
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }
 
-    function uploader(specs:{title:string, text: string, maxmb?:number, style?:string}): Promise<{url:string}>;
-    function alerter(specs:{title: string | any, text?: string | Element, style?: any, watermark?: string}): Promise<void>;
+    function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
+    function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
 }
 export const init = () => {
     die()
     global.mcb = {}
 
-    global.uploader = async (specs)=>{
+    global.uploader = async (specs) => {
         return await send({ api: "uploader", ...specs })
     }
-    global.alerter = async (specs)=>{
-        return await send({ api: "alerter", ...specs })
+    global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
+        return await send({ api: "alerter", title, text, style, watermark })
     }
     global.nexus = {
         subscribe: async (channel: string) => {

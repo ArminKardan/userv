@@ -37,21 +37,6 @@ declare global {
         worker: WorkerMake
     }
 
-    var bridge :{
-        send: (data:any)=> Promise<any>
-    }
-
-    var nexus: {
-        subscribe: (channel:string)=>Promise<void>,
-        unsubscribe: (channel:string)=>Promise<void>,
-        channels:()=>Promise<Array<string>>,
-        msgreceiver: (from:string, body:string)=>void,
-        isconnected:()=>Promise<boolean>,
-        connected:boolean,
-        api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean })=> Promise<any>,
-        sendtojid: (jid: string, body: string) => Promise<any>,
-        sendtochannel: (channel: string, body: string) => Promise<any>,
-    }
 
     var SWebsocket: typeof import('ws');
     var workers: Array<WorkerMake>;
