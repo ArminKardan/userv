@@ -16,8 +16,11 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
     <b-200 onClick={async () => {
       // let json = await bridge.send({api: "ping"})
       // console.log("from parent:", json)
-      let json = await nexus.api({ app: "mailer", cmd: "ping" })
-      console.log("nexus parent:", json)
+      // let json = await nexus.api({ app: "mailer", cmd: "ping" })
+      // console.log("nexus parent:", json)
+      nexus.msgreceiver = (from, body) => {
+        console.log("im userv received:", from, body)
+      }
     }}>send api to mailer</b-200>
 
   </Window>
