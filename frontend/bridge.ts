@@ -19,11 +19,15 @@ declare global {
     function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel"): Promise<string>
+    function confirmer(title: any, text?: string | Element, oktext?: string, canceltext?: string): Promise<boolean>
 }
 export const init = () => {
     die()
     global.mcb = {}
 
+    global.confirmer = async (title: string, text?: string, oktext?: string, canceltext?: string) => {
+        return (await send({ api: "confirmer", title, text, oktext, canceltext })).result
+    }
     global.prompter = async (title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel") => {
