@@ -11,6 +11,10 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
+  onConnected(async ()=>{
+    console.log("userv: nexus connected...")
+  })
+
   return <Window title="my page" style={{ paddingBottom: 10 }}>
 
     <b-200 onClick={async () => {
