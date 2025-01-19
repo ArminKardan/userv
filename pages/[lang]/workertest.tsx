@@ -40,6 +40,11 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       nexus.subscribe("mychannel")
     }}>subscribe to my channel</b-200>
 
+    <br-x/>
+    <b-200 onClick={async () => {
+      let json = await bridge.send({api:"upload", title:"عنوان آپلود", text:"آپلود کنیدددد", })
+    }}>upload something</b-200>
+
     <b-200 onClick={async () => {
       Router.push("/")
     }}>goto index</b-200>
