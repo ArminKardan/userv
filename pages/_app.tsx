@@ -13,6 +13,7 @@ import Context from "@/frontend/components/qecomps/Context";
 import { SSRGlobal } from "@/frontend/components/qecomps/Context";
 import { DeclarationsBefore, DeclarationsAfter, LangRestore, APILister } from "@/frontend/root/Declarations";
 import Router from 'next/router';
+import { init } from '@/frontend/bridge';
 
 export default function App({ Component, pageProps }) {
 
@@ -73,6 +74,15 @@ export default function App({ Component, pageProps }) {
     global.pageProps = props
     DeclarationsAfter(props, z)
     LangRestore(props, z)
+
+
+
+    init();
+
+
+
+
+
   })
 
 

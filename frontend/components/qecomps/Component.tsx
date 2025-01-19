@@ -10,7 +10,7 @@ const ComponentCSR = dynamic(() => import('./Componentd.tsx').then(x => x.defaul
 
 export type ZType = {
     pageProps: any, root: string,
-    lang: { [key in string]: any }, user: UserType, styles: any, qestyles: any, path:string,
+    lang: { [key in string]: any }, user: UserType, styles: any, qestyles: any, path: string,
 }
 
 export type PageEl = (props: { [key in any]: any },
@@ -110,7 +110,7 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
 
 
         {!full ? <main className={z.qestyles.main}>
-            <div className={z.qestyles.graybox} style={{ paddingTop: noheader?0:37 }} >
+            <div className={z.qestyles.graybox} style={{ paddingTop: noheader ? 0 : 37 }} >
                 {Page(state.content, refr, async (func) => {
                     if (!state["loaded"]) {
                         await func();
@@ -124,8 +124,8 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
 
             </div>
         </main> : null}
-        
-        {!noheader?<br-x style={{height:38}}/>:null}
+
+        {!noheader ? <br-x style={{ height: 38 }} /> : null}
 
         {full ? Page(state.content, refr, async (func) => {
             if (!state["loaded"]) {
@@ -147,7 +147,8 @@ export default (props: any, Page: PageEl, ssr: boolean = false) => {
     let isPage = !!props.pageid
     let z = SSRGlobal(props.pageid)
     if (isPage) {
-        z.user = User(props.session);
+        if (!z.user)
+            z.user = User(props.session);
         z.path = props.path
     }
     else {

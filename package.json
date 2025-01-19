@@ -14,9 +14,6 @@
     "types": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.0",
     "2captcha": "^3.0.5-2",
     "@noble/secp256k1": "^2.1.0",
     "@types/ws": "^8.5.12",
@@ -35,12 +32,15 @@
     "maxmind-db-reader": "^0.2.1",
     "moment-jalaali": "^0.10.0",
     "mongodb": "^6.8.0",
+    "next": "^15.1.5",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.15",
     "nprogress": "^0.2.0",
     "pako": "^2.1.0",
     "qrcode": "^1.5.3",
+    "react": "^19.0.0",
     "react-ace": "^12.0.0",
+    "react-dom": "^19.0.0",
     "request-ip": "^3.3.0",
     "soap": "^1.0.2",
     "superagent": "^10.1.0",
@@ -52,12 +52,12 @@
     "webpack-clear-require-cache-plugin": "^0.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   },
   "prettier": {
     "semi": false

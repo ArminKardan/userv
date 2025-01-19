@@ -43,6 +43,7 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
     <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
     <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
     <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
+    <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
 
     {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
 

@@ -3,6 +3,36 @@ import SerialGenerator from "./components/qecomps/SerialGenerator";
 export const init = ()=>{
     die()
     global.mcb = {}
+
+    global.nexus = {
+        subscribe: async (channel:string)=>{
+            return await send({api:"bridge.subscribe"})
+        },
+        unsubscribe: async (channel:string)=>{
+            return await send({api:"bridge.unsubscribe"})
+        },
+        channels:async ()=>{
+            return await send({api:"bridge.channels"})
+        },
+        msgreceiver: (from:string, body:string)=>{
+            return null
+        },
+        connected:async ()=>{
+            return await send({api:"bridge.connected"})
+        },
+        api: async (specs: { app: string, name: string, body: any, jid?: string, prioritize_public: boolean })=> {
+            return await send({api:"bridge.api", specs})
+        },
+        sendtojid: async (jid: string, body: string) => {
+            return await send({api:"bridge.sendtojid"})
+        },
+        sendtochannel: async (channel: string, body: string) => {
+            return await send({api:"bridge.sendtochannel"})
+        },
+    }
+
+
+
     window.addEventListener('message', (event) => {
       try{
         let data = QSON.parse(event.data)
@@ -39,28 +69,3 @@ export const send = async (data)=>{
     return rp as any
 }
 
-export  const GetWorkerB = async (specs: {app: string, wid?: string, owneruid?: string})=> {
-
-    let json = await send({api:"getworker", specs})
-    if(json.code == 0)
-    {
-        if(!global.bworker)
-        {
-            global.bworker = {}
-        }
-        let _wid = json._wid
-        global.bworker[_wid] = {}
-        return {
-            send:async (data)=>{
-                return await send({api:"sendworker", _wid, data})
-            },
-            on: (cb:(data)=>void)=>{
-                global.bworker[_wid].on = cb 
-            },
-            release: async ()=>{
-                await send({api:"releaseworker", _wid})
-            }
-        }
-    }
-
-}
