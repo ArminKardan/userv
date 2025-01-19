@@ -14,14 +14,27 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
   return <Window title="my page" style={{ paddingBottom: 10 }}>
 
     <b-200 onClick={async () => {
-      // let json = await bridge.send({api: "ping"})
-      // console.log("from parent:", json)
-      // let json = await nexus.api({ app: "mailer", cmd: "ping" })
-      // console.log("nexus parent:", json)
+      let json = await bridge.send({ api: "ping" })
+      console.log("from parent:", json)
+    }}>send ping with bridge</b-200>
+
+
+    <b-200 onClick={async () => {
+      let json = await nexus.api({ app: "mailer", cmd: "ping" })
+      console.log("nexus parent:", json)
+    }}>send ping to mailer</b-200>
+
+
+    <b-200 onClick={async () => {
       nexus.msgreceiver = (from, body) => {
         console.log("im userv received:", from, body)
       }
-    }}>send api to mailer</b-200>
+    }}>connect msgreceiver</b-200>
+
+
+    <b-200 onClick={async () => {
+      nexus.subscribe("mychannel")
+    }}>subscribe to my channel</b-200>
 
   </Window>
 }
