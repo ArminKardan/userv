@@ -1,9 +1,31 @@
 import SerialGenerator from "./components/qecomps/SerialGenerator";
+declare global {
 
+    var bridge: {
+        send: (data: any) => Promise<any>
+    }
+
+    var nexus: {
+        subscribe: (channel: string) => Promise<void>,
+        unsubscribe: (channel: string) => Promise<void>,
+        channels: () => Promise<Array<string>>,
+        msgreceiver: (from: string, body: string) => void,
+        isconnected: () => Promise<boolean>,
+        connected: boolean,
+        api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => Promise<any>,
+        sendtojid: (jid: string, body: string) => Promise<any>,
+        sendtochannel: (channel: string, body: string) => Promise<any>,
+    }
+
+    var uploader: (specs:{title:string, text: string, maxmb?:number, style?:string})=>Promise<{url:string}>
+}
 export const init = () => {
     die()
     global.mcb = {}
 
+    global.uploader = async (specs)=>{
+        return await send({ api: "uploader", channel })
+    }
     global.nexus = {
         subscribe: async (channel: string) => {
             return await send({ api: "bridge.subscribe", channel })
@@ -21,8 +43,7 @@ export const init = () => {
         isconnected: async () => {
             let c = (await send({ api: "bridge.connected" })).connected
             global.nexus.connected = c
-            if(c && !global.nexusfirstconnect)
-            {
+            if (c && !global.nexusfirstconnect) {
                 await global.nexusconnected?.func?.()
             }
             return c
@@ -46,8 +67,7 @@ export const init = () => {
                 nexus.msgreceiver?.(data.from, data.body)
             }
             else if (data.api == "nexusconnected") {
-                if(!global.nexusfirstconnect)
-                {
+                if (!global.nexusfirstconnect) {
                     global.nexusfirstconnect = true
                     await global.nexusconnected?.func?.()
                 }
