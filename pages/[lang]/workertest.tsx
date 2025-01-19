@@ -54,9 +54,20 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <br-x />
     <b-200 onClick={async () => {
-      let r = await prompter("hiiiii","yeeeeeeee")
+      let r = await prompter("hiiiii", "yeeeeeeee")
       await alerter(r)
     }}>prompt something</b-200>
+
+    <br-x />
+    <b-200 onClick={async () => {
+      let r = await picker([
+        { title1: "yes1", key: 1 },
+        { title1: "yes2", key: 2 },
+        { title1: "yes3", key: 3 },
+        { title1: "yes4", key: 4 },
+      ])
+      await alerter(r)
+    }}>pick something</b-200>
 
     <b-200 onClick={async () => {
       Router.push("/")

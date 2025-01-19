@@ -30,7 +30,7 @@ export const init = () => {
 
     global.picker = async (items: Array<{ key: any, title1?: any, title2?: any, image?: any,
         imageprop?: any, righticon?: any, highlight?: boolean }>) => {
-        return (await send({ api: "confirmer", items})).result
+        return (await send({ api: "picker", items})).result
     }
 
     global.confirmer = async (title: string, text?: string, oktext?: string, canceltext?: string) => {
