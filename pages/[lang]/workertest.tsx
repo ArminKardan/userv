@@ -11,7 +11,7 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  onConnected(async ()=>{
+  onConnected(async () => {
     console.log("userv: nexus connected...")
   })
 
@@ -39,6 +39,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <b-200 onClick={async () => {
       nexus.subscribe("mychannel")
     }}>subscribe to my channel</b-200>
+
+    <b-200 onClick={async () => {
+      Router.push("/")
+    }}>goto index</b-200>
 
   </Window>
 }
