@@ -1,10 +1,8 @@
 import SerialGenerator from "./components/qecomps/SerialGenerator";
 declare global {
-
     var bridge: {
         send: (data: any) => Promise<any>
     }
-
     var nexus: {
         subscribe: (channel: string) => Promise<void>,
         unsubscribe: (channel: string) => Promise<void>,
@@ -16,16 +14,20 @@ declare global {
         sendtojid: (jid: string, body: string) => Promise<any>,
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }
-
     function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
     function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
+    function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
+        selectonclick?: boolean,
+        type?: "text" | "number" | "url" | "email" | "tel"): Promise<string>
 }
 export const init = () => {
     die()
     global.mcb = {}
 
-    global.uploader = async (specs) => {
-        return await send({ api: "uploader", ...specs })
+    global.prompter = async (title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
+        selectonclick?: boolean,
+        type?: "text" | "number" | "url" | "email" | "tel") => {
+        return await send({ api: "uploader", title, text, maxlen, small, defaulttext, style, selectonclick, type })
     }
     global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
         return await send({ api: "alerter", title, text, style, watermark })
