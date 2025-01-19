@@ -37,12 +37,9 @@ export const init = ()=>{
       try{
         let data = QSON.parse(event.data)
         
-        if(data._wid && data.on)
+        if(data.nexusmsg)
         {
-            let _wid =data._wid 
-            delete data._wid
-            delete data.on
-            global.bworker[_wid]?.on?.(data)
+            nexus.msgreceiver(data.from, data.body)
         }
         else if(data.mid)
         {
