@@ -18,13 +18,14 @@ declare global {
     }
 
     var uploader: (specs:{title:string, text: string, maxmb?:number, style?:string})=>Promise<{url:string}>
+    var alerter: (specs:{title:string, text: string, maxmb?:number, style?:string})=>Promise<{url:string}>
 }
 export const init = () => {
     die()
     global.mcb = {}
 
     global.uploader = async (specs)=>{
-        return await send({ api: "uploader", channel })
+        return await send({ api: "uploader", ...specs })
     }
     global.nexus = {
         subscribe: async (channel: string) => {
