@@ -30,8 +30,6 @@ export const init = ()=>{
         },
     }
 
-
-
     window.addEventListener('message', (event) => {
       try{
         let data = QSON.parse(event.data)
