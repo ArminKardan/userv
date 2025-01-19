@@ -42,8 +42,12 @@ export const init = () => {
                 nexus.msgreceiver?.(data.from, data.body)
             }
             else if (data.api == "nexusconnected") {
-                console.log("userv: nexus connected...")
-                nexus.connected
+                if(!global.nexusfirstconnect)
+                {
+                    global.nexusfirstconnect = true
+                    console.log("userv: nexus connected...")
+                }
+                nexus.connected = true
             }
             else if (data.mid) {
                 let mid = data.mid
