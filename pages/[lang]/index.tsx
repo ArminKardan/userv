@@ -8,7 +8,7 @@ import Copy from '@/frontend/components/qecomps/Copy';
 
 export default p => Component(p, Page);
 
-const Page: PageEl = (props, refresh, getProps, dies, z) => {
+const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
   getProps(async () => {
     props.counter = 0

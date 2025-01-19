@@ -11,7 +11,7 @@ import FaDigits from '@/frontend/components/qecomps/FaDigits';
 
 export default p => Component(p, Page);
 
-const Page: PageEl = (props, refresh, getProps, dies, z) => {
+const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
   return <Window title='لیست کاربران'>
     {props.users.map(u => {

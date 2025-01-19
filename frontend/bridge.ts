@@ -3,7 +3,6 @@ import SerialGenerator from "./components/qecomps/SerialGenerator";
 export const init = () => {
     die()
     global.mcb = {}
-    global.onfirstconnect = ()=>{}
 
     global.nexus = {
         subscribe: async (channel: string) => {
@@ -24,7 +23,7 @@ export const init = () => {
             global.nexus.connected = c
             if(c && !global.nexusfirstconnect)
             {
-                global.onfirstconnect?.()
+                await global.nexusconnected?.func?.()
             }
             return c
         },
@@ -39,7 +38,7 @@ export const init = () => {
         },
     }
 
-    window.addEventListener('message', (event) => {
+    window.addEventListener('message', async (event) => {
         try {
             let data = QSON.parse(event.data)
 
@@ -50,7 +49,7 @@ export const init = () => {
                 if(!global.nexusfirstconnect)
                 {
                     global.nexusfirstconnect = true
-                    global.onfirstconnect?.()
+                    await global.nexusconnected?.func?.()
                 }
                 nexus.connected = true
             }

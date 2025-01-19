@@ -9,7 +9,7 @@ import Router from 'next/router';
 
 export default p => Component(p, Page);
 
-const Page: PageEl = (props, refresh, getProps, dies, z) => {
+const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
   // 
   return <>
     <br-x />
