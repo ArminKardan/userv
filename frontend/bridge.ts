@@ -15,7 +15,7 @@ export const init = ()=>{
             return await send({api:"bridge.channels"})
         },
         msgreceiver: (from:string, body:string)=>{},
-        
+
         connected:async ()=>{
             return (await send({api:"bridge.connected"})).connected
         },
@@ -36,9 +36,9 @@ export const init = ()=>{
       try{
         let data = QSON.parse(event.data)
         
-        if(data.nexusmsg)
+        if(data.api == "nexusmsg")
         {
-            nexus.msgreceiver(data.from, data.body)
+            nexus.msgreceiver?.(data.from, data.body)
         }
         else if(data.mid)
         {
