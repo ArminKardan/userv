@@ -12,7 +12,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
   onConnected(async () => {
-    console.log("userv: nexus connected...")
+    console.log("userv [workertest]: nexus connected...")
   })
 
   return <Window title="my page" style={{ paddingBottom: 10 }}>

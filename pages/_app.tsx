@@ -60,6 +60,16 @@ export default function App({ Component, pageProps }) {
   let sessionreloader: any = {};
 
   useEffect(() => {
+
+    Router.events.on("routeChangeStart",async ()=>{
+      let subs = Array.from(await global.nexus?.channels() || [])
+      for (let channel of subs) {
+        await global.nexus?.unsubscribe?.(channel)
+      }
+      global.nexus.msgreceiver = () => { }
+      global.xmpppageloaded = false
+    })
+
     if (!pageProps.data) {
       Router.push('/');
       return

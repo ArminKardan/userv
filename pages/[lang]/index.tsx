@@ -10,6 +10,12 @@ export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
+
+  onConnected(async () => {
+    console.log("userv [workertest]: nexus connected...")
+  })
+
+  
   getProps(async () => {
     props.counter = 0
     props.asc = true
