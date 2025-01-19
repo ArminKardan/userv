@@ -17,7 +17,7 @@ export const init = () => {
         msgreceiver: (from: string, body: string) => { },
 
         connected: false,
-        
+
         isconnected: async () => {
             let c = (await send({ api: "bridge.connected" })).connected
             global.nexus.connected = c
@@ -53,8 +53,10 @@ export const init = () => {
         } catch { }
     })
 
-    setTimeout(() => {
-        if ()
+    setTimeout(async () => {
+        if (!global.nexus.connected) {
+            await global.nexus.isconnected()
+        }
     }, 1000);
 }
 
