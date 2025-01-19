@@ -48,7 +48,14 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <br-x />
     <b-200 onClick={async () => {
-      alerter("hiiiii")
+      await alerter("hiiiii")
+      await alerter("bye")
+    }}>alert something</b-200>
+
+    <br-x />
+    <b-200 onClick={async () => {
+      await alerter("hiiiii")
+      await alerter("bye")
     }}>alert something</b-200>
 
     <b-200 onClick={async () => {
