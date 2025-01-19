@@ -20,17 +20,24 @@ declare global {
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel"): Promise<string>
     function confirmer(title: any, text?: string | Element, oktext?: string, canceltext?: string): Promise<boolean>
-  function picker(items: Array<{ key: any, title1?: any, title2?: any, image?: any,
-     imageprop?: any, righticon?: any, highlight?: boolean }>): Promise<string>;
+    function picker(items: Array<{
+        key: any, title1?: any, title2?: any, image?: any,
+        imageprop?: any, righticon?: any, highlight?: boolean
+    }>): Promise<string>;
+    function selector(sync: () => Array<{ key: any, title1?: any, title2?: any, image?: any, imageprop?: any, righticon?: any, highlight?: boolean }>,
+        on: (key: any) => Promise<void>
+    ): Promise<void>;
 
 }
 export const init = () => {
     die()
     global.mcb = {}
 
-    global.picker = async (items: Array<{ key: any, title1?: any, title2?: any, image?: any,
-        imageprop?: any, righticon?: any, highlight?: boolean }>) => {
-        return (await send({ api: "picker", items})).result
+    global.picker = async (items: Array<{
+        key: any, title1?: any, title2?: any, image?: any,
+        imageprop?: any, righticon?: any, highlight?: boolean
+    }>) => {
+        return (await send({ api: "picker", items })).result
     }
 
     global.confirmer = async (title: string, text?: string, oktext?: string, canceltext?: string) => {
