@@ -14,9 +14,8 @@ export const init = ()=>{
         channels:async ()=>{
             return await send({api:"bridge.channels"})
         },
-        msgreceiver: (from:string, body:string)=>{
-            return null
-        },
+        msgreceiver: (from:string, body:string)=>{},
+        
         connected:async ()=>{
             return (await send({api:"bridge.connected"})).connected
         },
