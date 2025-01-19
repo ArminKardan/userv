@@ -14,7 +14,9 @@ export type ZType = {
 }
 
 export type PageEl = (props: { [key in any]: any },
-    refresh: (object?: { [key in any]: any }) => void, getProps: (callback: () => Promise<void>) => void,
+    refresh: (object?: { [key in any]: any }) => void, 
+    getProps: (callback: () => Promise<void>) => void,
+    onConnected: (callback: () => Promise<void>) => void,
     dies: (callback: () => Promise<void>) => void,
     z: ZType) => React.JSX.Element
 
@@ -118,7 +120,20 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
                         state["loaded"] = true
                         setState({ ...state })
                     }
-                }, async (func) => {
+                },
+                async (func) => {
+                    if (!global.xmpppageloaded) {
+                        global.xmpppageloaded = true
+                        if (!state["loaded"] && global.nexus?.connected) {
+                            func?.().then(() => { })
+                        }
+                        else {
+                            global.nexusconnected = { func };
+                        }
+                    }
+                },
+                
+                async (func) => {
                     die.func = func;
                 }, z)}
 
@@ -134,7 +149,19 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
                 state["loaded"] = true
                 setState({ ...state })
             }
-        }, async (func) => {
+        },
+        async (func) => {
+            if (!global.xmpppageloaded) {
+                global.xmpppageloaded = true
+                if (!state["loaded"] && global.nexus?.connected) {
+                    func?.().then(() => { })
+                }
+                else {
+                    global.nexusconnected = { func };
+                }
+            }
+        },
+        async (func) => {
             die.func = func;
         }, z) : null}
 
