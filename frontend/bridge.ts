@@ -3,6 +3,7 @@ import SerialGenerator from "./components/qecomps/SerialGenerator";
 export const init = () => {
     die()
     global.mcb = {}
+    global.onfirstconnect = ()=>{}
 
     global.nexus = {
         subscribe: async (channel: string) => {
@@ -21,6 +22,10 @@ export const init = () => {
         isconnected: async () => {
             let c = (await send({ api: "bridge.connected" })).connected
             global.nexus.connected = c
+            if(c && !global.nexusfirstconnect)
+            {
+                global.onfirstconnect?.()
+            }
             return c
         },
         api: async (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => {
@@ -45,7 +50,7 @@ export const init = () => {
                 if(!global.nexusfirstconnect)
                 {
                     global.nexusfirstconnect = true
-                    console.log("userv: nexus connected...")
+                    global.onfirstconnect?.()
                 }
                 nexus.connected = true
             }
