@@ -17,8 +17,8 @@ declare global {
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }
 
-    var uploader: (specs:{title:string, text: string, maxmb?:number, style?:string})=>Promise<{url:string}>
-    var alerter: (specs:{title:string, text: string, maxmb?:number, style?:string})=>Promise<{url:string}>
+    function uploader(specs:{title:string, text: string, maxmb?:number, style?:string}): Promise<{url:string}>;
+    function alerter(specs:{title: string | any, text?: string | Element, style?: any, watermark?: string}): Promise<void>;
 }
 export const init = () => {
     die()
@@ -26,6 +26,9 @@ export const init = () => {
 
     global.uploader = async (specs)=>{
         return await send({ api: "uploader", ...specs })
+    }
+    global.alerter = async (specs)=>{
+        return await send({ api: "alerter", ...specs })
     }
     global.nexus = {
         subscribe: async (channel: string) => {
