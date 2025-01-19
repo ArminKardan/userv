@@ -38,6 +38,10 @@ export const init = ()=>{
         {
             nexus.msgreceiver?.(data.from, data.body)
         }
+        else if(data.api == "nexusconnected")
+        {
+            console.log("userv: nexus connected...")
+        }
         else if(data.mid)
         {
           let mid = data.mid
