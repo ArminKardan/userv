@@ -27,7 +27,7 @@ export const init = () => {
     global.prompter = async (title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel") => {
-        return (await send({ api: "uploader", title, text, maxlen, small, defaulttext, style, selectonclick, type })).result
+        return (await send({ api: "prompter", title, text, maxlen, small, defaulttext, style, selectonclick, type })).result
     }
     global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
         return await send({ api: "alerter", title, text, style, watermark })
