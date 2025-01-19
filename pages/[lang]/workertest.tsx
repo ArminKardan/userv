@@ -13,8 +13,11 @@ const Page: PageEl = (props, refresh, getProps, dies, z) => {
 
   return <Window title="my page" style={{ paddingBottom: 10 }}>
 
-    <b-200 onClick={async () => { 
-      
+    <b-200 onClick={async () => {
+      // let json = await bridge.send({api: "ping"})
+      // console.log("from parent:", json)
+      let json = await nexus.api({ app: "mailer", cmd: "ping" })
+      console.log("nexus parent:", json)
     }}>send api to mailer</b-200>
 
   </Window>

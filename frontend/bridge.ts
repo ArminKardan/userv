@@ -6,10 +6,10 @@ export const init = ()=>{
 
     global.nexus = {
         subscribe: async (channel:string)=>{
-            return await send({api:"bridge.subscribe"})
+            return await send({api:"bridge.subscribe", channel})
         },
         unsubscribe: async (channel:string)=>{
-            return await send({api:"bridge.unsubscribe"})
+            return await send({api:"bridge.unsubscribe", channel})
         },
         channels:async ()=>{
             return await send({api:"bridge.channels"})
@@ -18,13 +18,13 @@ export const init = ()=>{
             return null
         },
         connected:async ()=>{
-            return await send({api:"bridge.connected"})
+            return (await send({api:"bridge.connected"})).connected
         },
-        api: async (specs: { app: string, name: string, body: any, jid?: string, prioritize_public: boolean })=> {
+        api: async (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean })=> {
             return await send({api:"bridge.api", specs})
         },
         sendtojid: async (jid: string, body: string) => {
-            return await send({api:"bridge.sendtojid"})
+            return await send({api:"bridge.sendtojid", jid, body})
         },
         sendtochannel: async (channel: string, body: string) => {
             return await send({api:"bridge.sendtochannel"})
@@ -58,7 +58,7 @@ export const die = ()=>{
     window["removeAllMessageListeners"]();
 }
 
-export const send = async (data)=>{
+export const send = (data)=>{
     let mid = SerialGenerator(6)
     let rp = new Promise(r=>{
         global.mcb[mid] = (resp)=>{

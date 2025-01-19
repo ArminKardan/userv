@@ -37,13 +37,17 @@ declare global {
         worker: WorkerMake
     }
 
+    var bridge :{
+        send: (data:any)=> Promise<any>
+    }
+
     var nexus: {
         subscribe: (channel:string)=>Promise<void>,
         unsubscribe: (channel:string)=>Promise<void>,
         channels:()=>Promise<Array<string>>,
         msgreceiver: (from:string, body:string)=>Promise<void>,
         connected:()=>Promise<boolean>,
-        api: (specs: { app: string, name: string, body: any, jid?: string, prioritize_public: boolean })=> Promise<any>,
+        api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean })=> Promise<any>,
         sendtojid: (jid: string, body: string) => Promise<any>,
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }

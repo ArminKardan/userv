@@ -13,7 +13,7 @@ import Context from "@/frontend/components/qecomps/Context";
 import { SSRGlobal } from "@/frontend/components/qecomps/Context";
 import { DeclarationsBefore, DeclarationsAfter, LangRestore, APILister } from "@/frontend/root/Declarations";
 import Router from 'next/router';
-import { init } from '@/frontend/bridge';
+import { init, send } from '@/frontend/bridge';
 
 export default function App({ Component, pageProps }) {
 
@@ -76,14 +76,12 @@ export default function App({ Component, pageProps }) {
     LangRestore(props, z)
 
 
-
     init();
+    global.bridge = {
+      send: send
+    }
 
-
-
-
-
-  })
+  },[])
 
 
   props["isPage"] = true
