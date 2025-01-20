@@ -1,5 +1,6 @@
 import SiteConfig from '@/common/SiteConfig';
 import md5 from 'crypto-js/md5';
+import sha256 from 'crypto-js/sha256';
 import Router from "next/router";
 import { Refresh as apier } from '@/frontend/root/apier'
 import { hasCookie, setCookie, getCookie, deleteCookie } from 'cookies-next';
@@ -172,6 +173,10 @@ export const DeclarationsBefore = (props, z) => {
 
   window.MD5 = (input: string | Buffer): string => {
     return md5(input).toString();
+  }
+
+  window.SHA256 = (input: string | Buffer): string => {
+    return sha256(input).toString();
   }
 
   window.Round = (number, digits) => {
