@@ -84,7 +84,7 @@ export const init = () => {
             return await send({ api: "nexus.sendtojid", jid, body })
         },
         sendtochannel: async (channel: string, body: string) => {
-            return await send({ api: "nexus.sendtochannel" })
+            return await send({ api: "nexus.sendtochannel", channel, body })
         },
     }
 
