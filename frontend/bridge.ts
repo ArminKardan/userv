@@ -51,22 +51,24 @@ export const init = () => {
     global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
         return await send({ api: "alerter", title, text, style, watermark })
     }
+
+    
     global.nexus = {
         subscribe: async (channel: string) => {
-            return await send({ api: "bridge.subscribe", channel })
+            return await send({ api: "nexus.subscribe", channel })
         },
         unsubscribe: async (channel: string) => {
-            return await send({ api: "bridge.unsubscribe", channel })
+            return await send({ api: "nexus.unsubscribe", channel })
         },
         channels: async () => {
-            return await send({ api: "bridge.channels" })
+            return await send({ api: "nexus.channels" })
         },
         msgreceiver: (from: string, body: string) => { },
 
         connected: false,
 
         isconnected: async () => {
-            let c = (await send({ api: "bridge.connected" })).connected
+            let c = (await send({ api: "nexus.connected" })).connected
             global.nexus.connected = c
             if (c && !global.nexusfirstconnect) {
                 await global.nexusconnected?.func?.()
@@ -74,13 +76,13 @@ export const init = () => {
             return c
         },
         api: async (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => {
-            return await send({ api: "bridge.api", specs })
+            return await send({ api: "nexus.api", specs })
         },
         sendtojid: async (jid: string, body: string) => {
-            return await send({ api: "bridge.sendtojid", jid, body })
+            return await send({ api: "nexus.sendtojid", jid, body })
         },
         sendtochannel: async (channel: string, body: string) => {
-            return await send({ api: "bridge.sendtochannel" })
+            return await send({ api: "nexus.sendtochannel" })
         },
     }
 
