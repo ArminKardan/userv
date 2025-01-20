@@ -51,8 +51,10 @@ export const init = () => {
     global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
         return await send({ api: "alerter", title, text, style, watermark })
     }
+    global.uploader = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
+        return await send({ api: "alerter", title, text, style, watermark })
+    }
 
-    
     global.nexus = {
         subscribe: async (channel: string) => {
             return await send({ api: "nexus.subscribe", channel })
