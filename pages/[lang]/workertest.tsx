@@ -72,11 +72,11 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <br-x />
     <b-200 onClick={async () => {
-      let r = await selector(() => [
-        { title1: "yes1", key: 1, highlight: (props.keys || []).includes(1) },
-        { title1: "yes2", key: 2, highlight: (props.keys || []).includes(2) },
-        { title1: "yes3", key: 3, highlight: (props.keys || []).includes(3) },
-        { title1: "yes4", key: 4, highlight: (props.keys || []).includes(4) },
+      await selector(() => [
+        { title1: "Item1", key: 1, highlight: (props.keys || []).includes(1) },
+        { title1: "Item2", key: 2, highlight: (props.keys || []).includes(2) },
+        { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3) },
+        { title1: "Item4", key: 4, highlight: (props.keys || []).includes(4) },
       ], async (key) => {
         if (!props.keys) {
           props.keys = []
@@ -84,7 +84,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         props.keys.toggle(key)
         refresh()
       })
-      await alerter(r)
+
     }}>selector something</b-200>
 
     <b-200 onClick={async () => {
