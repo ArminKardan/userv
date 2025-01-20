@@ -4,6 +4,7 @@ import SerialGenerator from '@/frontend/components/qecomps/SerialGenerator'
 import schedule from 'node-schedule'
 import { ObjectId } from 'mongodb'
 import Cacher from '../Cacher'
+import '@/common/Prototypes'
 
 export default () => {
 
