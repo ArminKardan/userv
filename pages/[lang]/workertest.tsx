@@ -42,8 +42,8 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <br-x />
     <b-200 onClick={async () => {
-      let json = await bridge.send({ api: "upload", title: "عنوان آپلود", text: "آپلود کنیدددد", })
-      console.log(json)
+      let url = uploader({title:"آپلود فایل", text:"فایل مورد نظر رو آپلود کنید", maxmb:1,})
+      console.log(url)
     }}>upload something</b-200>
 
     <br-x />
