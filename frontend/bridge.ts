@@ -52,7 +52,7 @@ export const init = () => {
         return await send({ api: "alerter", title, text, style, watermark })
     }
     global.uploader = async (specs) => {
-        return await send({ api: "uploader", specs })
+        return (await send({ api: "uploader", specs }))?.url || null
     }
 
     global.nexus = {
