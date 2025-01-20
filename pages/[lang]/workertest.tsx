@@ -61,10 +61,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <br-x />
     <b-200 onClick={async () => {
       let r = await picker([
-        { title1: "yes1", key: 1 },
-        { title1: "yes2", key: 2 },
-        { title1: "yes3", key: 3 },
-        { title1: "yes4", key: 4 },
+        { title1: "Item1", key: 1, image:cdn("/files/ok.svg") },
+        { title1: "Item2", key: 2, image:cdn("/files/ok.svg") },
+        { title1: "Item3", key: 3, image:cdn("/files/ok.svg") },
+        { title1: "Item4", key: 4, image:cdn("/files/ok.svg") },
       ])
       await alerter(r)
     }}>pick something</b-200>
