@@ -1,4 +1,20 @@
 
+if (typeof String.prototype.between === 'undefined') {
+    Object.defineProperty(String.prototype, 'between', {
+        value: function (startStr, endStr) {
+            const startIndex = this.indexOf(startStr) + startStr.length;
+            const endIndex = this.indexOf(endStr, startIndex);
+            if (startIndex === -1 || endIndex === -1) {
+                return null; // اگر یکی از رشته‌ها پیدا نشد، null برگردان
+            }
+            return this.slice(startIndex, endIndex);
+        },
+        writable: true,
+        configurable: true,
+        enumerable: false
+    });
+}
+
 if (typeof Array.prototype.includesid === 'undefined') {
 
     Object.defineProperty(Array.prototype, 'includesid', {

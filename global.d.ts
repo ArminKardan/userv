@@ -113,7 +113,7 @@ declare global {
     function MD5(input: string | Buffer): string
 
     interface String {
-        betweenxy(str1: string, str2: string, startindex?: number): string
+        between(str1: string, str2: string): string
     }
     interface Array {
         includesid(object: any)
