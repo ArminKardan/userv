@@ -42,7 +42,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <br-x />
     <b-200 onClick={async () => {
-      let url = uploader({title:"آپلود فایل", text:"فایل مورد نظر رو آپلود کنید", maxmb:1,})
+      let url = await uploader({title:"آپلود فایل", text:"فایل مورد نظر رو آپلود کنید", maxmb:1,})
       console.log(url)
     }}>upload something</b-200>
 
