@@ -4,7 +4,7 @@ import Router from "next/router";
 import { Refresh as apier } from '@/frontend/root/apier'
 import { hasCookie, setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { send } from '../bridge';
-
+import '@/common/Prototypes'
 declare global { var pageProps: any }
 
 
