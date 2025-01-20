@@ -39,6 +39,16 @@ export default () => {
         return hashResult;
     }
 
+    global.SHA256 = (data: string | Buffer) => {
+        if (typeof data != "string" && !(data instanceof Buffer)) {
+            return ""
+        }
+        const hash = crypto.createHash('sha256');
+        hash.update(data);
+        const hashResult = hash.digest('hex');
+        return hashResult;
+    }
+
     global.Schedule = function (hour?: number, minute?: number, second?: number, cb?): any {
         const rule = new schedule.RecurrenceRule();
         if (hour >= 0) {

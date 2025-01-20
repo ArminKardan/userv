@@ -111,6 +111,7 @@ declare global {
     
     var parentdiv: HTMLElement
     function MD5(input: string | Buffer): string
+    function SHA256(input: string | Buffer): string
 
     interface String {
         between(str1: string, str2: string): string
