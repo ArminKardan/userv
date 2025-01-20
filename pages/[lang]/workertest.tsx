@@ -69,6 +69,24 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       await alerter(r)
     }}>pick something</b-200>
 
+
+    <br-x />
+    <b-200 onClick={async () => {
+      let r = await selector(() => [
+        { title1: "yes1", key: 1, highlight: (props.keys || []).includes(1) },
+        { title1: "yes2", key: 2, highlight: (props.keys || []).includes(2) },
+        { title1: "yes3", key: 3, highlight: (props.keys || []).includes(3) },
+        { title1: "yes4", key: 4, highlight: (props.keys || []).includes(4) },
+      ], async (key) => {
+        if (!props.keys) {
+          props.keys = []
+        }
+        props.keys.push(key)
+        refresh()
+      })
+      await alerter(r)
+    }}>selector something</b-200>
+
     <b-200 onClick={async () => {
       Router.push("/")
     }}>goto index</b-200>
