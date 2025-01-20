@@ -81,7 +81,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         if (!props.keys) {
           props.keys = []
         }
-        props.keys.push(key)
+        props.keys.toggle(key)
         refresh()
       })
       await alerter(r)
