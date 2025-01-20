@@ -117,6 +117,7 @@ declare global {
     }
     interface Array {
         includesid(object: any)
+        toggle(object:any)
     }
 
     function Schedule(hour: number, minute: number, second: number, cb: () => ScheduleJob)
