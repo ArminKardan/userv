@@ -3,7 +3,7 @@ import styles from '../styles/styles.module.css'
 import qestyles from '../styles/qe.module.css'
 import { useEffect } from "react";
 import dynamic from 'next/dynamic';
-// const Prompt = dynamic(() => import("@/frontend/root/Prompt.tsx").then(x => x.default), { ssr: false })
+const Prompt = dynamic(() => import("@/frontend/root/Prompt.tsx").then(x => x.default), { ssr: false })
 const QELoader = dynamic(() => import("@/frontend/root/QELoader.tsx").then(x => x.default), { ssr: false })
 
 
@@ -99,6 +99,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Context.Provider value={props.pageid}>
           <div id="wind" style={{ overflowY: "auto", height: "100vh" }} >
+            <Prompt />
             <Component {...props} />
           </div>
         <QELoader />
