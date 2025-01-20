@@ -69,8 +69,6 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       await alerter(r)
     }}>pick something</b-200>
 
-6362141073468747
-
     <br-x />
     <b-200 onClick={async () => {
       await selector(() => [
