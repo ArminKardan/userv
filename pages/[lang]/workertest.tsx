@@ -41,6 +41,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     }}>subscribe to my channel</b-200>
 
     <b-200 onClick={async () => {
+      nexus.sendtochannel("mychannel", "something")
+    }}>send something to my channel</b-200>
+
+    <b-200 onClick={async () => {
       nexus.unsubscribe("mychannel")
     }}>unsubscribe from my channel</b-200>
 
