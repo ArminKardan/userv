@@ -80,10 +80,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <br-x />
     <b-200 onClick={async () => {
       await selector(() => [
-        { title1: "Item1", key: 1, highlight: (props.keys || []).includes(1) },
-        { title1: "Item2", key: 2, highlight: (props.keys || []).includes(2) },
-        { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3) },
-        { title1: "Item4", key: 4, highlight: (props.keys || []).includes(4) },
+        { title1: "Item1", key: 1, highlight: (props.keys || []).includes(1), image: cdn("/files/fire.webp") },
+        { title1: "Item2", key: 2, highlight: (props.keys || []).includes(2), image: cdn("/files/fire.webp") },
+        { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3), image: cdn("/files/fire.webp")},
+        { title1: "Item4", key: 4, highlight: (props.keys || []).includes(4), image: cdn("/files/fire.webp") },
       ], async (key) => {
         if (!props.keys) {
           props.keys = []
