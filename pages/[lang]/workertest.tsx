@@ -93,7 +93,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <b-200 onClick={async () => {
       await alerter("MD5 HASH: " + MD5("hiiii"))
       await alerter("SHA256 HASH: " + SHA256("hiiii"))
-    }}>MD5 hash</b-200>
+    }}>Hash Test</b-200>
 
 
     <b-200 onClick={async () => {
