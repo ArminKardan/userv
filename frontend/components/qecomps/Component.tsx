@@ -128,6 +128,7 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
                             func?.().then(() => { })
                         }
                         else {
+                            console.log("HERE:", global.myjid)
                             global.nexusconnected = { func };
                         }
                     }
