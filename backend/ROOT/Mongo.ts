@@ -27,13 +27,4 @@ export default async () => {
         global.Long = await (await import("mongodb")).Long
     }
 
-    Object.defineProperty(Array.prototype, 'includesid', {
-        value: function (objid) {
-            if (!objid) {
-                return false
-            }
-            return !!this.find(obj => obj.equals(objid))
-        }
-    });
-
 }

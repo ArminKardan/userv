@@ -59,11 +59,6 @@ declare global {
     function closejournal(): void;
     function journals(arg: { items?: any[], jids?: string[] }): void;
   
-    interface String {
-        betweenxy(str1: string, str2: string, startindex?: number): string;
-    }
-
-
     var fs: typeof import('fs');
 
     var user: User

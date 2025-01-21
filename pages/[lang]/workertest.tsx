@@ -12,7 +12,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
   onConnected(async () => {
-    console.log("userv [workertest]: nexus connected...")
+    console.log("userv [workertest]: nexus connected myjid:", global.myjid)
   })
 
   return <Window title="my page" style={{ paddingBottom: 10 }}>
@@ -22,7 +22,6 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       console.log("from parent:", json)
     }}>send ping with bridge</b-200>
 
-
     <b-200 onClick={async () => {
       let json = await nexus.api({ app: "mailer", cmd: "ping" })
       console.log("nexus parent:", json)
@@ -30,8 +29,16 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
     <b-200 onClick={async () => {
-      nexus.msgreceiver = (from, body) => {
-        console.log("im userv received:", from, body)
+      nexus.msgreceiver = (specs) => {
+        if (specs.itsme) {
+          console.log("msg from me:", specs.body)
+        }
+        else if (specs.itsbro) {
+          console.log("msg from bro:", specs.body)
+        }
+        else {
+          console.log("msg from:", specs.from, specs.body)
+        }
       }
     }}>connect msgreceiver</b-200>
 
@@ -82,7 +89,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       await selector(() => [
         { title1: "Item1", key: 1, highlight: (props.keys || []).includes(1), image: cdn("/files/fire.webp") },
         { title1: "Item2", key: 2, highlight: (props.keys || []).includes(2), image: cdn("/files/fire.webp") },
-        { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3), image: cdn("/files/fire.webp")},
+        { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3), image: cdn("/files/fire.webp") },
         { title1: "Item4", key: 4, highlight: (props.keys || []).includes(4), image: cdn("/files/fire.webp") },
       ], async (key) => {
         if (!props.keys) {

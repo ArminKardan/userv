@@ -7,13 +7,14 @@ declare global {
         subscribe: (channel: string) => Promise<void>,
         unsubscribe: (channel: string) => Promise<void>,
         channels: () => Promise<Array<string>>,
-        msgreceiver: (from: string, body: string) => void,
+        msgreceiver: (specs: { from: string, body: string, itsme: boolean, itsbro: boolean }) => void,
         isconnected: () => Promise<boolean>,
         connected: boolean,
         api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => Promise<any>,
         sendtojid: (jid: string, body: string) => Promise<any>,
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }
+    var myjid: string
     function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
     function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
     function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
@@ -65,14 +66,15 @@ export const init = () => {
         channels: async () => {
             return await send({ api: "nexus.channels" })
         },
-        msgreceiver: (from: string, body: string) => { },
+        msgreceiver: () => { },
 
         connected: false,
 
         isconnected: async () => {
-            let c = (await send({ api: "nexus.connected" })).connected
+            let c = (await send({ api: "nexus.connected" }))
             global.nexus.connected = c
-            if (c && !global.nexusfirstconnect) {
+            if (c.connected && !global.nexusfirstconnect) {
+                global.myjid = c.myjid
                 await global.nexusconnected?.func?.()
             }
             return c
@@ -93,11 +95,12 @@ export const init = () => {
             let data = QSON.parse(event.data)
 
             if (data.api == "nexusmsg") {
-                nexus.msgreceiver?.(data.from, data.body)
+                nexus.msgreceiver?.({ from: data.from, body: data.body, itsme: data.itsme, itsbro: data.itsbro })
             }
             else if (data.api == "nexusconnected") {
                 if (!global.nexusfirstconnect) {
                     global.nexusfirstconnect = true
+                    global.myjid = data.myjid
                     await global.nexusconnected?.func?.()
                 }
                 nexus.connected = true
