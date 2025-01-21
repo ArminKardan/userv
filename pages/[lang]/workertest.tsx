@@ -30,15 +30,17 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <b-200 onClick={async () => {
       nexus.msgreceiver = (specs) => {
-        if (specs.itsme) {
-          console.log("msg from me:", specs.body)
-        }
-        else if (specs.itsbro) {
-          console.log("msg from bro:", specs.body)
-        }
-        else {
-          console.log("msg from:", specs.from, specs.body)
-        }
+
+        console.log(specs)
+        // if (specs.itsme) {
+        //   console.log("msg from me:", specs.body)
+        // }
+        // else if (specs.itsbro) {
+        //   console.log("msg from bro:", specs.body)
+        // }
+        // else {
+        //   console.log("msg from:", specs.from, specs.body)
+        // }
       }
     }}>connect msgreceiver</b-200>
 
