@@ -23,7 +23,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     }}>send ping with bridge</b-200>
 
     <b-200 onClick={async () => {
-      let json = await nexus.api({ app: "mailer", cmd: "ping" })
+      let json = await nexus.api({ app: "mailers8", cmd: "ping" })
       console.log("nexus parent:", json)
     }}>send ping to mailer</b-200>
 
