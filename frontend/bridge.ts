@@ -95,7 +95,7 @@ export const init = () => {
             let data = QSON.parse(event.data)
 
             if (data.api == "nexusmsg") {
-                nexus.msgreceiver?.({ from: data.from, body: data.body, itsme: data.itsme, itsbro: data.itsbro })
+                nexus.msgreceiver?.({ from: data.from, body: data.body, itsme: data.itsme, itsbro: data.itsbro, channel: data.channel })
             }
             else if (data.api == "nexusconnected") {
                 if (!global.nexusfirstconnect) {
