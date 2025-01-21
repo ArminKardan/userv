@@ -7,7 +7,7 @@ declare global {
         subscribe: (channel: string) => Promise<void>,
         unsubscribe: (channel: string) => Promise<void>,
         channels: () => Promise<Array<string>>,
-        msgreceiver: (specs: { from: string, body: string, itsme: boolean, itsbro: boolean }) => void,
+        msgreceiver: (specs: { from: string, body: string, itsme: boolean, itsbro: boolean , channel:string }) => void,
         isconnected: () => Promise<boolean>,
         connected: boolean,
         api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => Promise<any>,
