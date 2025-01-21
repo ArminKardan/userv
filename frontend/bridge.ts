@@ -101,6 +101,7 @@ export const init = () => {
                 if (!global.nexusfirstconnect) {
                     global.nexusfirstconnect = true
                     global.myjid = data.myjid
+                    console.log("HERE:", global.myjid)
                     await global.nexusconnected?.func?.()
                 }
                 nexus.connected = true
