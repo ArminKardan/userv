@@ -44,9 +44,9 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <Window title="API Intro Examples" style={{ paddingBottom: 10 }}>
 
       <w-cc style={{ gap: 5, padding: 5 }}>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Print Hello World</b-200>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Add two numbers</b-200>
-        <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Hello World</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>جمع دو عدد</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>آی پی کاربر</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
