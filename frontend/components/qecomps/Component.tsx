@@ -14,7 +14,7 @@ export type ZType = {
 }
 
 export type PageEl = (props: { [key in any]: any },
-    refresh: (object?: { [key in any]: any }) => void, 
+    refresh: (object?: { [key in any]: any }) => void,
     getProps: (callback: () => Promise<void>) => void,
     onConnected: (callback: () => Promise<void>) => void,
     dies: (callback: () => Promise<void>) => void,
@@ -121,21 +121,21 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
                         setState({ ...state })
                     }
                 },
-                async (func) => {
-                    if (!global.xmpppageloaded) {
-                        global.xmpppageloaded = true
-                        if (!state["loaded"] && global.nexus?.connected) {
-                            func?.().then(() => { })
+                    async (func) => {
+                        if (!global.xmpppageloaded) {
+                            global.xmpppageloaded = true
+                            if (!state["loaded"] && global.nexus?.connected) {
+                                func?.().then(() => { })
+                            }
+                            else {
+                                global.nexusconnected = { func };
+                            }
                         }
-                        else {
-                            global.nexusconnected = { func };
-                        }
-                    }
-                },
-                
-                async (func) => {
-                    die.func = func;
-                }, z)}
+                    },
+
+                    async (func) => {
+                        die.func = func;
+                    }, z)}
 
             </div>
         </main> : null}
@@ -150,20 +150,20 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
                 setState({ ...state })
             }
         },
-        async (func) => {
-            if (!global.xmpppageloaded) {
-                global.xmpppageloaded = true
-                if (!state["loaded"] && global.nexus?.connected) {
-                    func?.().then(() => { })
+            async (func) => {
+                if (!global.xmpppageloaded) {
+                    global.xmpppageloaded = true
+                    if (!state["loaded"] && global.nexus?.connected) {
+                        func?.().then(() => { })
+                    }
+                    else {
+                        global.nexusconnected = { func };
+                    }
                 }
-                else {
-                    global.nexusconnected = { func };
-                }
-            }
-        },
-        async (func) => {
-            die.func = func;
-        }, z) : null}
+            },
+            async (func) => {
+                die.func = func;
+            }, z) : null}
 
     </Parent>
 }
@@ -173,6 +173,18 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
 export default (props: any, Page: PageEl, ssr: boolean = false) => {
     let isPage = !!props.pageid
     let z = SSRGlobal(props.pageid)
+
+    if (isPage && typeof window == "undefined") {
+        if (!props.session) {
+            let s = localStorage.getItem("session")
+            if (s) {
+                props.session = JSON.parse(s)
+            }
+        }
+        else {
+            localStorage.setItem("session", QSON.stringify(props.session))
+        }
+    }
     if (isPage) {
         if (!z.user)
             z.user = User(props.session);
