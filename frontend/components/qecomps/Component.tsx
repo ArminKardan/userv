@@ -174,17 +174,18 @@ export default (props: any, Page: PageEl, ssr: boolean = false) => {
     let isPage = !!props.pageid
     let z = SSRGlobal(props.pageid)
 
-    if (isPage && typeof window == "undefined") {
+    if (typeof window != "undefined") {
         if (!props.session) {
             let s = localStorage.getItem("session")
             if (s) {
-                props.session = JSON.parse(s)
+                props.session = QSON.parse(s)
             }
         }
         else {
             localStorage.setItem("session", QSON.stringify(props.session))
         }
     }
+
     if (isPage) {
         if (!z.user)
             z.user = User(props.session);
