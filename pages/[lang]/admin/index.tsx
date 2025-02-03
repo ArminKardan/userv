@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   }
 
 
-  console.log(role)
+  console.log("ROLE: ",role)
 
   if (!rolecheck(["admin"])) {
     return await Prosper({
