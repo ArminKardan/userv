@@ -14,7 +14,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
   return <Window title="چاپ خوش آمدگویی به دنیا" >
     <br-x/>
-    <b-200 onClick={async () => { alerter(await API["addnumbers"]({ a: 10, b: 20 })) }}>جمع اعداد</b-200>
+    <b-200 onClick={async () => { await API["helloworld"](null)}}>چاپ روی کنسول بک اند</b-200>
   </Window>
 }
 
