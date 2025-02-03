@@ -18,9 +18,8 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <w-cc style={{gap:5, padding:5}}>
       <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
       <b-200 onClick={async () => { Router.push(z.root + "/examples/user") }}>مشخصات کاربر</b-200>
-
-      <b-200 onClick={async () => { Router.push(z.root + "/calculator") }}>Calculator</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>Goto ex1</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>کاشین حساب</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>تغییر رنگ</b-200>
       <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
       <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
       <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
