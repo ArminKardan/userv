@@ -9,9 +9,13 @@ import Copy from '@/frontend/components/qecomps/Copy';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
-  return <Window title="دریافت آی پی کاربر" >
-    <br-x/>
-    <b-200 onClick={async () => { alerter(await API["userip"](null)) }}>آی پی کاربر</b-200>
+  return <Window title="زمان رفت و برگشت" >
+    <br-x />
+    <b-200 onClick={async () => {
+      let start = new Date()
+      let json = await API["ping"](null)
+     alerter(`${new Date().getTime() - start.getTime()} milliseconds`)
+    }}>آی پی کاربر</b-200>
   </Window>
 }
 
