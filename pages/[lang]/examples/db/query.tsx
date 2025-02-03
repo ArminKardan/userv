@@ -6,10 +6,10 @@ import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
-  return <Window title="Insert to test collection" >
+  return <Window title="Query for test collection" >
     <br-x />
     <b-200 onClick={async () => {
-      let json = await API["db/insert"]({ mykey: "myvalue" })
+      let json = await API["db/query"]({})
       alerter(json)
     }}>اضافه کردن داکیومنت</b-200>
   </Window>
