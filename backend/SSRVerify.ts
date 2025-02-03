@@ -91,7 +91,9 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   }
 
 
+  console.log("SESSION:", context?.query?.session)
 
+  
   let session = JSON.parse((context?.query?.session as string) || `{}`)
 
   let cookies = await import("cookies-next")
