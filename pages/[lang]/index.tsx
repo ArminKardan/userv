@@ -17,7 +17,8 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       <w-cc style={{ gap: 5, padding: 5 }}>
         <b-200 onClick={async () => {
           await alerter("Hello world")
-          await alerter("Bar Foo")
+          await alerter(JSON.stringify({ key1: "value1", key2: "value2" }, null, 2))
+          await alerter({ key1: "value1", key2: "value2" })
         }}>Alerter</b-200>
 
         <b-200 onClick={async () => {
