@@ -1,5 +1,5 @@
 type T = Parameters<typeof F>[0]; type R = ReturnType<typeof F>
-declare global { interface API { "db/query2": (T: T) => R } var API: API }
+declare global { interface API { "db/query": (T: T) => R } var API: API }
 export default async function F(T: any, C: APISession,) {
   
   let c = udb.collection("test")

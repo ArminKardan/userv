@@ -9,9 +9,9 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
   return <Window title="Query for test collection" >
     <br-x />
     <b-200 onClick={async () => {
-      let json = await API["db/query"]({})
+      let json = await API["db/delete"]({})
       alerter(json)
-    }}>اجرای کوئری</b-200>
+    }}>حذف داکیومنت ها</b-200>
   </Window>
 }
 
