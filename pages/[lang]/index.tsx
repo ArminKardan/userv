@@ -44,7 +44,8 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <Window title="API Intro Examples" style={{ paddingBottom: 10 }}>
 
       <w-cc style={{ gap: 5, padding: 5 }}>
-        <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Print Hello World</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Add two numbers</b-200>
         <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
