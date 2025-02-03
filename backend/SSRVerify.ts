@@ -95,26 +95,26 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   
   let session = JSON.parse((context?.query?.session as string) || `{}`)
 
-  let cookies = await import("cookies-next")
-  if (session?.uid) {
-    cookies.deleteCookie("sid", { req: context.req, res: context.res })
-    let sid = SerialGenerator(10)
-    cookies.setCookie("sid", SerialGenerator(10), { req: context.req, res: context.res, partitioned: true })
-    if(!global.sids)
-    {
-      global.sids = {}
-    }
-    global.sids[sid]
-    
-  }
-  else {
-    if (cookies.hasCookie("session", { req: context.req, res: context.res })) {
-      try {
-        session = cookies.getCookie("session", { req: context.req, res: context.res })
-        session = JSON.parse(decodeURIComponent(session))
-      } catch { }
-    }
-  }
+  // let cookies = await import("cookies-next")
+  // if (session?.uid) {
+  //   cookies.deleteCookie("sid", { req: context.req, res: context.res })
+  //   let sid = SerialGenerator(10)
+  //   cookies.setCookie("sid", SerialGenerator(10), { req: context.req, res: context.res, partitioned: true })
+  //   if(!global.sids)
+  //   {
+  //     global.sids = {}
+  //   }
+  //   global.sids[sid]
+
+  // }
+  // else {
+  //   if (global.sids[sid]) {
+  //     try {
+  //       session = cookies.getCookie("session", { req: context.req, res: context.res })
+  //       session = JSON.parse(decodeURIComponent(session))
+  //     } catch { }
+  //   }
+  // }
 
   let userip = (requestIp.getClientIp(context.req)?.replace("::ffff:", "")) || "::"
   var lang = context.resolvedUrl.substr(1, 3)
