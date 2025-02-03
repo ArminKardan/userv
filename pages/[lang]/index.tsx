@@ -11,7 +11,7 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  return <div>
+  return <div style={{direction: z.lang.dir}}>
 
     <Window title="Dialog Examples" style={{ paddingBottom: 10 }}>
       <w-cc style={{ gap: 5, padding: 5 }}>
