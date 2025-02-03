@@ -16,7 +16,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <Window title="Dialog Examples" style={{ paddingBottom: 10 }}>
       <w-cc style={{ gap: 5, padding: 5 }}>
         <b-200 onClick={async () => { alerter("Hello world") }}>Alerter</b-200>
-        <b-200 onClick={async () => { alerter("Hello world") }}>Alerter</b-200>
+        <b-200 onClick={async () => {
+          let v = await prompter("interests", "please enter your interests?")
+          await alerter(v)
+        }}>Prompter</b-200>
       </w-cc>
     </Window>
 
