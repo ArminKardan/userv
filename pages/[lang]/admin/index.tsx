@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   var session = await global.SSRVerify(context)
   var { uid, name, image, imageprop, lang, cchar,
     unit, workspace, servid, servsecret, rolecheck,
-    usedquota, quota, quotaunit, status, regdate, expid,
+    usedquota, quota, quotaunit, status, regdate, expid,localuser,
     role, path, devmod, userip, pageid } = session;
 
   let keys = ["region", "dir", "ff", "ffb", "support", "code", "textw", "txtmt"]
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   }
 
 
-  console.log("ROLE: ",role)
+  console.log("ROLE: ",localuser)
 
   if (!rolecheck(["admin"])) {
     return await Prosper({

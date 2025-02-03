@@ -219,6 +219,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   return {
     ...session,
     ...srv,
+    localuser,
     role: localuser?.role || null,
     rolecheck: (check) => rolecheck(check, localuser?.role || []),
     nodeenv: global.nodeenv,
