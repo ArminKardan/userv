@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
       nlangs[l] = global.langs[lang][l]
   }
 
-  if (!rolecheck(["admin"])) {
+  if (rolecheck(["admin"])) {
     return await Prosper({
       redirect: {
         permanent: false,
