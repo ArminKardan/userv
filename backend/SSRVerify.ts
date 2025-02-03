@@ -92,24 +92,27 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
-
+  let sid = ""
   let cookies = await import("cookies-next")
   if (!session) {
     if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
       try {
-        let sid = cookies.getCookie("sid", { req: context.req, res: context.res })
+        sid = cookies.getCookie("sid", { req: context.req, res: context.res })
         session = global.sessioner[sid]
       } catch { }
     }
   }
   else {
-    let sid = MD5(context?.query?.session as string || "")
+    sid = MD5(context?.query?.session as string || "")
     if (!global.sessioner) {
       global.sessioner = {}
     }
     cookies.setCookie("sid", sid, { req: context.req, res: context.res })
     global.sessioner[sid] = session
   }
+
+
+  console.log("SESSSSSSIOON:", session)
 
 
   // let cookies = await import("cookies-next")
