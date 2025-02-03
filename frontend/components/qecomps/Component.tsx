@@ -174,22 +174,22 @@ export default (props: any, Page: PageEl, ssr: boolean = false) => {
     let isPage = !!props.pageid
     let z = SSRGlobal(props.pageid)
 
-    if (typeof window != "undefined") {
-        if (!props.session?.uid) {
-            let s = localStorage.getItem("session")
-            if (s) {
-                let ss = QSON.parse(s)
-                for(let key of Object.keys(ss))
-                {
-                    props.session[key] = ss[key]
-                }
+    // if (typeof window != "undefined") {
+    //     if (!props.session?.uid) {
+    //         let s = localStorage.getItem("session")
+    //         if (s) {
+    //             let ss = QSON.parse(s)
+    //             for(let key of Object.keys(ss))
+    //             {
+    //                 props.session[key] = ss[key]
+    //             }
                 
-            }
-        }
-        else {
-            localStorage.setItem("session", QSON.stringify(props.session))
-        }
-    }
+    //         }
+    //     }
+    //     else {
+    //         localStorage.setItem("session", QSON.stringify(props.session))
+    //     }
+    // }
 
     if (isPage) {
         if (!z.user)

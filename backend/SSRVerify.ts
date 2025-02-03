@@ -92,9 +92,11 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
+
+
   let sid = ""
   let cookies = await import("cookies-next")
-  if (!session) {
+  if (!session?.uid) {
     if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
       try {
         sid = cookies.getCookie("sid", { req: context.req, res: context.res })
