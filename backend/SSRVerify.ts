@@ -100,14 +100,12 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
       try {
         sid = cookies.getCookie("sid", { req: context.req, res: context.res })
-        console.log("SIIIIIIIIIIID FROM COOKIE:", sid)
         session = global.sessioner[sid]
       } catch { }
     }
   }
   else {
     sid = MD5(context?.query?.session as string || "")
-    console.log("SIIIIIIIIIIID FROM MD555555555:", sid)
     if (!global.sessioner) {
       global.sessioner = {}
     }
@@ -193,7 +191,6 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
       let u = global.udb.collection("users")
       localuser = await u.findOne({ uid: session.uid })
 
-      console.log("LOCAL IS:", localuser)
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
