@@ -12,10 +12,9 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
   return <Window title="Insert to test collection" >
     <br-x />
     <b-200 onClick={async () => {
-      let start = new Date()
-      let json = await API["ping"](null)
-     alerter(`${new Date().getTime() - start.getTime()} milliseconds`)
-    }}>ارسال پینگ</b-200>
+      let json = await API["db/insert"]({ mykey: "myvalue" })
+      alerter(json)
+    }}>اضافه کردن داکیومنت</b-200>
   </Window>
 }
 

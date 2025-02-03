@@ -4,5 +4,5 @@ export default async function F(T: any, C: APISession,) {
   
   let c = udb.collection("test")
   let res = await c.insertOne(T)
-
+  return res
 }
