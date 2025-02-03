@@ -1,10 +1,7 @@
 
 import Component, { PageEl } from '@/frontend/components/qecomps/Component'
 import Window from '@/frontend/components/qecomps/Window';
-import { useEffect } from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import Router from 'next/router'
-import Copy from '@/frontend/components/qecomps/Copy';
 
 export default p => Component(p, Page);
 
