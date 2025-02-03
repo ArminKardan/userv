@@ -107,7 +107,6 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (!global.sessioner) {
       global.sessioner = {}
     }
-    // cookies.deleteCookie("session", { req: context.req, res: context.res })
     cookies.setCookie("sid", sid, { req: context.req, res: context.res })
     global.sessioner[sid] = session
   }
