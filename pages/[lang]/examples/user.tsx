@@ -11,31 +11,9 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  getProps(async () => {
-    props.counter = 0
-    props.asc = true
-    let c = setInterval(() => {
-      if (props.asc) {
-        props.counter++;
-      }
-      else {
-        props.counter--
-      }
-      if (props.counter >= 10) {
-        props.asc = false
-      }
-      if (props.counter < 0) {
-        clearInterval(c)
-      }
-
-      refresh()
-    }, 1000);
-  })
-
-
   return <Window title="examples" style={{ paddingBottom: 10 }}>
     <pre>
-      {props.counter}
+      {JSON.stringify(props, null, 2)}
     </pre>
   </Window>
 }
