@@ -36,7 +36,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
       nlangs[l] = global.langs[lang][l]
   }
 
-  console.log(name)
 
   let obj = await Prosper({
     props: {
