@@ -15,7 +15,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       let start = new Date()
       let json = await API["ping"](null)
      alerter(`${new Date().getTime() - start.getTime()} milliseconds`)
-    }}>آی پی کاربر</b-200>
+    }}>ارسال پینگ</b-200>
   </Window>
 }
 
