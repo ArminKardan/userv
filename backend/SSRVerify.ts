@@ -90,23 +90,18 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     await new Promise(r => setInterval(() => global.langs["fa"] ? r(null) : null, 200))
   }
 
-
-  console.log("SESSION:", context?.query?.session)
-
-  
   let session = JSON.parse((context?.query?.session as string) || `{}`)
 
-  let cookies = await import("cookies-next")
   if (session?.uid) {
-    cookies.deleteCookie("session", { req: context.req, res: context.res })
-    cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res, partitioned: true })
+    localStorage.setItem("user", JSON.stringify(session))
   }
   else {
-    if (cookies.hasCookie("session", { req: context.req, res: context.res })) {
-      try {
-        session = cookies.getCookie("session", { req: context.req, res: context.res })
-        session = JSON.parse(decodeURIComponent(session))
-      } catch { }
+    let s = localStorage.getItem("user")
+    if(s)
+    {
+      try{
+        session = JSON.parse(s)
+      } catch{}
     }
   }
 
