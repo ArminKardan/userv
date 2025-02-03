@@ -57,8 +57,8 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       <w-cc style={{ gap: 5, padding: 5 }}>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/db/insert") }}>اضافه کردن داکیومنت</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/delete") }}>حذف داکیومنت</b-200>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/userip") }}>آی پی کاربر</b-200>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/getusers") }}>لیست کاربران</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/query") }}>جست و جو</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/update") }}>تغییر داکیومنت</b-200>
       </w-cc>
 
     </Window>
