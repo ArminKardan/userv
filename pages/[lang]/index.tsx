@@ -20,7 +20,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       <w-cc style={{ gap: 5, padding: 5 }}>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/user") }}>مشخصات کاربر</b-200>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>کاشین حساب</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>ماشین حساب</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>تغییر رنگ</b-200>
       </w-cc>
 
