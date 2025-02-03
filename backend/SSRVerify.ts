@@ -37,7 +37,7 @@ export type SSRSession = {
   regdate: number,
   expid: ObjectId,
   role: string | null,
-  rolecheck: (check:Array<RoleName>) => boolean,
+  rolecheck: (check: Array<RoleName>) => boolean,
   path: string,
   devmod: boolean,
   userip: string,
@@ -92,6 +92,40 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
+
+  let cookies = await import("cookies-next")
+  if (!session) {
+    if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
+      try {
+        let sid = cookies.getCookie("sid", { req: context.req, res: context.res })
+        session = global.sessioner[sid]
+      } catch { }
+    }
+  }
+  else {
+    let sid = MD5(context?.query?.session as string || "")
+    if (!global.sessioner) {
+      global.sessioner = {}
+    }
+    // cookies.deleteCookie("session", { req: context.req, res: context.res })
+    cookies.setCookie("sid", sid, { req: context.req, res: context.res })
+    global.sessioner[sid] = session
+  }
+
+
+  // let cookies = await import("cookies-next")
+  // if (session?.uid) {
+  //   cookies.deleteCookie("session", { req: context.req, res: context.res })
+  //   cookies.setCookie("session", JSON.stringify(session), { req: context.req, res: context.res, partitioned: true })
+  // }
+  // else {
+  //   if (cookies.hasCookie("session", { req: context.req, res: context.res })) {
+  //     try {
+  //       session = cookies.getCookie("session", { req: context.req, res: context.res })
+  //       session = JSON.parse(decodeURIComponent(session))
+  //     } catch { }
+  //   }
+  // }
 
   let userip = (requestIp.getClientIp(context.req)?.replace("::ffff:", "")) || "::"
   var lang = context.resolvedUrl.substr(1, 3)
