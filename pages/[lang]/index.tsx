@@ -11,7 +11,7 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  return <div style={{direction: z.lang.dir}}>
+  return <div style={{ direction: z.lang.dir }}>
 
     <Window title="Dialog Examples" style={{ paddingBottom: 10 }}>
       <w-cc style={{ gap: 5, padding: 5 }}>
@@ -21,9 +21,14 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         }}>Alerter</b-200>
 
         <b-200 onClick={async () => {
-          let v = await prompter("interests", "please enter your interests?")
+          let v = await prompter("علایق", "لطفا علایق خود  را بنویسید؟")
           await alerter(v)
         }}>Prompter</b-200>
+
+        <b-200 onClick={async () => {
+          let v = await prompter("علایق", "لطفا علایق خود  را بنویسید؟", 10000, true, "متن پیشفرض")
+          await alerter(v)
+        }}>Prompter-options</b-200>
 
         <b-200 onClick={async () => {
           let url = await uploader({ title: "آپلود فایل", text: "فایل مورد نظر رو آپلود کنید", maxmb: 1, })
