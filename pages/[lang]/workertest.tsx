@@ -17,37 +17,41 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
   return <Window title="my page" style={{ paddingBottom: 10 }}>
 
-    <b-200 onClick={async () => {
-      let json = await bridge.send({ api: "ping" })
-      console.log("from parent:", json)
-    }}>send ping with bridge</b-200>
 
-    <b-200 onClick={async () => {
-      let json = await nexus.api({ app: "mailers8", cmd: "ping" })
-      console.log("nexus parent:", json)
-    }}>send ping to mailer</b-200>
+    <w-c style={{ gap: 3 , padding:3}}>
+      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        let json = await bridge.send({ api: "ping" })
+        console.log("from parent:", json)
+      }}>send ping with bridge</b-200>
+
+      
+      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        let json = await nexus.api({ app: "mailers8", cmd: "ping" })
+        console.log("nexus parent:", json)
+      }}>send ping to mailer</b-200>
+      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        nexus.msgreceiver = (specs) => {
+          console.log(specs)
+        }
+      }}>connect msgreceiver</b-200>
+
+      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        nexus.subscribe("mychannel")
+      }}>subscribe to my channel</b-200>
+
+      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        await nexus.sendtochannel("mychannel", "something")
+      }}>send something to my channel</b-200>
+
+      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+        nexus.unsubscribe("mychannel")
+      }}>unsubscribe from my channel</b-200>
+
+    </w-c>
 
 
-    <b-200 onClick={async () => {
-      nexus.msgreceiver = (specs) => {
-        console.log(specs)
-      }
-    }}>connect msgreceiver</b-200>
 
 
-    <b-200 onClick={async () => {
-      nexus.subscribe("mychannel")
-    }}>subscribe to my channel</b-200>
-
-    <b-200 onClick={async () => {
-      await nexus.sendtochannel("mychannel", "something")
-    }}>send something to my channel</b-200>
-
-    <b-200 onClick={async () => {
-      nexus.unsubscribe("mychannel")
-    }}>unsubscribe from my channel</b-200>
-
-    <br-x />
     <b-200 onClick={async () => {
       let url = await uploader({ title: "آپلود فایل", text: "فایل مورد نظر رو آپلود کنید", maxmb: 1, })
       console.log(url)

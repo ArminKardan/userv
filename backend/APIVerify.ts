@@ -96,7 +96,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<APISes
     srv = global._srvs.find(s => s.servid == session.servid && s.servsecret == session.servsecret)
 
     if (global.devmode || !srv || (new Date().getTime() - srv.created) > 60000) {
-      srv = await api("http://192.168.1.10:3000/api/userv/servid", {
+      srv = await api("https://qepal.com/api/userv/servid", {
         uid: session.uid ? session.uid.toString() : null,
         usersecrethash: session.usersecrethash,
         servid: session.servid,

@@ -12,7 +12,7 @@ export default async function F(T: any, C: APISession,) {
   }
   let users = await udb.collection("users").find(T || {}).project({ _id: 0, uid: 1, lastseen:1, role:1, userip:1 }).toArray()
 
-  let resp:Users = (await api("http://192.168.1.10:3000/api/userv/getusers", { uids: users.map(u => u.uid.toString()) }))
+  let resp:Users = (await api("https://qepal.com/api/userv/getusers", { uids: users.map(u => u.uid.toString()) }))
 
   if(resp.code == 0)
   {

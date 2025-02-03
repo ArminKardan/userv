@@ -11,45 +11,21 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  onConnected(async () => {
-    console.log("userv [index]: nexus connected...")
-  })
-
-
-  getProps(async () => {
-    props.counter = 0
-    props.asc = true
-    let c = setInterval(() => {
-      if (props.asc) {
-        props.counter++;
-      }
-      else {
-        props.counter--
-      }
-      if (props.counter >= 10) {
-        props.asc = false
-      }
-      if (props.counter < 0) {
-        clearInterval(c)
-      }
-
-      refresh()
-    }, 1000);
-  })
-
-
-  return <Window title="my page" style={{ paddingBottom: 10 }}>
+  return <Window title="examples" style={{ paddingBottom: 10 }}>
 
     {/* <pre>{JSON.stringify(z.user, null, 2)}</pre> */}
 
-    <b-200>{props.counter}</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/calculator") }}>Calculator</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>Goto ex1</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
-    <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
-    <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
+    <w-cc style={{gap:5, padding:5}}>
+      <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/calculator") }}>Calculator</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>Goto ex1</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
+      <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
+      <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
+    </w-cc>
+
 
     {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
 
