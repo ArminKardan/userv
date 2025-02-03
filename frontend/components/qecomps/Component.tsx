@@ -178,7 +178,12 @@ export default (props: any, Page: PageEl, ssr: boolean = false) => {
         if (!props.session?.uid) {
             let s = localStorage.getItem("session")
             if (s) {
-                props.session = QSON.parse(s)
+                let ss = QSON.parse(s)
+                for(let key of Object.keys(ss))
+                {
+                    props.session[key] = ss[key]
+                }
+                
             }
         }
         else {
