@@ -13,7 +13,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
   return <Window title="examples" style={{ paddingBottom: 10 }}>
     <pre>
-      {JSON.stringify(props, null, 2)}
+      {JSON.stringify(z, null, 2)}
     </pre>
   </Window>
 }
