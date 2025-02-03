@@ -9,31 +9,12 @@ import Copy from '@/frontend/components/qecomps/Copy';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
-
-
-
-  return <Window title="add two numbers on backend" style={{ height: "900px" }}>
-
-
-<b-200 onClick={async ()=>{
-       let resp = await API["insertuser"](null);
-      
-       alerter(resp)
-      }}>INSERT TO USERS</b-200>
-
-
-<b-200 onClick={async ()=>{
-       let resp = await API["readusers"](null);
-      
-       alerter(resp)
-      }}>READ USERS</b-200>
-
-
-
-
-
+  return <Window title="دریافت آی پی کاربر" >
+    <br-x/>
+    <b-200 onClick={async () => { alerter(await API["getuserip"](null)) }}>آی پی کاربر</b-200>
   </Window>
 }
+
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
