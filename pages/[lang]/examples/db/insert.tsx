@@ -9,54 +9,17 @@ import Copy from '@/frontend/components/qecomps/Copy';
 export default p => Component(p, Page);
 
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
-
-  getProps(async () => {
-    props.text = "hello"
-    props.target = ""
-  })
-
-
-  return <Window title="my page" style={{ height: "900px" }}>
-      <f-cc>
-        <f-15 style={{color: props.color}}>{props.target}</f-15>
-      </f-cc>
-      <b-200 onClick={()=>{
-        props.target += props.text[0]
-        props.text = props.text.slice(1)
-        refresh()
-      }}>OK</b-200>
-
-      <b-200 onClick={async ()=>{
-       let resp = await API["ip"](null);
-        alerter(resp)
-     
-       //  let resp = await API["api1"]({reza:"im rezaaaaaaa"});
-       
-      }}>RUN ON BACKEND</b-200>
-
-
-
-
-
-<b-200 onClick={async ()=>{
-       let resp = await API["insertuser"](null);
-      
-       alerter(resp)
-      }}>INSERT TO USERS</b-200>
-
-
-<b-200 onClick={async ()=>{
-       let resp = await API["readusers"](null);
-      
-       alerter(resp)
-      }}>READ USERS</b-200>
-
-
-
-
-
+  return <Window title="Insert to test collection" >
+    <br-x />
+    <b-200 onClick={async () => {
+      let start = new Date()
+      let json = await API["ping"](null)
+     alerter(`${new Date().getTime() - start.getTime()} milliseconds`)
+    }}>ارسال پینگ</b-200>
   </Window>
 }
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
