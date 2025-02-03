@@ -47,7 +47,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>جمع دو عدد</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/getuserip") }}>آی پی کاربر</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/ping") }}>پینگ</b-200>
-        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/getusers") }}>لیست کاربران</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/userlist") }}>لیست کاربران</b-200>
       </w-cc>
     </Window>
 

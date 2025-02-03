@@ -13,9 +13,9 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <br-x />
     <b-200 onClick={async () => {
       let start = new Date()
-      let json = await API["ping"](null)
-     alerter(`${new Date().getTime() - start.getTime()} milliseconds`)
-    }}>ارسال پینگ</b-200>
+      let json = await API["getusers"](null)
+     alerter(json)
+    }}>لیست کاربران</b-200>
   </Window>
 }
 

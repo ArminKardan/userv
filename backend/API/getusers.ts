@@ -7,9 +7,11 @@ export default async function F(T: any, C: APISession,) {
   type Users = {code:number, users:Array<{uid:string, name:string, image:string, imageprop:any, cchar:string, signature:string,
     userip:string, lastseen:string,role:Array<RoleName>
   }>}
-  if (!C.rolecheck(["admin"])) {
-    return { code: -1 } as Users
-  }
+
+  // if (!C.rolecheck(["admin"])) {
+  //   return { code: -1 } as Users
+  // }
+
   let users = await udb.collection("users").find(T || {}).project({ _id: 0, uid: 1, lastseen:1, role:1, userip:1 }).toArray()
 
   let resp:Users = (await api("https://qepal.com/api/userv/getusers", { uids: users.map(u => u.uid.toString()) }))
