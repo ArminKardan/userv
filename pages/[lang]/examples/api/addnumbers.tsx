@@ -13,7 +13,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
   return <Window title="جمع دو عدد سمت بک اند" style={{ height: "900px" }}>
-    <b-200 onClick={() => { alerter(API["addnumbers"]({ a: 10, b: 20 })) }}>جمع</b-200>
+    <b-200 onClick={async () => { alerter(await API["addnumbers"]({ a: 10, b: 20 })) }}>جمع</b-200>
   </Window>
 }
 
