@@ -4,4 +4,5 @@ declare global { interface API { "helloworld": (T: T) => R } var API: API }
 
 export default async function F(T: null, C: APISession,) {
   console.log("Hello world!")
+  return 0
 }
