@@ -15,25 +15,25 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
   return <Window title="add two numbers on backend" style={{ height: "900px" }}>
 
 
-      <b-200 onClick={()=>{ API[""]}}>OK</b-200>
+    <b-200 onClick={() => { alerter(API["addnumbers"]({ a: 10, b: 20 })) }}>جمع</b-200>
 
 
 
 
 
 
-<b-200 onClick={async ()=>{
-       let resp = await API["insertuser"](null);
-      
-       alerter(resp)
-      }}>INSERT TO USERS</b-200>
+    <b-200 onClick={async () => {
+      let resp = await API["insertuser"](null);
+
+      alerter(resp)
+    }}>INSERT TO USERS</b-200>
 
 
-<b-200 onClick={async ()=>{
-       let resp = await API["readusers"](null);
-      
-       alerter(resp)
-      }}>READ USERS</b-200>
+    <b-200 onClick={async () => {
+      let resp = await API["readusers"](null);
+
+      alerter(resp)
+    }}>READ USERS</b-200>
 
 
 
