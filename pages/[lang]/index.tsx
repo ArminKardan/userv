@@ -115,6 +115,16 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     </Window>
 
 
+    <Window title="Admin Examples" style={{ paddingBottom: 10 }}>
+      <w-cc style={{ gap: 5, padding: 5 }}>
+        <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>صفحه ادمین</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/db/delete") }}>حذف داکیومنت</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/db/query") }}>اجرای کوئری</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/db/update") }}>تغییر داکیومنت</b-200>
+      </w-cc>
+    </Window>
+
+
 
   </div>
 }
