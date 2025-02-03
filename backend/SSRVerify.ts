@@ -112,7 +112,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   }
 
 
-  console.log("SESSSSSSIOON:", session)
+  console.log("SIIIIIIIIIIIIID:", sid)
 
 
   // let cookies = await import("cookies-next")
