@@ -24,9 +24,6 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       if (props.counter >= 10) {
         props.asc = false
       }
-      if (props.counter < 0) {
-        clearInterval(c)
-      }
 
       refresh()
     }, 1000);
