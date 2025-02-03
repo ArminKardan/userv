@@ -11,27 +11,25 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-  return <Window title="examples" style={{ paddingBottom: 10 }}>
+  return <div>
 
-    {/* <pre>{JSON.stringify(z.user, null, 2)}</pre> */}
+    <Window title="مثال مقدماتی" style={{ paddingBottom: 10 }}>
 
-    <w-cc style={{gap:5, padding:5}}>
-      <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/examples/user") }}>مشخصات کاربر</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>کاشین حساب</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>تغییر رنگ</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
-      <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
-      <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
-    </w-cc>
+      {/* <pre>{JSON.stringify(z.user, null, 2)}</pre> */}
+
+      <w-cc style={{ gap: 5, padding: 5 }}>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/user") }}>مشخصات کاربر</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>کاشین حساب</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>تغییر رنگ</b-200>
+      </w-cc>
 
 
-    {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
 
-    {/* <pre>{JSON.stringify(z.user,null, 2)}</pre> */}
-    {/* <br-x />
+      {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
+
+      {/* <pre>{JSON.stringify(z.user,null, 2)}</pre> */}
+      {/* <br-x />
     <b-200 onClick={async () => { await alerter("hi!") }}>Alerter</b-200>
     <br-xxx />
     <b-200 onClick={async () => { Copy(z.user.uid); success("کپی شد") }}>Copy UID</b-200>
@@ -40,7 +38,42 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <br-xxx />
     <b-200 onClick={async () => { Router.push(z.root+"/calculator") }}>Calculator</b-200>
     <pre style={{ fontSize: 12 }}>{JSON.stringify(z.user, null, 2)}</pre> */}
-  </Window>
+    </Window>
+
+
+    <Window title="مثال API" style={{ paddingBottom: 10 }}>
+
+      {/* <pre>{JSON.stringify(z.user, null, 2)}</pre> */}
+
+
+      <w-cc style={{ gap: 5, padding: 5 }}>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/counter") }}>شمارنده</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/user") }}>مشخصات کاربر</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/calculator") }}>کاشین حساب</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/ex1") }}>تغییر رنگ</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/ex2") }}>Goto ex2</b-200>
+        <b-200 onClick={async () => { alerter(await API["getusers"]({})) }}>Users</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
+      </w-cc>
+
+
+      {/* <pre>{JSON.stringify(props,null,2)}</pre> */}
+
+      {/* <pre>{JSON.stringify(z.user,null, 2)}</pre> */}
+      {/* <br-x />
+<b-200 onClick={async () => { await alerter("hi!") }}>Alerter</b-200>
+<br-xxx />
+<b-200 onClick={async () => { Copy(z.user.uid); success("کپی شد") }}>Copy UID</b-200>
+<br-xxx />
+<b-200 onClick={async () => { Router.push(z.root+"/admin")}}>Admin Page</b-200>
+<br-xxx />
+<b-200 onClick={async () => { Router.push(z.root+"/calculator") }}>Calculator</b-200>
+<pre style={{ fontSize: 12 }}>{JSON.stringify(z.user, null, 2)}</pre> */}
+    </Window>
+
+  </div>
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
