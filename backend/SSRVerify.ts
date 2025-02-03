@@ -98,12 +98,14 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
       try {
         sid = cookies.getCookie("sid", { req: context.req, res: context.res })
+        console.log("SIIIIIIIIIIID FROM COOKIE:", sid)
         session = global.sessioner[sid]
       } catch { }
     }
   }
   else {
     sid = MD5(context?.query?.session as string || "")
+    console.log("SIIIIIIIIIIID FROM MD555555555:", sid)
     if (!global.sessioner) {
       global.sessioner = {}
     }
@@ -113,7 +115,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
   }
 
 
-  console.log("SIIIIIIIIIIIIID:", sid)
+
 
 
   // let cookies = await import("cookies-next")
