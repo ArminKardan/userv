@@ -175,7 +175,7 @@ export default (props: any, Page: PageEl, ssr: boolean = false) => {
     let z = SSRGlobal(props.pageid)
 
     if (typeof window != "undefined") {
-        if (!props.session) {
+        if (!props.session?.uid) {
             let s = localStorage.getItem("session")
             if (s) {
                 props.session = QSON.parse(s)
