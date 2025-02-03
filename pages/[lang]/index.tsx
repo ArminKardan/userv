@@ -15,11 +15,31 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
     <Window title="Dialog Examples" style={{ paddingBottom: 10 }}>
       <w-cc style={{ gap: 5, padding: 5 }}>
-        <b-200 onClick={async () => { alerter("Hello world") }}>Alerter</b-200>
+        <b-200 onClick={async () => {
+          await alerter("Hello world")
+          await alerter("Bar Foo")
+        }}>Alerter</b-200>
+
         <b-200 onClick={async () => {
           let v = await prompter("interests", "please enter your interests?")
           await alerter(v)
         }}>Prompter</b-200>
+
+        <b-200 onClick={async () => {
+          let url = await uploader({ title: "آپلود فایل", text: "فایل مورد نظر رو آپلود کنید", maxmb: 1, })
+          console.log(url)
+        }}>Upload</b-200>
+
+        <b-200 onClick={async () => {
+          let r = await picker([
+            { title1: "Item1", key: 1, image: cdn("/files/ok.svg") },
+            { title1: "Item2", key: 2, image: cdn("/files/ok.svg") },
+            { title1: "Item3", key: 3, image: cdn("/files/ok.svg") },
+            { title1: "Item4", key: 4, image: cdn("/files/ok.svg") },
+          ])
+          await alerter(r)
+        }}>Picker</b-200>
+
       </w-cc>
     </Window>
 
