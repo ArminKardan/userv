@@ -151,6 +151,8 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (session.uid && session.usersecrethash && srv && srv.code == 0) {
       let u = global.udb.collection("users")
       localuser = await u.findOne({ uid: session.uid })
+
+      console.log("LOCAL IS:", localuser)
       if (!localuser) {
         await udb.collection("users").insertOne({
           uid: session.uid,
@@ -360,9 +362,6 @@ const VisitorUpdate = (uid: string, userip: string, lang: string) => {
   global.visitorsD1[uid].lastseen = new Date().getTime() + (global.timeoffset || 0)
 
 }
-
-
-
 function getAllFiles(dirPath, rootPath) {
 
   let path = require("path")
