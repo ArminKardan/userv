@@ -4,7 +4,7 @@ import importer from "@/frontend/components/qecomps/importer"
 export default async () => {
     setInterval(async () => {
 
-        if(!API?.["test"])
+        if(!API?.["request"])
         {
             console.log("starting APIs...")
         }
