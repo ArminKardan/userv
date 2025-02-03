@@ -11,11 +11,15 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
-
-  return <Window title="جمع دو عدد سمت بک اند" style={{ height: "900px" }}>
-    <b-200 onClick={async () => { alerter(await API["addnumbers"]({ a: 10, b: 20 })) }}>جمع</b-200>
+  return <Window title="جمع دو عدد سمت بک اند" >
+    <br-x/>
+    <b-200 onClick={async () => { alerter(await API["addnumbers"]({ a: 10, b: 20 })) }}>جمع اعداد</b-200>
   </Window>
 }
+
+
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
 
