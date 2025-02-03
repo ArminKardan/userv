@@ -57,11 +57,11 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         }}>Selector</b-200>
 
         <b-200 onClick={async () => {
-          await alerter(MD5("hiiii"))
+          await alerter(MD5("hiiii").length)
         }}>MD5</b-200>
 
         <b-200 onClick={async () => {
-          await alerter(SHA256("hiiii"))
+          await alerter(SHA256("hiiii").length)
         }}>SHA256</b-200>
 
       </w-cc>
