@@ -11,7 +11,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
     <b-200 onClick={async () => {
       let json = await API["db/query"]({})
       alerter(json)
-    }}>اضافه کردن داکیومنت</b-200>
+    }}>اجرای پرس و جو</b-200>
   </Window>
 }
 
