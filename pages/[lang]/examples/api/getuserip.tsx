@@ -23,8 +23,11 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       }}>OK</b-200>
 
       <b-200 onClick={async ()=>{
-       let resp = await API["userip"](null);
+       let resp = await API["ip"](null);
         alerter(resp)
+     
+       //  let resp = await API["api1"]({reza:"im rezaaaaaaa"});
+       
       }}>RUN ON BACKEND</b-200>
 
 
