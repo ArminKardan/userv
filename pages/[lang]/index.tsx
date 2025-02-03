@@ -47,6 +47,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/print") }}>Hello World</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>جمع دو عدد</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>آی پی کاربر</b-200>
+        <b-200 onClick={async () => { Router.push(z.root + "/examples/api/addnumbers") }}>دیتابیس Insert</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin") }}>Admin</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/admin/users") }}>admin/users</b-200>
         <b-200 onClick={async () => { Router.push(z.root + "/workertest") }}>workertest</b-200>
