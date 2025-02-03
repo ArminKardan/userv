@@ -40,6 +40,30 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
           await alerter(r)
         }}>Picker</b-200>
 
+        <b-200 onClick={async () => {
+          await selector(() => [
+            { title1: "Item1", key: 1, highlight: (props.keys || []).includes(1), image: cdn("/files/fire.webp") },
+            { title1: "Item2", key: 2, highlight: (props.keys || []).includes(2), image: cdn("/files/fire.webp") },
+            { title1: "Item3", key: 3, highlight: (props.keys || []).includes(3), image: cdn("/files/fire.webp") },
+            { title1: "Item4", key: 4, highlight: (props.keys || []).includes(4), image: cdn("/files/fire.webp") },
+          ], async (key) => {
+            if (!props.keys) {
+              props.keys = []
+            }
+            props.keys.toggle(key)
+            refresh()
+          })
+
+        }}>Selector</b-200>
+
+        <b-200 onClick={async () => {
+          await alerter(MD5("hiiii"))
+        }}>MD5</b-200>
+
+        <b-200 onClick={async () => {
+          await alerter(SHA256("hiiii"))
+        }}>SHA256</b-200>
+
       </w-cc>
     </Window>
 
