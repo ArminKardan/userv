@@ -11,7 +11,7 @@ export default p => Component(p, Page);
 const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
   return <Window title="دریافت آی پی کاربر" >
     <br-x/>
-    <b-200 onClick={async () => { alerter(await API["getuserip"](null)) }}>آی پی کاربر</b-200>
+    <b-200 onClick={async () => { alerter(await API["userip"](null)) }}>آی پی کاربر</b-200>
   </Window>
 }
 
