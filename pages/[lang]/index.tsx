@@ -147,11 +147,11 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
           console.log("from parent:", json)
         }}>send ping with bridge</b-200>
 
-
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-          let json = await nexus.api({ app: "mailers8", cmd: "ping" })
+          let json = await nexus.api({ app: "myapp", cmd: "ping" })
           console.log("nexus parent:", json)
         }}>send ping to mailer</b-200>
+
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.msgreceiver = (specs) => {
             console.log(specs)
