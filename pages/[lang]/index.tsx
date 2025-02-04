@@ -188,8 +188,6 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     role, path, devmod, userip, pageid } = session;
 
 
-    console.log("_________________SSRRRRRRRRRRR________________")
-
   let keys = ["region", "dir", "ff", "ffb", "support", "code", "textw", "txtmt"]
   let nlangs = {}
   for (let l of Object.keys(global.langs[lang])) {
