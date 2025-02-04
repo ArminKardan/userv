@@ -17,6 +17,8 @@ declare global {
     var myjid: string
     function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
     function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
+    function success(text: string, fast: boolean): void
+    function error(text: string): void    
     function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel"): Promise<string>
