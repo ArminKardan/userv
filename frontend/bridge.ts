@@ -17,7 +17,7 @@ declare global {
     var myjid: string
     function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
     function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
-    function success(text: string, fast: boolean): void
+    function success(text: string, fast?: boolean): void
     function error(text: string): void    
     function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
@@ -41,6 +41,14 @@ export const init = () => {
         imageprop?: any, righticon?: any, highlight?: boolean
     }>) => {
         return (await send({ api: "picker", items })).result
+    }
+
+    global.error = async (text: string) => {
+        return (await send({ api: "error", text})).result
+    }
+
+    global.success = async (text: string, fast: boolean = false) => {
+        return (await send({ api: "success", text, fast})).result
     }
 
     global.confirmer = async (title: string, text?: string, oktext?: string, canceltext?: string) => {
