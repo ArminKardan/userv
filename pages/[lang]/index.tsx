@@ -63,10 +63,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
         }}>Selector</b-200>
 
-        <b-200 onClick={async () => { Copy("متتی که میخواهیم کپی شود")}}>کپی متن</b-200>
+        <b-200 onClick={async () => { Copy("متتی که میخواهیم کپی شود") }}>کپی متن</b-200>
 
-        <b-200 onClick={async () => {success("عملیات موفقیت آمیز بود")}}>توست موفق</b-200>
-        <b-200 onClick={async () => {error("عملیات با خطا مواجه شد")}}>توست خطا</b-200>
+        <b-200 onClick={async () => { success("عملیات موفقیت آمیز بود") }}>توست موفق</b-200>
+        <b-200 onClick={async () => { error("عملیات با خطا مواجه شد") }}>توست خطا</b-200>
 
 
         <b-200 onClick={async () => {
@@ -142,35 +142,33 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
 
 
-      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        let json = await bridge.send({ api: "ping" })
-        console.log("from parent:", json)
-      }}>send ping with bridge</b-200>
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          let json = await bridge.send({ api: "ping" })
+          console.log("from parent:", json)
+        }}>send ping with bridge</b-200>
 
-      
-      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        let json = await nexus.api({ app: "mailers8", cmd: "ping" })
-        console.log("nexus parent:", json)
-      }}>send ping to mailer</b-200>
-      <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        nexus.msgreceiver = (specs) => {
-          console.log(specs)
-        }
-      }}>connect msgreceiver</b-200>
 
-      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        nexus.subscribe("mychannel")
-      }}>subscribe to my channel</b-200>
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          let json = await nexus.api({ app: "mailers8", cmd: "ping" })
+          console.log("nexus parent:", json)
+        }}>send ping to mailer</b-200>
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          nexus.msgreceiver = (specs) => {
+            console.log(specs)
+          }
+        }}>connect msgreceiver</b-200>
 
-      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        await nexus.sendtochannel("mychannel", "something")
-      }}>send something to my channel</b-200>
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          nexus.subscribe("mychannel")
+        }}>subscribe to my channel</b-200>
 
-      <b-200  style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
-        nexus.unsubscribe("mychannel")
-      }}>unsubscribe from my channel</b-200>
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          await nexus.sendtochannel("mychannel", "something")
+        }}>send something to my channel</b-200>
 
-      
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          nexus.unsubscribe("mychannel")
+        }}>unsubscribe from my channel</b-200>
       </w-cc>
     </Window>
 
