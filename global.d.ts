@@ -93,8 +93,7 @@ declare global {
     function onunloader(): void;
 
     var fs: typeof import('fs');
-    function success(text: string, fast: boolean = false): void
-    function error(text: string): void
+
     function login(): void
     function exit()
     var DEVMODE: boolean = false;
