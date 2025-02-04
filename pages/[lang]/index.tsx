@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Router from 'next/router'
 import Copy from '@/frontend/components/qecomps/Copy';
+import FaDigits from '@/frontend/components/qecomps/FaDigits';
 
 export default p => Component(p, Page);
 
@@ -63,6 +64,9 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         }}>Selector</b-200>
 
         <b-200 onClick={async () => { Copy("متتی که میخواهیم کپی شود")}}>کپی متن</b-200>
+
+        <b-200 onClick={async () => {success("عملیات موفقیت آمیز بود")}}>توست موفق</b-200>
+        <b-200 onClick={async () => {error("عملیات با خطا مواجه شد")}}>توست خطا</b-200>
 
 
         <b-200 onClick={async () => {
