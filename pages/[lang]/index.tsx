@@ -150,7 +150,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           let json = await nexus.api({ app: "myapp", cmd: "ping" })
           console.log("nexus parent:", json)
-        }}>send ping to mailer</b-200>
+        }}>send ping to myapp</b-200>
 
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.msgreceiver = (specs) => {
@@ -160,15 +160,15 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
 
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.subscribe("mychannel")
-        }}>subscribe to my channel</b-200>
+        }}>subscribe to mychannel</b-200>
 
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           await nexus.sendtochannel("mychannel", "something")
-        }}>send something to my channel</b-200>
+        }}>send something to mychannel</b-200>
 
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.unsubscribe("mychannel")
-        }}>unsubscribe from my channel</b-200>
+        }}>unsubscribe from mychannel</b-200>
       </w-cc>
     </Window>
 
