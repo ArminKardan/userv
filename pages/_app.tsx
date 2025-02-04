@@ -17,6 +17,7 @@ import { init, send } from '@/frontend/bridge';
 
 export default function App({ Component, pageProps }) {
 
+  console.log("_________________APPPPPPPPPP________________")
   if (!pageProps.data) {
     if (typeof window != "undefined")
       Router.push('/');
