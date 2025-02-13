@@ -183,6 +183,17 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         }}>translate</b-200>
 
 
+        <b-200 style={{ backgroundColor: "#A3BAC1" }} onClick={async () => {
+          let phone = await prompter("شماره تماس", "شماره دریافت کننده کد تایید را وارد کنید؟", 12, true)
+          let confirm = await prompter("کد تایید", "کد تایید ارسالی را وارد کنید؟", 7, true)
+          let json = await nexus.api({
+            app: "sms", cmd: "confirm",
+            body: { phone: "09178207012", code: "12345" }
+          })
+          alerter(json)
+        }}>confirmation sms</b-200>
+
+
       </w-cc>
     </Window>
 
