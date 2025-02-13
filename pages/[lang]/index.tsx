@@ -137,7 +137,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
       </w-cc>
     </Window>
 
-    <Window title="Worker Examples" style={{ paddingBottom: 10 }}>
+    <Window title="Worker Basic Examples" style={{ paddingBottom: 10 }}>
       <w-cc style={{ gap: 5, padding: 5 }}>
 
 
@@ -169,6 +169,20 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.unsubscribe("mychannel")
         }}>unsubscribe from mychannel</b-200>
+      </w-cc>
+    </Window>
+
+    <Window title="Worker Examples" style={{ paddingBottom: 10 }}>
+      <w-cc style={{ gap: 5, padding: 5 }}>
+        <b-200 style={{ backgroundColor: "#A3BAC1" }} onClick={async () => {
+          let json = await nexus.api({
+            app: "translator", cmd: "translate",
+            body: { from: "en", to: "fa", text: "hi there" }
+          })
+          alerter(json)
+        }}>translate</b-200>
+
+
       </w-cc>
     </Window>
 
