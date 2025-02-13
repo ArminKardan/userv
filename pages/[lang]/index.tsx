@@ -188,7 +188,7 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
           let confirm = await prompter("کد تایید", "کد تایید ارسالی را وارد کنید؟", 7, true)
           let json = await nexus.api({
             app: "sms", cmd: "confirm",
-            body: { phone: "09178207012", code: "12345" }
+            body: { phone: phone, code: confirm }
           })
           alerter(json)
         }}>confirmation sms</b-200>
