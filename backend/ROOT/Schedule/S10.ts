@@ -3,9 +3,8 @@ import importer from "@/frontend/components/qecomps/importer"
 
 export default async () => {
     setInterval(async () => {
-
-        if(!API?.["request"])
-        {
+        global.devmode = process.env.DEVMODE == "true"
+        if (!API?.["request"]) {
             console.log("starting APIs...")
         }
         if (global.devmode) {
@@ -13,8 +12,7 @@ export default async () => {
             let m = importer("./backend/ROOT/apier.ts") as typeof import('@/backend/ROOT/apier')
             m.Refresh(list)
         }
-        else if(!global.apilistset)
-        {
+        else if (!global.apilistset) {
             let list = getAllFiles("./backend/API", '')
             let m = importer("./backend/ROOT/apier.ts") as typeof import('@/backend/ROOT/apier')
             m.Refresh(list)

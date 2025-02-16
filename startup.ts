@@ -1,15 +1,15 @@
 
-export const Starter = async ()=>{
+export const Starter = async () => {
     if (global.Startup != "OK") {
         if (global.Startup == "PENDING") {
-          await new Promise(r => setInterval(() => { if (global.Startup != "PENDING") r(null); else console.log("WAITING...") }, 100))
+            await new Promise(r => setInterval(() => { if (global.Startup != "PENDING") r(null); else console.log("WAITING...") }, 100))
         }
         else {
-          global.Startup = "PENDING";
-          await (await import("@/startup.ts")).Run()
-          global.Startup = "OK";
+            global.Startup = "PENDING";
+            await (await import("@/startup.ts")).Run()
+            global.Startup = "OK";
         }
-      }
+    }
 }
 
 import SiteConfig from "@/common/SiteConfig";
@@ -98,15 +98,14 @@ export const Run = async () => {
     JH1();
     JD1();
 
-
+    global.devmode = process.env.DEVMODE == "true"
 
     if (global.devmode) {
         let list = getAllFiles("./backend/API", '')
         let m = importer("./backend/ROOT/apier.ts") as typeof import('@/backend/ROOT/apier')
         m.Refresh(list)
     }
-    else if(!global.apilistset)
-    {
+    else if (!global.apilistset) {
         let list = getAllFiles("./backend/API", '')
         let m = importer("./backend/ROOT/apier.ts") as typeof import('@/backend/ROOT/apier')
         m.Refresh(list)
@@ -117,8 +116,8 @@ export const Run = async () => {
     // Email();
 
 
-    
-    
+
+
     console.log("declaration finished...✅")
 
 }
