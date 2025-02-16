@@ -40,7 +40,7 @@ const convertor = (props: any, Page: PageEl, isPage: boolean, z: ZType, ssr) => 
         return () => {
             die.func?.()
         }
-    })
+    },[])
 
     let [state, setState] = useState({
         content: {
