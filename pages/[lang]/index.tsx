@@ -153,6 +153,10 @@ const Page: PageEl = (props, refresh, getProps, onConnected, dies, z) => {
         }}>send ping to myapp</b-200>
 
         <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
+          nexus.sendtojid("myapp-635111b8ff61db2b04928f49@qepal.com/default", "hello")
+        }}>send direct to myapp</b-200>
+
+        <b-200 style={{ backgroundColor: "#B1C1A3" }} onClick={async () => {
           nexus.msgreceiver = (specs) => {
             console.log(specs)
           }
