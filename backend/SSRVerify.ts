@@ -92,7 +92,9 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
 
 
   let session = JSON.parse((context?.query?.session as string) || `{}`)
-
+  if (!global.sessioner) {
+    global.sessioner = {}
+  }
 
   let sid = ""
   let cookies = await import("cookies-next")
@@ -100,7 +102,7 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (cookies.hasCookie("sid", { req: context.req, res: context.res })) {
       try {
         sid = cookies.getCookie("sid", { req: context.req, res: context.res })
-        session = global.sessioner[sid]
+        session = global.sessioner?.[sid]
       } catch { }
     }
   }
@@ -109,14 +111,15 @@ export default async (context: GetServerSidePropsContext, cached: boolean = fals
     if (!global.sessioner) {
       global.sessioner = {}
     }
-    cookies.deleteCookie("sid", { req: context.req, res: context.res })
-    cookies.setCookie("sid", sid, { req: context.req, res: context.res })
+    cookies.setCookie("sid", sid, { req: context.req, res: context.res, sameSite:"none", secure:true })
     global.sessioner[sid] = session
   }
 
 
 
-
+  if (session) {
+    session.sid = sid
+  }
 
   // let cookies = await import("cookies-next")
   // if (session?.uid) {
