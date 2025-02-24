@@ -128,6 +128,10 @@ const nextConfig = {
                         value: "no-referrer"
                     },
                     {
+                        key: 'Access-Control-Allow-Credentials',
+                        value: 'true'
+                    },
+                    {
                         key: 'Access-Control-Allow-Origin',
                         value: '*'
                     },
