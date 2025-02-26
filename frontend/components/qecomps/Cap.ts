@@ -5,8 +5,11 @@ export default (txt: string): string => {
 
 
 export function FAtoENRatio(inputString) {
-    let persianCount = (inputString.match(/[\u0600-\u06FF]/g) || []).length;
+    inputString = inputString.replace(/ /g, "")
+    let persianCount = (inputString.match(/[\u0600-\u06FF\uFB8A\u067E\u0686\u06AF\u200C]/g) || []).length;
+    console.log("Persian count:", persianCount)
     let englishCount = inputString.length;
+    console.log("total count:", englishCount)
     // let englishCount = (inputString.match(/[A-Za-z]/g) || []).length;
     return englishCount ? persianCount / englishCount : 1000;
   }

@@ -79,9 +79,9 @@ export default (props: {
     }
   });
 
-  return <div style={{ width: "100%", marginTop: 5, fontSize: 12, direction: props.direction as any, ...props.style }}>
+  return <f-x style={{ width: "100%", flex:1, marginTop: props.title?5:0, fontSize: 12, direction: props.direction as any, ...props.style }}>
     {props.title}<sup style={{ fontSize: 8 }}>{props.sup}</sup>
-    <div style={{ display: "flex", alignItems: "center", marginTop: 3 }}>
+    <div style={{ display: "flex", alignItems: "center", marginTop: props.title?3:0, flex:1 }}>
       {typeof props.lefticon == "string" ? <><img style={{
         cursor: "pointer", width: 28, height: 28,
         display: "inline-block", verticalAlign: "middle", transform: (props.dir || "rtl") == "rtl" && !props.nolefticonrotate ? "scaleX(-1)" : null,
@@ -101,8 +101,9 @@ export default (props: {
         inputMode={(props.type == "currency" ? "numeric" : (props.type)) as any}
         autoComplete={"off"}
         style={{
+          width:"100%",
           ["-webkit-text" + "-security"]: props.type == "password" ? "circle" : null,
-          fontFamily: "inherit", width: "calc(100% - 0px)", padding: props.padding || "0 5px",
+          fontFamily: "inherit", padding: props.padding || "0 5px",
           margin: props.margin || "0 0px", direction: (props.txtdir || props.dir || "inherit") as any, borderRadius: props.style?.borderRadius || 5
           , fontSize: props.fontSize, textAlign: props.textAlign as any, height: props.style?.height || 35,
           resize: "none", paddingTop: 8, overflow: "hidden", whiteSpace: "nowrap",
@@ -154,5 +155,5 @@ export default (props: {
         props.righticon}
       {props.righttext ? <span>{props.righttext}</span> : null}
     </div>
-  </div>
+  </f-x>
 }

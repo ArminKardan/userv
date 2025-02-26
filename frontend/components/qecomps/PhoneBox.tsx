@@ -1,22 +1,27 @@
 import { useState } from 'react';
-import CountryList from './CountryList';
+// import CountryList from './CountryList';
 import Bold from './Bold';
 import { SSRGlobal } from './Context';
+import CountryList from './CountryList';
+import TextBox from './TextBox';
+import Flag from './Flag';
 
-export default (props:{defaultCChar?:string,
-  title?:string,
-  sup?:string,
-  defaultPhone?:string,
-  onccode:(string)=>void,
-  oncchar:(string)=>void,
-  readOnly?:boolean,
-  onok?:()=>void,
-  on?:(string)=>void,
-  id:string,
-  placeholder?:string,
-  clist:{title:string, title2:string,}
+export default (props: {
+  defaultCChar?: string,
+  title?: string,
+  sup?: string,
+  countryitemclass: string
+  defaultPhone?: string,
+  onccode: (string) => void,
+  oncchar: (string) => void,
+  readOnly?: boolean,
+  onok?: () => void,
+  on?: (string) => void,
+  id: string,
+  placeholder?: string,
+  clist: { title: string, title2: string, }
 
- }) => {
+}) => {
   let z = SSRGlobal()
   var [countries, setCountries] = useState(null);
   var [clist, setClist] = useState(false);
@@ -37,38 +42,24 @@ export default (props:{defaultCChar?:string,
         countries = window.countries
       }
     }
-    var country:any = window.countries ? Object.values(countries).filter(c => (c as any).code.toLowerCase() == ccode.toLowerCase())[0] : null;
+    var country: any = window.countries ? Object.values(countries).filter(c => (c as any).code.toLowerCase() == ccode.toLowerCase())[0] : null;
 
   }
 
-
   return <>
-
-    {clist ? <CountryList countries={window.countries} title={props.clist.title} searchtitle={props.clist.title2} placeholder="Example: +1"
+    {clist ? <CountryList countryitemclass={props.countryitemclass} countries={window.countries} title={props.clist.title} searchtitle={props.clist.title2} placeholder="Example: +1"
       on={(cc) => { setCCode(cc); props.onccode ? props.onccode(countries[cc].dialCode) : null; props.oncchar ? props.oncchar(countries[cc].code) : null }}
       onclose={() => { setClist(false) }} /> : null}
-
     <div style={{ width: "100%", marginTop: 5, fontSize: 12, }}>
       <Bold>{props.title}</Bold><sup style={{ fontSize: 8 }}>{props.sup}</sup>
-      <div style={{ display: "flex", alignItems: "center", marginTop: 3,direction:"ltr" }}>
-        {country ? <><div style={{ width: 30, height: 20, borderRadius: 3, overflow: "hidden", cursor: "pointer" }} onClick={() => {
-          setClist(true)
-        }}
-          dangerouslySetInnerHTML={{ __html: country.flag }}
-
-        ></div>&nbsp;</> : "null"}
-        <Bold style={{ fontSize: 15 }} onClick={() => {
-          setClist(true)
-        }}>{country ? country.dialCode : ""}</Bold>&nbsp;&nbsp;
-        <input id={props.id ? props.id : null} defaultValue={props.defaultPhone}
-         readOnly={props.readOnly} style={{ textAlign: "left", paddingLeft: 5 }}
-          className={z.qestyles.txt4} type="number"
-          onKeyDown={(e) => {
-            if (e.code == "Enter" || e.code == "NumpadEnter" || e.key == "Enter") {
-              props.onok?.();
-            }
-          }}
-          placeholder={props.placeholder} onChange={(e) => { props.on ? props.on(e.target.value) : null }} />
-      </div>
+      <f-c style={{ display: "flex", alignItems: "center", marginTop: 3, direction: "ltr" }}>
+        <f-c style={{ width: "100%" }}>
+          <f-cc onClick={()=>{setClist(true) }}>
+            <Flag ccode={ccode}style={{ width: 30 }} />‌<sp-3 />
+            <Bold style={{ fontSize: 15, marginTop: 2 }}>{country ? country.dialCode : ""} </Bold><sp-3/>
+          </f-cc>
+          <TextBox dir="ltr" placeholder={props.placeholder} defaultValue={props.defaultPhone} on={t => { props.on(t) }} />
+        </f-c>
+      </f-c>
     </div></>
 }

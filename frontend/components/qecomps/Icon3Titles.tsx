@@ -50,7 +50,9 @@ export default (props: {
   let icon = props.icon || props.image
 
 
-  return <f-csb class={props.bgtransparent ? z.qestyles.ic3t : z.qestyles.ic3} onClick={() => { props.on?.() }}
+  return <f-csb
+    class={z.qestyles.hover + " " + props.bgtransparent ? z.qestyles.ic3t : z.qestyles.ic3}
+    onClick={() => { props.on?.() }}
     style={{ marginBottom: props.mb, width: "100%", ...props.style }} >
 
     <f-c style={{ width: "100%" }} >
@@ -68,7 +70,7 @@ export default (props: {
       </ic-3>
       <sp-3 />
 
-      <c-xsb style={{ margin: props.unit1 ? "2px 0" : null, minHeight: 55, width:"100%"  }}>
+      <c-xsb style={{ margin: props.unit1 ? "2px 0" : null, minHeight: 55, width: "100%" }}>
         {!props.unit1 && props.title1 ? title1 : null}
 
         {props.unit1 != undefined ? <h1><Bold>

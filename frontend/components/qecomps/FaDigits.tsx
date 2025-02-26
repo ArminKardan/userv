@@ -18,13 +18,15 @@ export default (input) => {
 }
 
 
+
+
 export const EnDigits = (input) => {
 
   if(typeof input !="string")
   {
     return "Not a number"
   }
-  return input.replace(/0/g,"0")
+  return input.replace(/۰/g,"0")
   .replace(/۱/g,"1")
   .replace(/۲/g,"2")
   .replace(/۳/g,"3")
@@ -35,3 +37,4 @@ export const EnDigits = (input) => {
   .replace(/۸/g,"8")
   .replace(/۹/g,"9")
 }
+

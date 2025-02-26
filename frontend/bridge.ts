@@ -1,3 +1,4 @@
+import crossstyles from "@/styles/crossstyles";
 import SerialGenerator from "./components/qecomps/SerialGenerator";
 declare global {
     var bridge: {
@@ -7,7 +8,7 @@ declare global {
         subscribe: (channel: string) => Promise<void>,
         unsubscribe: (channel: string) => Promise<void>,
         channels: () => Promise<Array<string>>,
-        msgreceiver: (specs: { from: string, body: string, itsme: boolean, itsbro: boolean , channel:string }) => void,
+        msgreceiver: (specs: { from: string, body: string, itsme: boolean, itsbro: boolean, channel: string }) => void,
         isconnected: () => Promise<boolean>,
         connected: boolean,
         api: (specs: { app: string, cmd: string, body?: any, jid?: string, prioritize_public?: boolean }) => Promise<any>,
@@ -15,10 +16,10 @@ declare global {
         sendtochannel: (channel: string, body: string) => Promise<any>,
     }
     var myjid: string
-    function uploader(specs: { title: string, text: string, maxmb?: number, style?: string }): Promise<{ url: string }>;
+    function uploader(specs: { title: string, text: string, maxmb?: number, max_age_sec?: number, style?: string }): Promise<{ url: string }>;
     function alerter(title: string | any, text?: string | Element, style?: any, watermark?: string): Promise<void>;
     function success(text: string, fast?: boolean): void
-    function error(text: string): void    
+    function error(text: string): void
     function prompter(title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel"): Promise<string>
@@ -40,30 +41,36 @@ export const init = () => {
         key: any, title1?: any, title2?: any, image?: any,
         imageprop?: any, righticon?: any, highlight?: boolean
     }>) => {
-        return (await send({ api: "picker", items })).result
+        return (await send({ api: "picker", items , crossstyles })).result
     }
 
     global.error = async (text: string) => {
-        return (await send({ api: "error", text})).result
+        return (await send({ api: "error", text, crossstyles })).result
     }
 
     global.success = async (text: string, fast: boolean = false) => {
-        return (await send({ api: "success", text, fast})).result
+        return (await send({ api: "success", text, fast, crossstyles })).result
     }
 
     global.confirmer = async (title: string, text?: string, oktext?: string, canceltext?: string) => {
-        return (await send({ api: "confirmer", title, text, oktext, canceltext })).result
+        return (await send({ api: "confirmer", title, text, oktext, canceltext, crossstyles })).result
     }
     global.prompter = async (title: string, text?: string, maxlen?: number, small?: boolean, defaulttext?: string, style?: any,
         selectonclick?: boolean,
         type?: "text" | "number" | "url" | "email" | "tel") => {
-        return (await send({ api: "prompter", title, text, maxlen, small, defaulttext, style, selectonclick, type })).result
+        return (await send({ api: "prompter", title, text, maxlen, small, defaulttext, style, selectonclick, type, crossstyles })).result
     }
     global.alerter = async (title: string | any, text?: string | Element, style?: any, watermark?: string) => {
-        return await send({ api: "alerter", title, text, style, watermark })
+        return await send({ api: "alerter", title, text, style, watermark , crossstyles})
+    }
+    global.log = async (obj: { text: string, type?: "ok" | "error" | "warning", date?: Date }) => {
+        return await send({ api: "log", ...obj, crossstyles })
+    }
+    global.closelog = async () => {
+        return await send({ api: "closelog" })
     }
     global.uploader = async (specs) => {
-        return (await send({ api: "uploader", specs }))?.url || null
+        return (await send({ api: "uploader", specs, crossstyles }))?.url || null
     }
 
     global.nexus = {

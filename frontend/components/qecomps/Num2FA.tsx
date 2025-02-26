@@ -133,7 +133,7 @@
    if (decimalPart.length > 11) {
      decimalPart = decimalPart.substr(0, 11);
    }
-   return ' ممیز ' + Num2persian(decimalPart) + ' ' + decimalSuffixes[decimalPart.length];
+   return ' ممیز ' + Num2FA(decimalPart) + ' ' + decimalSuffixes[decimalPart.length];
  };
  
  /**
@@ -142,7 +142,8 @@
   * @returns {string}
   * @constructor
   */
- const Num2persian = (input:string):string => {
+ const Num2FA = (input:string|number):string => {
+
    // Clear Non digits
    input = input.toString().replace(/[^0-9.-]/g, '');
    let isNegative = false;
@@ -195,5 +196,5 @@
  };
  
  
- export default Num2persian
+ export default Num2FA
  

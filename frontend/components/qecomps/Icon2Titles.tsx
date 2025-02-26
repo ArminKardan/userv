@@ -25,7 +25,7 @@ export default (props:{title?:any, raw1?:boolean, title1?:any, title2?:any,
 
 
   return <f-csb class={props.nohover ? null : z.qestyles.hover}
-    style={{ position: "relative", backgroundColor: "#f1e3cf", borderRadius: 4, fontSize: "inherit", height: 40, ...props.style }}
+    style={{ position: "relative", backgroundColor: "#f1e3cf", borderRadius: 4, fontSize: "inherit", height: 45, ...props.style }}
     onClick={() => props.on?.()}>
 
     {props.percent ? <div style={{ position: 'absolute', width: props.percent + "%", height: "100%", backgroundColor: props.percentColor || "#A1C781", zIndex: 9, borderRadius: 4, }}></div> : null}

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { ZType } from './Component';
 
 const vote = async (item, dislike = false) => {
   if (!dislike) //liked
@@ -21,32 +21,15 @@ const vote = async (item, dislike = false) => {
     item.liked = false;
     item.disliked = true;
   }
-
-  fetch("/api/explore/vote", {
-    method: "POST",
-    body: JSON.stringify({
-      like: !dislike,
-      dislike: dislike,
-      expid: item.expid,
-    })
-  }).then(async r => {
-    let json = await r.json();
-    if (json.code == 0) {
-    }
-  })
 }
 
-import Component, { PageEl } from './Component';
-export default p => Component(p, Page);
-const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
-  // var [item, setItem] = useState(props.item)
-  let item = props.item
-  // props.item.likes = item.likes;
-  // props.item.dislikes = item.dislikes;
-  // props.item.liked = item.liked;
-  // props.item.disliked = item.disliked;
 
-  var percent = 19;//props.item.likes
+export default (props: {
+  item: any, refresh: (a?: any) => void, style?: CSSStyleSheet, z: ZType, nospace?: boolean,
+  onlike?: () => void, ondislike?: () => void
+}) => {
+  let item = props.item
+  var percent = 19;
   var color = null
   if (percent >= 90) {
     color = "green"
@@ -61,47 +44,87 @@ const Page: PageEl = (props, refresh, getProps, dies, z): React.JSX.Element => {
 
   return <f-c style={{ height: 25, ...props.style }}>
 
-    {props.notitle ? null : <f-c class={z.qestyles.itemalign} style={{ width: props.nospace ? null : z.lang.textw }}><span>{z.lang.rank}</span></f-c>}
+    <style>{
+      `lkg-s,
+lkr-s,
+lkr-v,
+lkg-v {
+  background-image: url("https://cdn.ituring.ir/qepal/likegreen.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 21px;
+  width: 16px;
+  background-size: contain;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  opacity: 0.6;
+}
+
+lkr-v,
+lkg-v {
+  height: 18px;
+  width: 14px;
+  opacity: 0.5;
+}
+
+lkr-s,
+lkr-v {
+  background-image: url("https://cdn.ituring.ir/qepal/likered3.svg");
+  transform: rotate(180deg);
+}
+
+lkr-v {
+  transform: rotate(180deg);
+}
+
+
+lkg-s:hover,
+lkr-s:hover,
+lkg-v:hover,
+lkr-v:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+lkr-s:hover,
+lkr-v:hover {
+  transform: rotate(180deg) scale(1.2);
+}
+
+`
+    }</style>
+
+    {true ? null : <f-c class={props.z.qestyles.itemalign} style={{ width: props.nospace ? null : props.z.lang.textw }}><span>{props.z.lang.rank}</span></f-c>}
 
     <f-csb style={{ fontSize: 10, width: 95 + ((item.dislikes + item.likes) > 1000 ? 20 : 0) }}>
 
       <f-cc style={{ direction: "ltr" }}>
-        <lkg-s class={item.liked ? z.qestyles.nopale : null} id={item.expid + "_lg"} onClick={(e) => {
-          if (z.user.role.includes("admin")) {
+        <lkg-s class={item.liked ? props.z.qestyles.nopale : null} onClick={(e) => {
+          if (props.z.user.role.includes("admin")) {
             props.onlike?.()
             return;
           }
-          if (!z.user.uid) {
-            props.loginrequired?.()
-            return
-          }
-          (e.target as any).className = z.qestyles.nopale
-          document.getElementById(item.expid + "_lr").className = null;
+
+          (e.target as any).className = props.z.qestyles.nopale
           vote(item)
-          refresh()
-          // setItem(JSON.parse(JSON.stringify(item)))
-          props.onrefresh?.();
+          props.refresh()
           props.onlike?.()
-        }} /> <sp-3 /><span>{(item.likes || 0).toLocaleString(z.lang.region)}</span>
+        }} /> <sp-3 /><span>{(item.likes || 0).toLocaleString(props.z.lang.region)}</span>
       </f-cc>
       <f-cc style={{ direction: "ltr" }}>
-        <lkr-s class={item.disliked ? z.qestyles.nopaler : null} id={item.expid + "_lr"} onClick={(e) => {
-          if (!z.user.uid) {
-            props.loginrequired?.()
+        <lkr-s class={item.disliked ? props.z.qestyles.nopaler : null} onClick={(e) => {
+          if (!props.z.user.uid) {
             return
           }
-          if (z.user.role.includes("admin")) {
+          if (props.z.user.role.includes("admin")) {
             props.ondislike?.()
             return;
           }
-          (e.target as any).className = z.qestyles.nopaler
-          document.getElementById(item.expid + "_lg").className = null;
+          (e.target as any).className = props.z.qestyles.nopaler
           vote(item, true)
-          refresh()
-          // setItem(JSON.parse(JSON.stringify(item)))
-          props.onrefresh?.();
+          props.refresh()
           props.ondislike?.()
-        }} /> <sp-3 /><span>{(item.dislikes || 0).toLocaleString(z.lang.region)}</span>
+        }} /> <sp-3 /><span>{(item.dislikes || 0).toLocaleString(props.z.lang.region)}</span>
       </f-cc>
     </f-csb>
 

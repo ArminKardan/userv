@@ -1,18 +1,18 @@
+import { ZType } from "./Component";
 import { SSRGlobal } from "./Context";
 
-export default (dt, forceyear = null, region=null, includsec=false, use24H=false) => {
+export default (datetime: Date | number | string, z: ZType , options?:{forceyear?:boolean, region?:string, includsec?:boolean, use24H?:boolean}) => {
   var date: Date = null
-  let z = SSRGlobal()
-  var _region = region || z.lang.region || "en-US"
-  if (typeof dt == "number") {
-    date = new Date(dt);
+  var _region = options?.region || z.lang.region || "en-US"
+  if (typeof datetime == "number") {
+    date = new Date(datetime);
 
   }
-  else if (typeof dt == "string") {
-    date = new Date(Number(dt));
+  else if (typeof datetime == "string") {
+    date = new Date(Number(datetime));
   }
   else {
-    date = dt
+    date = datetime
   }
   
 
@@ -30,7 +30,7 @@ export default (dt, forceyear = null, region=null, includsec=false, use24H=false
   }
   else if (date.getTime() > midnight.getTime() && date.getTime() < tomorrowmidnight) {
     datestr = date.toLocaleTimeString(_region,
-      { hour: "numeric", minute: '2-digit', second:includsec?"2-digit":undefined, hour12: !use24H }).toUpperCase()
+      { hour: "numeric", minute: '2-digit', second:options?.includsec?"2-digit":undefined, hour12: !options?.use24H }).toUpperCase()
     let t = datestr.split(' ');
     if (t[1]?.includes("قبل")) t[1] = "صبح"
     datestr = t.join(' ')
@@ -41,13 +41,13 @@ export default (dt, forceyear = null, region=null, includsec=false, use24H=false
   }
 
   else if (date.getFullYear() == new Date().getFullYear()) {
-    datestr = date.toLocaleString(_region, { day: 'numeric', month: 'short', year: forceyear ? 'numeric' : undefined });
+    datestr = date.toLocaleString(_region, { day: 'numeric', month: 'short', year: options?.forceyear ? 'numeric' : undefined });
   }
   else {
     datestr = date.toLocaleDateString(_region);
   }
 
-  if(datestr.includes("بعد") && !datestr.includes("۱۰:"))
+  if((datestr||"").includes("بعد") && !datestr.includes("۱۰:"))
   {
     datestr = datestr.replace(/۰:/g,"۱۲:")
   }

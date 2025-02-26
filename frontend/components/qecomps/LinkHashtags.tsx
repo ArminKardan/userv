@@ -4,27 +4,59 @@ import { SSRGlobal } from './Context';
 
 function findHashTags(sentence) {
   if (!sentence) {
-      return { single: [], double: [] }
+    return { single: [], double: [] }
   }
-  sentence = sentence.replace("‌","ـ")
+  sentence = sentence.replace("‌", "ـ")
   const regex = /(?:^|\s)(#[\p{L}\p{Mn}\p{Pc}\p{Nd}_]+)|(?:^|\s)(##[\p{L}\p{Mn}\p{Pc}\p{Nd}_]+)/gu;
   const matches = sentence.match(regex);
   const hashTags = { single: [], double: [] };
   if (matches) {
-      matches.forEach(match => {
-          const trimmedMatch = match.trim();
-          if (trimmedMatch.startsWith("##")) {
-              hashTags.double.push(trimmedMatch.replace("ـ","‌"));
-          } else {
-              hashTags.single.push(trimmedMatch.replace("ـ","‌"));
-          }
-      });
+    matches.forEach(match => {
+      const trimmedMatch = match.trim();
+      if (trimmedMatch.startsWith("##")) {
+        hashTags.double.push(trimmedMatch.replace("ـ", "‌"));
+      } else {
+        hashTags.single.push(trimmedMatch.replace("ـ", "‌"));
+      }
+    });
   }
   return hashTags;
 }
 
 
-export default (sentence, style?, unqid?) => {
+export default (
+  sentence,
+  key,
+  options = {
+    singlecolor: "#266F25",
+    doublecolor: "#4E256F",
+    singleprelink: "",
+    doubleprelink: "",
+    onsingle: null,
+    ondouble: null
+  } as {
+    singlecolor?: string, doublecolor?: string,
+    singleprelink?: string, doubleprelink?: string,
+    onsingle?: (tag: string) => void, ondouble?: (tag: string) => void,
+  }
+) => {
+
+  if (!options) {
+    options = {
+      singlecolor: "#266F25",
+      doublecolor: "#4E256F",
+      singleprelink: "",
+      doubleprelink: "",
+      onsingle: null,
+      ondouble: null
+    }
+  }
+  if (!options.doublecolor) {
+    options.doublecolor = "#4E256F";
+  }
+  if (!options.singlecolor) {
+    options.singlecolor = "#266F25";
+  }
 
   let z = SSRGlobal()
 
@@ -35,8 +67,8 @@ export default (sentence, style?, unqid?) => {
   let uniquekey = new Date().getTime() + Math.random() * 1000;
   let retobj = sentence
 
-  tags.single.sort((a,b)=> b.length - a.length)
-  tags.double.sort((a,b)=> b.length - a.length)
+  tags.single.sort((a, b) => b.length - a.length)
+  tags.double.sort((a, b) => b.length - a.length)
 
   for (let emoji of emojies) {
     let array = retobj
@@ -54,7 +86,7 @@ export default (sentence, style?, unqid?) => {
         for (let i = 0; i < p.length; i++) {
           temparr.push(p[i])
           if (p.length - 1 != i) {
-            temparr.push(<img key={unqid + "_" + uniquekey++} src={global.cdn("/files/emoji/") + emoji + ".png"}  alt={emoji as any}
+            temparr.push(<img key={key + "_" + uniquekey++} src={global.cdn("/files/emoji/") + emoji + ".png"} alt={emoji as any}
               style={{ width: 17, height: 17, display: "inline-block", verticalAlign: "middle", margin: "0 2px" }} />)
           }
         }
@@ -84,13 +116,9 @@ export default (sentence, style?, unqid?) => {
         for (let i = 0; i < p.length; i++) {
           temparr.push(p[i])
           if (p.length - 1 != i) {
-            temparr.push(<a key={unqid + "_" + uniquekey++} href={z.root + "/e/t/" + onlytag}
-              style={{ color: "#4E256F", ...style }} onClick={() => {
-                document.getElementById("wind").scrollTo({
-                  top: 0,
-                  behavior: 'smooth' // This creates a smooth scrolling effect, omit for instant scroll
-                });
-              }}>{text}</a>)
+            temparr.push(<a key={key + "_" + uniquekey++}
+              href={options?.doubleprelink ? options?.doubleprelink + onlytag : undefined}
+              style={{ color: options?.doublecolor, cursor: "pointer" }} onClick={() => {options?.ondouble(onlytag)}}>{text}</a>)
           }
         }
       }
@@ -100,8 +128,6 @@ export default (sentence, style?, unqid?) => {
     }
     retobj = temparr
   }
-
-
 
 
   for (let tag of tags.single) {
@@ -125,9 +151,12 @@ export default (sentence, style?, unqid?) => {
             // if (typeof window != "undefined")
             //   isexplore = window.location.pathname.includes("/e/") || window.location.pathname.includes("/explore");
             // else
-              isexplore = z.user.path.includes("/e/") || z.user.path.includes("/explore");
+            // isexplore = z.user.path.includes("/e/") || z.user.path.includes("/explore");
 
-            temparr.push(<a key={unqid + "_" + uniquekey++} href={z.root + (isexplore ? "/e/t/" : "/") + onlytag} style={{ ...style }}>{text}</a>)
+            temparr.push(<a key={key + "_" + uniquekey++}
+              href={options?.singleprelink ? options?.singleprelink + onlytag : undefined}
+              onClick={() => {options?.onsingle(onlytag)}}
+              style={{ color: options?.singlecolor, cursor: "pointer" }}>{text}</a>)
           }
         }
       }

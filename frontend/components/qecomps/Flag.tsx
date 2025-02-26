@@ -1,6 +1,6 @@
 import { CSSProperties, useState } from 'react';
 
-export default (props:{ccode?:string, style:CSSProperties, onclick?:()=>{}, })=>
+export default (props:{ccode?:string, style:CSSProperties, on?:()=>void, })=>
 {
   var [countries, setCountries] = useState(null);
   if(typeof window != "undefined")
@@ -38,15 +38,21 @@ export default (props:{ccode?:string, style:CSSProperties, onclick?:()=>{}, })=>
 
   if(props.ccode.length == 2)
   {
-    return <f-cc style={{ cursor:props.style?.cursor, verticalAlign:"middle",display:"inline-block", borderRadius:2, width:props.style?.width||25,height:(Number(props.style.height || 0) - 2)||16,overflow:"hidden",
-    marginLeft:props.style?.marginLeft, marginRight:props.style?.marginRight}} onClick={()=>{props.onclick?.()}}>
+    return <f-cc style={{ cursor:props.style?.cursor, verticalAlign:"middle",display:"inline-block",
+       borderRadius:2, width:props.style?.width||25,height:(Number(props.style.height || 0) - 2)||16,overflow:"hidden",
+    marginLeft:props.style?.marginLeft, marginRight:props.style?.marginRight}} onClick={()=>{props.on?.()}}>
             <div dangerouslySetInnerHTML={{__html:(getCountry(props.ccode) as any)?.flag}}
-                style={{display:"inline-block", verticalAlign:"middle", width:props.style?.width||25, height:props.style?.height||18, marginTop:props.style?.marginTop}}></div>
+                style={{display:"inline-block", 
+                verticalAlign:"middle", 
+                width:props.style?.width, 
+                height:props.style?.height, 
+                marginTop:props.style?.marginTop
+                }}></div>
             </f-cc>
   }
   else
   {
-    return <img src={global.cdn("/files/flags/")+ props.ccode+".svg"} style={{verticalAlign:"middle",display:"inline-block", borderRadius:2, width:props.style?.width||25,height:props.style?.height||25, marginLeft:props.style?.marginLeft, marginRight:props.style?.marginRight}} onClick={()=>{props.onclick?.()}}/>
+    return <img src={global.cdn("/files/flags/")+ props.ccode+".svg"} style={{verticalAlign:"middle",display:"inline-block", borderRadius:2, width:props.style?.width||25,height:props.style?.height||25, marginLeft:props.style?.marginLeft, marginRight:props.style?.marginRight}} onClick={()=>{props.on?.()}}/>
   }
 
 }

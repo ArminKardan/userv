@@ -1,6 +1,6 @@
 import { SSRGlobal } from "./Context";
 
-export default (num:number, digits:number = 1):string => {
+export default (num:number, maximumFractionDigits:number = 1, region):string => {
   const lookup = [
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "k" },
@@ -14,6 +14,6 @@ export default (num:number, digits:number = 1):string => {
   var item = lookup.slice().reverse().find(function(item) {
     return num >= item.value;
   });
-  let z = SSRGlobal()
-  return item ? (num / item.value).toLocaleString(z.lang.region,{maximumFractionDigits:digits}).replace(rx, "$1") + item.symbol : "0";
+  // let z = SSRGlobal()
+  return item ? (num / item.value).toLocaleString(region,{maximumFractionDigits:maximumFractionDigits}).replace(rx, "$1") + item.symbol : "0";
 }

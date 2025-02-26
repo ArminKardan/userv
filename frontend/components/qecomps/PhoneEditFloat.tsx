@@ -1,10 +1,13 @@
+import _crossstyles from '@/styles/crossstyles';
 import Bold from './Bold';
 import { SSRGlobal } from './Context';
 import PhoneBox from './PhoneBox';
 import WindowFloat from './WindowFloat'
+import crossstyles from '@/styles/crossstyles';
 
 export default (props: {
   defaultCCode?: string, defaultCChar?: string, defaultPhone?: string,
+  countryitemclass:string,
   pattern?: string, errorstr?: string, title: string, title2: string, placeholder?: string, clist?: { title: string, title2: string, },
   on?: (v: { ccode: string, phone: string, cchar: string }) => void, onclose?: () => void, explain?: string
 
@@ -37,7 +40,8 @@ export default (props: {
   return <WindowFloat title={props.title} onclose={() => { props.onclose?.() }}>
 
     <PhoneBox
-    id={"myphonebox"}
+      id={"myphonebox"}
+      countryitemclass = {props.countryitemclass}
       title={props.title2}
       sup={(1).toLocaleString(z.lang.region)}
       defaultPhone={props.defaultPhone}
@@ -60,9 +64,7 @@ export default (props: {
       {props.explain}
     </span>
     <br-x />
-    <div style={{ textAlign: "center", marginTop: 5, display: "flex", justifyContent: "center" }}>
-      <f-cc class={z.qestyles.btnaccept} onClick={() => { onok() }} ><Bold>{z.lang.confirm}</Bold></f-cc> &nbsp;
-    </div>
+    <b-200 class={z.qestyles.btnaccept} style={crossstyles.forms.button.confirmstyle} onClick={() => { onok() }} ><Bold>{z.lang.confirm}</Bold></b-200>
     <br-x />
   </WindowFloat>
 }

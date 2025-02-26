@@ -1,5 +1,5 @@
 
-export default (props)=>{
+export default (props:{verify:string, style?:CSSStyleSheet})=>{
     return <>
     {props.verify == "admin" || props.verify == "owner"?<>
         <img src={global.cdn("/files/purpletick.svg")} style={{width:15, height:15, display:"inline-block",
