@@ -30,22 +30,28 @@ export default (props: {
       ...props.style, paddingTop: props.pt || (props.h ? (50 - props.h) : null),
       //  paddingTop:props.h?(50 - props.h):null 
     }} onClick={() => props.on?.()}>
-    <f-ec>
+    <f-ec style={{ marginRight: image2 ? (z.lang.dir == "rtl" ? -20 : 0) : 0 }}>
       <img src={image} alt={props.title + "'s icon"}
-        style={{ height: props.s || props.h || 50, width: props.s || props.w || 50, borderRadius: 5 }} onLoad={() => {
+        style={{
+          height: props.s || props.h || 50, width: props.s || props.w || 50,
+          minHeight: props.s || props.h || 50,
+          minWidth: props.s || props.h || 50,
+          borderRadius: 5
+        }} onLoad={() => {
 
         }} />
 
       {image2 ? <img src={image2} alt={props.title + "'s side icon"}
         style={{
           height: props.s2 || 30, width: props.s2 || 30,
+          minHeight: props.s2 || 30, minWidth: props.s2 || 30,
           marginLeft: z.lang.dir == "ltr" ? -15 : 0,
-          marginRight: z.lang.dir == "rtl" ? -50 : 0,
+          marginRight: z.lang.dir == "rtl" ? -60 : 0,
           marginBottom: -5,
         }} /> : null}
 
     </f-ec>
-    <br-xxx/>
+    <br-xxx />
     {typeof title == "string" ? <f-11 style={{
       fontWeight: props.bold ? 600 : 0, marginLeft: props.ml,
       textAlign: "center", marginTop: props.txtmt
