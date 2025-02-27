@@ -184,259 +184,390 @@ b-30 {
 }
 
 
+/* 
+  align items (always single character) / cross-axis:
+  x: stretch , 
+  c: center,
+  s: start, 
+  e: end,
+
+  justify-content (1 or 2 characters at the end) / main-axis
+  c: center,
+  s: start, 
+  e: end,
+  sa: space-around
+  se: space-evenly
+  sb: space-between
+*/
 
 
-btn-g {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #8CBF8F;
-  border-radius: 5px;
-  height: 30px;
-  cursor: pointer;
-}
-
-btn-g:hover {
-  filter: saturate(180%);
-}
-
-btn-g:active {
-  filter: saturate(80%);
-}
 
 f-x,
-f-c,
-f-cc,
-f-csb,
-f-cse,
-f-csa,
-f-cs,
-c-xse,
-c-xsb,
-f-s,
-f-sc,
-f-ssb,
-f-sse,
-f-se,
-f-ssa,
-f-ss,
-f-ce,
+f-xs,
+f-xe,
 f-xc,
 f-xsb,
 f-xse,
 f-xsa,
-f-xs,
-c-xc,
-c-x,
-c-cc,
-c-c,
-c-xe,
-c-cse,
-c-csb,
-f-e,
-f-ec,
-f-esb,
-f-ee,
-f-ese,
-f-esa,
-f-es {
-  display: flex;
-}
-
 w-x,
-w-c,
-w-cc,
-w-csb,
-w-cse,
-w-csa,
-w-cs,
-w-s,
-w-sc,
-w-ssb,
-w-sse,
-w-se,
-w-ssa,
-w-ss,
-w-ce,
+w-xs,
+w-xe,
 w-xc,
 w-xsb,
 w-xse,
 w-xsa,
-w-xs,
-w-e,
-w-ec,
-w-esb,
-w-ee,
-w-ese,
-w-esa,
-w-es {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-c-xse,
-c-xsb,
-c-xc,
 c-x,
-c-cc,
-c-c,
+c-xs,
 c-xe,
-c-cse,
-c-csb {
-  flex-direction: column;
-}
-
-f-c,
-f-cc,
-f-csb,
-f-cse,
-f-csa,
-f-cs,
-c-cc,
-c-c,
-c-cse,
-f-ce,
-c-csb,
-w-c,
-w-cc,
-w-csb,
-w-cse,
-w-csa,
-w-cs,
-w-ce {
-  align-items: center;
-}
-
-f-s,
-f-sc,
-f-ssb,
-f-sse,
-f-se,
-f-ssa,
-f-ss,
-w-s,
-w-sc,
-w-ssb,
-w-sse,
-w-se,
-w-ssa,
-w-ss {
+c-xc,
+c-xsb,
+c-xse,
+c-xsa {
   align-items: stretch;
 }
 
+
+f-s,
+f-ss,
+f-se,
+f-sc,
+f-ssb,
+f-sse,
+f-ssa,
+w-s,
+w-ss,
+w-se,
+w-sc,
+w-ssb,
+w-sse,
+w-ssa,
+c-s,
+c-ss,
+c-se,
+c-sc,
+c-ssb,
+c-sse,
+c-ssa {
+  align-items: flex-start;
+}
+
+
 f-e,
+f-es,
+f-ee,
 f-ec,
 f-esb,
-f-ee,
 f-ese,
 f-esa,
-f-es,
 w-e,
+w-es,
+w-ee,
 w-ec,
 w-esb,
-w-ee,
 w-ese,
 w-esa,
-w-es {
+c-e,
+c-es,
+c-ee,
+c-ec,
+c-esb,
+c-ese,
+c-esa {
   align-items: flex-end;
 }
 
-f-cc,
-c-xc,
-f-xc,
-f-sc,
-c-cc,
-f-ec,
-w-cc,
-w-xc,
-w-sc,
-w-ec {
-  justify-content: center;
-}
 
-f-csb,
-c-xsb,
-f-xsb,
-f-ssb,
-c-cse,
-f-esb,
-c-csb,
-w-csb,
-w-xsb,
-w-ssb,
-w-esb {
-  justify-content: space-between;
-}
-
-f-cse,
-c-xse,
-f-xse,
-f-sse,
-f-ese,
-w-cse,
-w-xse,
-w-sse,
-w-ese {
-  justify-content: space-evenly;
-}
-
+f-c,
+f-cs,
 f-ce,
-c-xe,
+f-cc,
+f-csb,
+f-cse,
+f-csa,
+w-c,
+w-cs,
+w-ce,
+w-cc,
+w-csb,
+w-cse,
+w-csa,
+c-c,
+c-cs,
+c-ce,
+c-cc,
+c-csb,
+c-cse,
+c-csa {
+  align-items: center;
+}
+
+
+f-xs,
+f-cs,
+f-ss,
+f-es,
+w-xs,
+w-cs,
+w-ss,
+w-es,
+c-xs,
+c-cs,
+c-ss,
+c-es {
+  justify-content: flex-start;
+}
+
+
 f-xe,
+f-ce,
 f-se,
 f-ee,
-w-ce,
 w-xe,
+w-ce,
 w-se,
-w-ee {
+w-ee,
+c-xe,
+c-ce,
+c-se,
+c-ee {
   justify-content: flex-end;
 }
 
-f-csa,
+
+f-xc,
+f-cc,
+f-sc,
+f-ec,
+w-xc,
+w-cc,
+w-sc,
+w-ec,
+c-xc,
+c-cc,
+c-sc,
+c-ec {
+  justify-content: center;
+}
+
+
 f-xsa,
+f-csa,
 f-ssa,
 f-esa,
-w-csa,
 w-xsa,
+w-csa,
 w-ssa,
-w-esa {
+w-esa,
+c-xsa,
+c-csa,
+c-ssa,
+c-esa {
   justify-content: space-around;
 }
 
-f-cs,
+
+f-xsb,
+f-csb,
+f-ssb,
+f-esb,
+w-xsb,
+w-csb,
+w-ssb,
+w-esb,
+c-xsb,
+c-csb,
+c-ssb,
+c-esb {
+  justify-content: space-between;
+}
+
+
+f-xse,
+f-cse,
+f-sse,
+f-ese,
+w-xse,
+w-cse,
+w-sse,
+w-ese,
+c-xse,
+c-cse,
+c-sse,
+c-ese {
+  justify-content: space-evenly;
+}
+
+
+
+f-x,
 f-xs,
+f-xe,
+f-xc,
+f-xsb,
+f-xse,
+f-xsa,
+
+f-c,
+f-cs,
+f-ce,
+f-cc,
+f-csb,
+f-cse,
+f-csa,
+
+f-s,
 f-ss,
+f-se,
+f-sc,
+f-ssb,
+f-sse,
+f-ssa,
+
+f-e,
 f-es,
-w-cs,
+f-ee,
+f-ec,
+f-esb,
+f-ese,
+f-esa,
+
+w-x,
 w-xs,
+w-xe,
+w-xc,
+w-xsb,
+w-xse,
+w-xsa,
+
+w-c,
+w-cs,
+w-ce,
+w-cc,
+w-csb,
+w-cse,
+w-csa,
+
+w-s,
 w-ss,
-w-es {
-  justify-content: stretch;
+w-se,
+w-sc,
+w-ssb,
+w-sse,
+w-ssa,
+
+w-e,
+w-es,
+w-ee,
+w-ec,
+w-esb,
+w-ese,
+w-esa,
+
+c-x,
+c-xs,
+c-xe,
+c-xc,
+c-xsb,
+c-xse,
+c-xsa,
+
+c-c,
+c-cs,
+c-ce,
+c-cc,
+c-csb,
+c-cse,
+c-csa,
+
+c-s,
+c-ss,
+c-se,
+c-sc,
+c-ssb,
+c-sse,
+c-ssa,
+
+c-e,
+c-es,
+c-ee,
+c-ec,
+c-esb,
+c-ese,
+c-esa {
+  display: flex
+}
+
+c-x,
+c-xs,
+c-xe,
+c-xc,
+c-xsb,
+c-xse,
+c-xsa,
+
+c-c,
+c-cs,
+c-ce,
+c-cc,
+c-csb,
+c-cse,
+c-csa,
+
+c-s,
+c-ss,
+c-se,
+c-sc,
+c-ssb,
+c-sse,
+c-ssa,
+
+c-e,
+c-es,
+c-ee,
+c-ec,
+c-esb,
+c-ese,
+c-esa {
+  flex-direction: column;
+}
+
+w-x,
+w-xs,
+w-xe,
+w-xc,
+w-xsb,
+w-xse,
+w-xsa,
+
+w-c,
+w-cs,
+w-ce,
+w-cc,
+w-csb,
+w-cse,
+w-csa,
+
+w-s,
+w-ss,
+w-se,
+w-sc,
+w-ssb,
+w-sse,
+w-ssa,
+
+w-e,
+w-es,
+w-ee,
+w-ec,
+w-esb,
+w-ese,
+w-esa {
+  flex-wrap: wrap;
 }
 
 
 
 
-
-ic-3 {
-  display: flex;
-  position: relative;
-}
-
-ic3-sp {
-  /* font-family: Tahoma, Geneva, Verdana, sans-serif; */
-  position: absolute;
-  font-size: 9px;
-  background-color: green;
-  color: white;
-  padding-top: 1px;
-  padding-bottom: 2px;
-  border-radius: 3px;
-  bottom: -2px;
-  width: 50px;
-  left: 0;
-  text-align: center;
-}
 
 f-5,
 f-6,
@@ -458,7 +589,22 @@ f-21,
 f-22,
 f-23,
 f-24,
-f-25 {
+f-25,
+f-26,
+f-27,
+f-28,
+f-29,
+f-30,
+f-31,
+f-32,
+f-33,
+f-34,
+f-35,
+f-36,
+f-37,
+f-38,
+f-39,
+f-40 {
   display: inline-block;
   text-align: justify;
   word-spacing: -0.5px;
@@ -555,43 +701,111 @@ f-25 {
   font-size: 25px;
 }
 
+f-26 {
+  font-size: 26px;
+}
 
-br-x, br-1 {
+f-27 {
+  font-size: 27px;
+}
+
+f-28 {
+  font-size: 28px;
+}
+
+f-29 {
+  font-size: 29px;
+}
+
+f-30 {
+  font-size: 30px;
+}
+
+f-31 {
+  font-size: 31px;
+}
+
+f-32 {
+  font-size: 32px;
+}
+
+f-33 {
+  font-size: 33px;
+}
+
+f-34 {
+  font-size: 34px;
+}
+
+f-35 {
+  font-size: 35px;
+}
+
+f-36 {
+  font-size: 36px;
+}
+
+f-37 {
+  font-size: 37px;
+}
+
+f-38 {
+  font-size: 38px;
+}
+
+f-39 {
+  font-size: 39px;
+}
+
+f-40 {
+  font-size: 40px;
+}
+
+
+br-x,
+br-1 {
   display: block;
   height: 0.5rem;
 }
 
-br-xx , br-2{
+br-xx,
+br-2 {
   display: block;
   height: 0.25rem;
 }
 
-br-xxx , br-3 {
+br-xxx,
+br-3 {
   display: block;
   height: 0.15rem;
 }
 
-br-xxxx , br-4{
+br-xxxx,
+br-4 {
   display: block;
   height: 0.05rem;
 }
 
-sp-x, sp-1 {
+sp-x,
+sp-1 {
   display: inline;
   padding: 0 10px;
 }
 
-sp-xx,sp-2 {
+sp-xx,
+sp-2 {
   display: inline;
   padding: 0 5px;
 }
 
-sp-xxxx,sp-3 {
+sp-xxxx,
+sp-3 {
   display: inline;
   padding: 0 3px;
 }
 
-sp-xxxx,sp-4 {
+sp-xxxx,
+sp-4 {
   display: inline;
   padding: 0 1px;
 }
@@ -620,9 +834,7 @@ input[type="number"] {
   padding: 0;
   margin: 0;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 
@@ -633,12 +845,15 @@ video::-webkit-media-controls-timeline {
   width: calc(100% - 30px);
   opacity: 0.8;
 }
+
 video::-webkit-media-controls {
   visibility: hidden;
 }
+
 video::-webkit-media-controls-enclosure {
   visibility: visible;
 }
+
 video::-webkit-media-controls-time-remaining-display,
 video::-webkit-media-controls-mute-button,
 video::-webkit-media-controls-fullscreen-button,
